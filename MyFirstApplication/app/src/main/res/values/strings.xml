@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MyFirstApplication</string>
+    <string name="meu_primeiro_botao">Meu primeiro Botao</string>
+</resources>
