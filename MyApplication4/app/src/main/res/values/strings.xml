@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="Enviar">Enviar</string>
+    <string name="NomeAtleta">Nome do Atleta</string>
+    <string name="idade">Idade do Atleta</string>
+    <string name="definirIdade">Abrir Janela para definir idade</string>
+    <string name="salvar">Salvar Idade</string>
+    <string name="abreCadastrodeAtleta">Cadastro de Atleta</string>
+</resources>
