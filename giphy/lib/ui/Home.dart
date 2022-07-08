@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
     if (_search == null) {
       response = await http.get(Uri.parse( 'https://api.giphy.com/v1/gifs/trending?api_key=YVZHN2KyReaSqctEefCFDIDgfwzRvam4&limit=25&rating=g'),);
     } else {
-      response = await http.get(Uri.parse('https://api.giphy.com/v1/gifs/search?api_key=YVZHN2KyReaSqctEefCFDIDgfwzRvam4&q=$_search&limit=20&offset=$_offset&rating=g&lang=en'));
+      response = await http.get(Uri.parse('https://api.giphy.com/v1/gifs/search?api_key=YVZHN2KyReaSqctEefCFDIDgfwzRvam4&q=$_search&limit=19&offset=$_offset&rating=g&lang=en'));
     }
 
     return json.decode(response.body);
@@ -45,18 +45,26 @@ class _HomeState extends State<Home> {
       ),
       backgroundColor: Colors.black,
       body:Column(
-        children: const [
-          Padding(
+        children:  [
+           Padding(
             padding: EdgeInsets.all(8.0),
             child: TextField(
+              onSubmitted: (String text){
+                setState((){
+                  _search = Uri.parse(text);
+                });
+              },
               decoration: InputDecoration(
                 labelText: 'Pesquise seu gif',
                 labelStyle: TextStyle(color: Colors.grey),
-                border: OutlineInputBorder(
+                focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    style: BorderStyle.none,
+                    color: Colors.white
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
                     color: Colors.white,
-                    width: 23
                   ),
                 ),
               ),
@@ -64,8 +72,83 @@ class _HomeState extends State<Home> {
               textAlign: TextAlign.center,
             ),
           ),
+          Expanded(
+              child: FutureBuilder(
+                  future: _getGifs(),
+                  builder: (context, snapshot){
+                    switch(snapshot.connectionState){
+                      case ConnectionState.waiting:
+                        return Container(
+                          width: 200,
+                          height: 200,
+                          alignment: Alignment.center,
+                          child: const CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(Colors.white),
+                            strokeWidth: 5,
+                          ),
+                        );
+                      case ConnectionState.none:
+                        return Container(
+                          width: 200,
+                          height: 200,
+                          alignment: Alignment.center,
+                          child: const CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(Colors.white),
+                            strokeWidth: 5,
+                          ),
+                        );
+                      default:
+                       if(snapshot.hasError) return Container(child: Text('Carregou tudo'),);
+                       else
+                         return _createGifTable(context, snapshot);
+                    }
+                  }
+              ),
+          ),
         ],
     )
     );
   }
+
+  int getCount(List data){
+   if(_search == null) {
+     return data.length;
+   }else{
+     return data.length + 1;
+   }
+  }
+
+  Widget _createGifTable(BuildContext context, AsyncSnapshot snapshot){
+   return GridView.builder(
+     padding: EdgeInsets.all(10),
+     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+       crossAxisCount:2,
+       crossAxisSpacing: 10,
+       mainAxisSpacing: 10,
+     ),
+     itemCount: snapshot.data['data'].length,
+     itemBuilder: (context, index){
+       if(_search == null || index < snapshot.data['data'].length)
+       return GestureDetector(
+         child: Image.network(snapshot.data['data'][index]['images']['fixed_height']['url'],
+           height: 300,
+           fit: BoxFit.cover
+         ),
+       );
+       else
+         return Container(
+           child: GestureDetector(
+             child: Column (
+               children: [
+                 Icon(Icons.add, color: Colors.grey, size: 70,),
+                 Text('Carregar mais ...',
+                 style: TextStyle(color: Colors.white, fontSize: 22),),
+               ],
+             ),
+           )
+         );
+     },
+   );
+  }
+
 }
