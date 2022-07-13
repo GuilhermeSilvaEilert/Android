@@ -1,7 +1,10 @@
 import 'dart:convert';
-
+import 'package:transparent_image/transparent_image.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:share/share.dart';
+
+import 'gif_page.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -51,7 +54,12 @@ class _HomeState extends State<Home> {
             child: TextField(
               onSubmitted: (String text){
                 setState((){
-                  _search = Uri.parse(text);
+                  if(text.isEmpty || text == null || text == ' ') {
+                    _offset += 19;
+                  }else{
+                    _search = Uri.parse(text);
+                    _offset = 0;
+                  }
                 });
               },
               decoration: InputDecoration(
@@ -130,10 +138,20 @@ class _HomeState extends State<Home> {
      itemBuilder: (context, index){
        if(_search == null || index < snapshot.data['data'].length)
        return GestureDetector(
-         child: Image.network(snapshot.data['data'][index]['images']['fixed_height']['url'],
-           height: 300,
-           fit: BoxFit.cover
+         child: FadeInImage.memoryNetwork(
+             placeholder: kTransparentImage,
+             image: snapshot.data['data'][index]['images']['fixed_height']['url'],
+             height: 300,
+             width: 300,
+             fit: BoxFit.cover,
          ),
+         onTap: (){
+           Navigator.push(context,
+           MaterialPageRoute(builder: (context) => GifPage(snapshot.data['data'][index])));
+         },
+         onLongPress: (){
+           Share.share(snapshot.data['data'][index]['images']['fixed_height']['url']);
+         },
        );
        else
          return Container(
@@ -145,6 +163,11 @@ class _HomeState extends State<Home> {
                  style: TextStyle(color: Colors.white, fontSize: 22),),
                ],
              ),
+             onTap: (){
+               setState((){
+                 _offset += 19;
+               });
+             }
            )
          );
      },
