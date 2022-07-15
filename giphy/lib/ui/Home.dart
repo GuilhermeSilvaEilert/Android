@@ -55,7 +55,7 @@ class _HomeState extends State<Home> {
               onSubmitted: (String text){
                 setState((){
                   if(text.isEmpty || text == null || text == ' ') {
-                    _offset += 19;
+                    _offset += 20;
                   }else{
                     _search = Uri.parse(text);
                     _offset = 0;
@@ -118,7 +118,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  int getCount(List data){
+  int _getCount(List data){
    if(_search == null) {
      return data.length;
    }else{
@@ -134,42 +134,47 @@ class _HomeState extends State<Home> {
        crossAxisSpacing: 10,
        mainAxisSpacing: 10,
      ),
-     itemCount: snapshot.data['data'].length,
+     itemCount: _getCount(snapshot.data['data']),
      itemBuilder: (context, index){
-       if(_search == null || index < snapshot.data['data'].length)
-       return GestureDetector(
-         child: FadeInImage.memoryNetwork(
+       if(_search == null || index < snapshot.data['data'].length) {
+         return GestureDetector(
+           child: FadeInImage.memoryNetwork(
              placeholder: kTransparentImage,
-             image: snapshot.data['data'][index]['images']['fixed_height']['url'],
+             image: snapshot
+                 .data['data'][index]['images']['fixed_height']['url'],
              height: 300,
              width: 300,
              fit: BoxFit.cover,
-         ),
-         onTap: (){
-           Navigator.push(context,
-           MaterialPageRoute(builder: (context) => GifPage(snapshot.data['data'][index])));
-         },
-         onLongPress: (){
-           Share.share(snapshot.data['data'][index]['images']['fixed_height']['url']);
-         },
-       );
-       else
-         return Container(
-           child: GestureDetector(
-             child: Column (
-               children: [
-                 Icon(Icons.add, color: Colors.grey, size: 70,),
-                 Text('Carregar mais ...',
-                 style: TextStyle(color: Colors.white, fontSize: 22),),
-               ],
-             ),
-             onTap: (){
-               setState((){
-                 _offset += 19;
-               });
-             }
-           )
+           ),
+           onTap: () {
+             Navigator.push(context,
+                 MaterialPageRoute(builder: (context) =>
+                     GifPage(snapshot.data['data'][index])));
+           },
+           onLongPress: () {
+             Share.share(
+                 snapshot.data['data'][index]['images']['fixed_height']['url']);
+           },
          );
+       }else {
+         return Container(
+             child: GestureDetector(
+                 child: Column(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   children: [
+                     Icon(Icons.add, color: Colors.grey, size: 70,),
+                     Text('Carregar mais ...',
+                       style: TextStyle(color: Colors.white, fontSize: 22),),
+                   ],
+                 ),
+                 onTap: () {
+                   setState(() {
+                     _offset += 19;
+                   });
+                 }
+             )
+         );
+       }
      },
    );
   }
