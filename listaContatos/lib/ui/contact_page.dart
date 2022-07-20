@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:listacontatos/helpers/contact_helper.dart';
+import 'package:listacontatos/ui/Home.dart';
 import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class ContactPage extends StatefulWidget {
   const ContactPage({this.contact});
@@ -17,7 +19,13 @@ class _ContactPageState extends State<ContactPage> {
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
 
+  final ImagePicker _picker = ImagePicker();
+
   final _nameFocus = FocusNode();
+
+  ContactHelper? helper = ContactHelper();
+
+  List<Contact> contacts = [];
 
   bool _userEdited = false;
   Contact? _editedContact;
@@ -50,6 +58,9 @@ class _ContactPageState extends State<ContactPage> {
           child: Icon(Icons.save),
           backgroundColor: Colors.red,
           onPressed: (){
+            setState((){
+              getAllContacts();
+            });
             if(_editedContact?.name != null && _editedContact!.name!.isNotEmpty){
               Navigator.pop(context, _editedContact);
             }else{
@@ -74,6 +85,9 @@ class _ContactPageState extends State<ContactPage> {
                     ),
                   ),
                 ),
+                onTap: (){
+                  _ShowOptions();
+                },
               ),
               TextField(
                 controller: _nameController,
@@ -142,6 +156,78 @@ class _ContactPageState extends State<ContactPage> {
     }else{
       return Future.value(true);
     }
+  }
+
+  void getAllContacts(){
+    setState((){
+      helper!.getAllContacts().then((list){
+        contacts = list as List<Contact>;
+      });
+    });
+  }
+
+  void _ShowOptions(){
+    showModalBottomSheet(
+        context: context,
+        builder: (context){
+          return BottomSheet(
+            builder: (context){
+              return Container(
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: FloatingActionButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              _picker.pickImage(source: ImageSource.camera).then((file){
+                                if(file == null) return;
+                                setState(() {
+                                  _editedContact!.img = file.path;
+                                });
+                              });
+                            },
+                            backgroundColor: Colors.red,
+                            child:  Icon(Icons.photo_camera, color: Colors.white),
+                          ),
+                        ),
+                        Text('Camera'),
+                      ],
+                    ),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: FloatingActionButton(
+                            backgroundColor: Colors.red,
+                            onPressed: () {
+                              Navigator.pop(context);
+                              _picker.pickImage(source: ImageSource.gallery).then((file){
+                                if(file == null) return;
+                                setState(() {
+                                  _editedContact!.img = file.path;
+                                });
+                              });
+                            },
+                            child: Icon(Icons.photo_album, color: Colors.white),
+                          ),
+                        ),
+                        Text('Galeria'),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            }, onClosing: () {  },
+          );
+        });
   }
 
 }

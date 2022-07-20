@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/untitled/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/untitled/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/untitled/build" />
+      <excludeFolder url="file://$MODULE_DIR$/calculadora_imc/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/calculadora_imc/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/calculadora_imc/build" />
+      <excludeFolder url="file://$MODULE_DIR$/contador/build" />
+      <excludeFolder url="file://$MODULE_DIR$/contador/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/contador/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/conversordemoedas/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/conversordemoedas/build" />
+      <excludeFolder url="file://$MODULE_DIR$/conversordemoedas/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/giphy/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/giphy/build" />
+      <excludeFolder url="file://$MODULE_DIR$/giphy/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/listaContatos/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/listaContatos/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/listaContatos/build" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

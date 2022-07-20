@@ -1,8 +1,10 @@
 import 'dart:io';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:listacontatos/helpers/contact_helper.dart';
 import 'package:listacontatos/ui/contact_page.dart';
+
+enum OrderOptions{orderaz, orderza}
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -11,16 +13,17 @@ class Home extends StatefulWidget {
 }
 
 class _State extends State<Home> {
+  @override
+  void initState(){
+    super.initState();
+    setState((){
+      getAllContacts();
+    });
+  }
 
   ContactHelper? helper = ContactHelper();
 
   List<Contact> contacts = [];
-
-  @override
-  void initState(){
-    super.initState();
-    _getAllContacts();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +32,28 @@ class _State extends State<Home> {
         title: const Text('Contatos'),
         backgroundColor: Colors.red,
         centerTitle: true,
+        actions: [
+          PopupMenuButton<OrderOptions>(
+              itemBuilder: (context) => <PopupMenuEntry<OrderOptions>>[
+                const PopupMenuItem<OrderOptions>(
+                    child: Text('ordenar de A - Z'),
+                    value: OrderOptions.orderaz,
+                ),
+                const PopupMenuItem<OrderOptions>(
+                  child: Text('ordenar de Z - A'),
+                  value: OrderOptions.orderza,
+                ),
+              ],
+            onSelected: _orderList,
+          ),
+        ],
       ),
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         backgroundColor: Colors.red,
         onPressed: (){
+          getAllContacts();
           _showContactPage();
         },
       ),
@@ -89,30 +108,115 @@ class _State extends State<Home> {
         ),
       ),
       onTap: (){
-        _showContactPage(contact: contacts[index]);
+        _ShowOptions(context, index);
       },
     );
   }
+
+  void _ShowOptions(BuildContext context, int index){
+    showModalBottomSheet(
+        context: context,
+        builder: (context){
+          return BottomSheet(
+            builder: (context){
+              return Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextButton(
+                          onPressed: () {
+                            launch('tel:${contacts[index].phone}');
+                            Navigator.pop(context);
+                          },
+                          child: Text('Ligar',
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 20,
+                            ),
+                          ),
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          _showContactPage(contact: contacts[index]);
+                        },
+                        child: Text('Editar',
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextButton(
+                        onPressed: () {
+                          helper?.deletedContact(contacts[index].id!);
+                          setState(() {
+                            contacts.removeAt(index);
+                            Navigator.pop(context);
+                          });
+                        },
+                        child: Text('Excluir',
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }, onClosing: () {  },
+          );
+        });
+  }
+
   void _showContactPage({Contact? contact}) async{
     final recContact = await Navigator.push(context,
-      MaterialPageRoute(builder: (context)=> ContactPage(contact: contact,),)
+      MaterialPageRoute(builder: (context) => ContactPage(contact: contact,),)
     );
     if(recContact != null){
       if(contact != null){
         await helper!.updateContact(recContact);
-        _getAllContacts();
+        getAllContacts();
       }else{
         await helper!.saveContact(recContact);
+        getAllContacts();
       }
     }
   }
-  void _getAllContacts(){
-
-    setState((){
+  void getAllContacts(){
       helper!.getAllContacts().then((list){
+        setState((){
         contacts = list as List<Contact>;
       });
     });
   }
-
+  void _orderList(OrderOptions result){
+    switch(result){
+      case OrderOptions.orderaz:
+        contacts.sort((a, b) {
+            return a.name!.toLowerCase().compareTo(b.name!.toLowerCase());
+          throw ("Um dos nomes era nulo");
+        });
+        break;
+      case OrderOptions.orderza:
+        contacts.sort((a, b) {
+         return b.name!.toLowerCase().compareTo(a.name!.toLowerCase());
+        });
+        break;
+    }
+    setState((){});
+  }
 }
