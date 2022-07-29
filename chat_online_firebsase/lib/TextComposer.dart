@@ -1,15 +1,28 @@
+
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class TextComposer extends StatefulWidget {
-   TextComposer( this.sendMessage, {Key? key}) : super(key: key);
+   TextComposer({Key? key, required this.sendMessage}) : super(key: key);
 
-  Function(String) sendMessage;
+  final Function({String? text, File? imgFile}) sendMessage;
 
   @override
   State<TextComposer> createState() => _TextComposerState();
 }
 
 class _TextComposerState extends State<TextComposer> {
+
+  _reset(){
+    _controller.clear();
+    setState(() {
+      _isComposing = false;
+    });
+  }
+
+  ImagePicker _picker = ImagePicker();
 
   final TextEditingController _controller = TextEditingController();
   bool _isComposing = false;
@@ -23,9 +36,17 @@ class _TextComposerState extends State<TextComposer> {
         children: [
           IconButton(
               icon: Icon(Icons.photo_camera),
-              onPressed: (){},),
+              onPressed: () async{
+                final XFile? imgFile =
+                await _picker.pickImage(source: ImageSource.gallery);
+                if(imgFile == null){
+                  return;
+                }
+                widget.sendMessage(imgFile: File(imgFile.path));
+              },),
           Expanded(
               child: TextField(
+                controller: _controller,
                 decoration: InputDecoration.collapsed(
                     hintText: 'Enviar uma mensagem',
                 ),
@@ -35,12 +56,14 @@ class _TextComposerState extends State<TextComposer> {
                   });
                 },
                 onSubmitted: (text){
-                  widget.sendMessage(text);
+                  widget.sendMessage(text:text);
+                  _reset();
                 },
               ),),
           IconButton(
               onPressed: _isComposing ? (){
-                widget.sendMessage(_controller.text);
+                widget.sendMessage(text: _controller.text);
+                _reset();
               } : null,
               icon: Icon(Icons.send),),
         ],
