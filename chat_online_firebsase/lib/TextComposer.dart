@@ -38,11 +38,12 @@ class _TextComposerState extends State<TextComposer> {
               icon: Icon(Icons.photo_camera),
               onPressed: () async{
                 final XFile? imgFile =
-                await _picker.pickImage(source: ImageSource.gallery);
+                await _picker.pickImage(source: ImageSource.camera);
                 if(imgFile == null){
                   return;
                 }
-                widget.sendMessage(imgFile: File(imgFile.path));
+                File fileSend = File(imgFile.path);
+                await widget.sendMessage(imgFile: fileSend);
               },),
           Expanded(
               child: TextField(
