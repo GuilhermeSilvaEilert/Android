@@ -19,6 +19,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final GlobalKey <ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   User? _currentUser;
 
@@ -36,7 +37,7 @@ class _ChatScreenState extends State<ChatScreen> {
     if(_currentUser != null) {
       return _currentUser;
     }
-    FirebaseAuth auth = FirebaseAuth.instance;
+
     User? user;
 
     try{
@@ -67,11 +68,9 @@ class _ChatScreenState extends State<ChatScreen> {
     final User? user = await _getUser();
 
     if(user == null){
-      _scaffoldKey.currentState!.showSnackBar(
        const SnackBar(
          content: Text('Não foi possivel fazer login'),
-       backgroundColor: Colors.red,)
-      );
+       backgroundColor: Colors.red,);
     }
 
     Map<String, dynamic>? data = {
@@ -103,8 +102,28 @@ class _ChatScreenState extends State<ChatScreen> {
       key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Text('Log Chat', ),
+        title: Text(
+          _currentUser != null ? 'Ola, ${_currentUser!.displayName!}': 'ChatApp'
+        ),
+        centerTitle: true,
         elevation: 0,
+        actions: [
+          _currentUser != null ?
+          IconButton(
+              onPressed: (){
+                auth.signOut();
+                googleSignIn.signOut();
+
+                setState(() {
+                  SnackBar(
+                    content: Text('Deslogado com Sucesso'),
+                    backgroundColor: Colors.green,);
+                });
+              },
+              icon: Icon(Icons.logout),)
+              :
+              Container(),
+        ],
       ),
       body: Column(
         children: [
@@ -128,7 +147,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           reverse: true,
                           itemBuilder: (context, index){
                             return ChatMessage(
-                                data:documents[index]!.data() as Map<String, dynamic>,
+                                data:documents[index]!.data() as Map<String, dynamic>,mine:true
                             );
                           }
                       );
