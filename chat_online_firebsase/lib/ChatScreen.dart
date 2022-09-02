@@ -19,13 +19,16 @@ class _ChatScreenState extends State<ChatScreen> {
 
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final GlobalKey <ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  FirebaseAuth auth = FirebaseAuth.instance;
 
+  FirebaseAuth auth = FirebaseAuth.instance;
   User? _currentUser;
+  bool _isLoading = false;
+
 
   @override
   void initState(){
     super.initState();
+
     FirebaseAuth.instance.authStateChanges().listen((user){
       setState((){
         _currentUser = user!;
@@ -68,27 +71,33 @@ class _ChatScreenState extends State<ChatScreen> {
     final User? user = await _getUser();
 
     if(user == null){
-       const SnackBar(
-         content: Text('Não foi possivel fazer login'),
-       backgroundColor: Colors.red,);
-    }
+       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+           content: Text('Não foi possivel fazer login'),
+         backgroundColor: Colors.red,
+       ),);
+       }
 
-    Map<String, dynamic>? data = {
+    Map<String, dynamic> data = {
       'uid':user!.uid,
       'sendserName': user.displayName,
       'senderPhotoUrl': user.photoURL,
+      'time': Timestamp.now(),
     };
 
     if (imgFile != null) {
     UploadTask task = FirebaseStorage.instance
         .ref()
-        .child(DateTime.now().microsecondsSinceEpoch.toString())
+        .child(user.uid + DateTime.now().microsecondsSinceEpoch.toString())
         .putFile(imgFile);
-
+    setState(() {
+      _isLoading =true;
+    });
     TaskSnapshot taskSnapshot = await task;
     String url = await taskSnapshot.ref.getDownloadURL();
     data['imgurl'] = url;
-
+    setState(() {
+      _isLoading =true;
+    });
   }
     if(text != null){
       data['text'] = text;
@@ -113,11 +122,11 @@ class _ChatScreenState extends State<ChatScreen> {
               onPressed: (){
                 auth.signOut();
                 googleSignIn.signOut();
-
                 setState(() {
-                  SnackBar(
-                    content: Text('Deslogado com Sucesso'),
-                    backgroundColor: Colors.green,);
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('deslogado com sucesso'),
+                    backgroundColor: Colors.red,
+                  ),);
                 });
               },
               icon: Icon(Icons.logout),)
@@ -130,7 +139,7 @@ class _ChatScreenState extends State<ChatScreen> {
           Expanded(
               child: StreamBuilder<QuerySnapshot>(
                 stream:
-                FirebaseFirestore.instance.collection(collection).snapshots(),
+                FirebaseFirestore.instance.collection(collection).orderBy('time').snapshots(),
                 builder: (context, snapshot){
                   switch(snapshot.connectionState){
                     case ConnectionState.none:
@@ -147,7 +156,8 @@ class _ChatScreenState extends State<ChatScreen> {
                           reverse: true,
                           itemBuilder: (context, index){
                             return ChatMessage(
-                                data:documents[index]!.data() as Map<String, dynamic>,mine:true
+                                data:documents[index]!.data() as Map<String, dynamic>,
+                                mine: documents[index]!.get('uid') == _currentUser?.uid,
                             );
                           }
                       );
@@ -155,6 +165,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 },
               ),
             ),
+          _isLoading ? LinearProgressIndicator() : Container(),
           TextComposer(sendMessage: _sendMessage,),
           ],
         ),
