@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:transparent_image_button/transparent_image_button.dart';
+import 'package:meutcc/Perfil.dart';
+import 'package:auth_buttons/auth_buttons.dart';
 
 class PaginaLogin extends StatelessWidget {
   const PaginaLogin({Key? key}) : super(key: key);
@@ -11,6 +14,9 @@ class PaginaLogin extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.all(22.0),
           child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -88,7 +94,12 @@ class PaginaLogin extends StatelessWidget {
                  ),
                ),
                TextButton(
-                 onPressed: (){},
+                 onPressed: (){
+                   Navigator.push(
+                       context,
+                    MaterialPageRoute(builder: (context)=>Perfis()),
+                   );
+                 },
                  child: const Text(
                    'Login',
                    style: TextStyle(
@@ -97,11 +108,37 @@ class PaginaLogin extends StatelessWidget {
                    ),
                  ),
                ),
-                FloatingActionButton(
-                  backgroundColor: Colors.black,
-                    onPressed: (){},
-                  child: const Icon(Icons.login),
-                )
+                Container(
+                  padding: EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    color: Colors.blue
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children:[
+                      GoogleAuthButton(
+                        onPressed:(){
+
+                        }
+                      ),
+                      TransparentImageButton.assets(
+                        'Assets/BannerApp/google.png',
+                        width: 45,
+                        opacityThreshold: 0.1,
+                        onTapInside: () => print("You tapped the image."),
+                      ),
+                      Text(
+                        'Sign in',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      )
+                    ]
+                  ),
+                ),
               ],
             ),
           ),

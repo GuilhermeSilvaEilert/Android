@@ -1,4 +1,4 @@
-name: meutcc
+name: bhaskara_revisao
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -32,11 +32,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  transparent_image_button: ^1.0.0
-  auth_buttons: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -54,13 +53,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-  assets:
-    - Assets/BannerApp/TccImg.png
-    - Assets/BannerApp/iconGoogle.png
-    - Assets/BannerApp/AlunoIcon.jpg
-    - Assets/BannerApp/IconeProfessor.png
-    - Assets/BannerApp/google.png
-
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
