@@ -2,6 +2,8 @@ import 'package:bhaskara_revisao/Calculos/BHASKARANEGATIVA.dart';
 import 'package:bhaskara_revisao/Calculos/BHASKARAPOSITIVA.dart';
 import 'package:bhaskara_revisao/Calculos/DELTA.dart';
 import 'package:bhaskara_revisao/CalculosImpl.dart';
+import 'package:bhaskara_revisao/RegrasDeNeg%C3%B3cio/VALIDATIPODERESULTADO.dart';
+import 'package:bhaskara_revisao/ValidaCamposIMPL.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -33,10 +35,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  CalculoImpl calculoImpl = new CalculoImpl(new CalculaDelta());
+  CalculoImpl calculoImpl = CalculoImpl(CalculaDelta());
+  validaCampoIMPL validacampoimpl = validaCampoIMPL(ClassficaBhaskara());
   final valorAController = TextEditingController();
   final valorBController = TextEditingController();
   final valorCController = TextEditingController();
+  late final String? BhaskaraPositiva;
+  late final String? BhaskaraNegativa;
+  late final String? Delta;
 
   @override
   Widget build(BuildContext context) {
@@ -68,16 +74,18 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             TextButton(
                 onPressed: (){
-                  String? Delta = calculoImpl.calculobase?.CalculoDoisFatores(
+                   Delta = calculoImpl.calculobase?.CalculoDoisFatores(
                       valorA: valorAController.text,
                       valorB: valorBController.text,
                       valorC: valorCController.text);
                   print('Delta: $Delta');
+
+
                 }, child: Text('Delta'),),
             SizedBox(height: 10,),
             TextButton(
               onPressed: (){
-                calculoImpl.calculobase = new CalculaBhaskaraPositiva();
+                calculoImpl.calculobase = CalculaBhaskaraPositiva();
                 String? BhaskaraPositiva = calculoImpl.calculobase?.CalculoDoisFatores(
                     valorA: valorAController.text,
                     valorB: valorBController.text,
@@ -85,13 +93,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
                 print('BhaskaraPositiva: $BhaskaraPositiva');
               },
-              child: Text('Bhascara Positiva'),
+              child: Text('Bhascara Positiva: '),
             ),
             SizedBox(height: 10,),
            TextButton(
               onPressed: (){
-                calculoImpl.calculobase = new CalculaBhakaraNegativa();
-                String? BhaskaraNegativa = calculoImpl.calculobase?.CalculoDoisFatores(
+                calculoImpl.calculobase = CalculaBhakaraNegativa();
+                BhaskaraNegativa = calculoImpl.calculobase?.CalculoDoisFatores(
                     valorA: valorAController.text,
                     valorB: valorBController.text,
                     valorC: valorCController.text
@@ -100,6 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: Text('Bhascara Negativa'),
             ),
+            Text('BhascaraNegativa: '),
           ],
         ),
       ),

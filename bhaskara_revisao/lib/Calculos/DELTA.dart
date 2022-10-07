@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:flutter/services.dart';
 import 'package:bhaskara_revisao/SOLID_interface/CALCULOBASE.dart';
 
 class CalculaDelta implements  Calculobase{
@@ -18,7 +17,9 @@ class CalculaDelta implements  Calculobase{
     Xb = pow(Xb, 2) as double?;
     print('valor de b: $Xb');
     acumulador = (Xb!+(-4*Xa*Xc));
+    print('valor de acumuladorDouble: $acumulador');
     Acumulador = acumulador.toString();
+    print('AcumuladorString: $Acumulador');
     return Acumulador;
   }
 

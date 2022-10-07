@@ -6,23 +6,22 @@ import '../CalculosImpl.dart';
 
 class CalculaBhakaraNegativa implements Calculobase{
 
-  //CalculaDelta calculaDelta = new CalculaDelta();
-
   String? Acumulador;
   double? MultiplicadorDivisao = 2;
 
-  CalculoImpl calculoDelta = new CalculoImpl(new CalculaDelta());
+  CalculoImpl calculoDelta = CalculoImpl(CalculaDelta());
 
   @override
   String? CalculoDoisFatores({String? valorA, String? valorB, String? valorC}) {
-    double delta = calculoDelta.calculobase!.CalculoDoisFatores(
+    String? delta = calculoDelta.calculobase!.CalculoDoisFatores(
         valorA: valorA,
         valorB: valorB,
-        valorC: valorC) as double;
+        valorC: valorC);
     double? Xa = double.parse(valorA!);
     double? Xb = double.parse(valorA!);
     double? Xc = double.parse(valorA!);
-    Xc = sqrt(delta);
+    double? Delta = double.parse(delta!);
+    Xc = sqrt(Delta);
     Xa = (MultiplicadorDivisao! * Xa)!;
     double? acumulador;
     Xb = (-(Xb)-Xc);
