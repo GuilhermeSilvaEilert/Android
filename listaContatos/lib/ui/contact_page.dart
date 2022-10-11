@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:listacontatos/helpers/contact_helper.dart';
+import 'package:listacontatos/helpers/contact_helper_windows.dart';
 import 'package:listacontatos/ui/Home.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -23,7 +24,8 @@ class _ContactPageState extends State<ContactPage> {
 
   final _nameFocus = FocusNode();
 
-  ContactHelper? helper = ContactHelper();
+  //ContactHelper? helper = ContactHelper();
+  DataBaseSqliteWindows sqliteWindows =DataBaseSqliteWindows();
 
   List<Contact> contacts = [];
 
@@ -160,7 +162,7 @@ class _ContactPageState extends State<ContactPage> {
 
   void getAllContacts(){
     setState((){
-      helper!.getAllContacts().then((list){
+     sqliteWindows!.getAllContacts().then((list){
         contacts = list as List<Contact>;
       });
     });

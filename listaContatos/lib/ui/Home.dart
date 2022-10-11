@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:listacontatos/helpers/contact_helper_windows.dart';
+import 'package:listacontatos/ui/TesteSQLite3.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:listacontatos/helpers/contact_helper.dart';
@@ -13,11 +15,13 @@ class Home extends StatefulWidget {
 }
 
 class _State extends State<Home> {
+  DataBaseSqliteWindows sqliteWindows = DataBaseSqliteWindows();
   @override
   void initState(){
     super.initState();
     setState((){
-      getAllContacts();
+      sqliteWindows.initDb();
+      sqliteWindows.getAllContacts();
     });
   }
 
@@ -33,6 +37,16 @@ class _State extends State<Home> {
         backgroundColor: Colors.red,
         centerTitle: true,
         actions: [
+          TextButton(
+              onPressed:(){
+                Navigator.push(context,
+                    MaterialPageRoute(
+                        builder: (context) => SQLite3Teste()));
+              },
+              child:Text('testa sqlite3',
+                  style: TextStyle(
+                      color: Colors.black
+                  ))),
           PopupMenuButton<OrderOptions>(
               itemBuilder: (context) => <PopupMenuEntry<OrderOptions>>[
                 const PopupMenuItem<OrderOptions>(
@@ -53,7 +67,7 @@ class _State extends State<Home> {
         child: const Icon(Icons.add),
         backgroundColor: Colors.red,
         onPressed: (){
-          getAllContacts();
+          sqliteWindows.getAllContacts();
           _showContactPage();
         },
       ),
@@ -74,6 +88,7 @@ class _State extends State<Home> {
           padding: EdgeInsets.all(10),
           child: Row(
             children: [
+
               Container(
                 width: 80,
                 height: 80,
@@ -160,7 +175,7 @@ class _State extends State<Home> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextButton(
                         onPressed: () {
-                          helper?.deletedContact(contacts[index].id!);
+                          sqliteWindows.deletedContact(contacts[index].id!);
                           setState(() {
                             contacts.removeAt(index);
                             Navigator.pop(context);
@@ -188,16 +203,16 @@ class _State extends State<Home> {
     );
     if(recContact != null){
       if(contact != null){
-        await helper!.updateContact(recContact);
+        await sqliteWindows.updateContact(recContact);
         getAllContacts();
       }else{
-        await helper!.saveContact(recContact);
+        await sqliteWindows.insertItem(recContact);
         getAllContacts();
       }
     }
   }
   void getAllContacts(){
-      helper!.getAllContacts().then((list){
+      sqliteWindows.getAllContacts().then((list){
         setState((){
         contacts = list as List<Contact>;
       });

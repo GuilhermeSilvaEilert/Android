@@ -18,11 +18,11 @@ class CalculaBhakaraNegativa implements Calculobase{
         valorB: valorB,
         valorC: valorC);
     double? Xa = double.parse(valorA!);
-    double? Xb = double.parse(valorA!);
-    double? Xc = double.parse(valorA!);
+    double? Xb = double.parse(valorB!);
+    double? Xc = double.parse(valorC!);
     double? Delta = double.parse(delta!);
     Xc = sqrt(Delta);
-    Xa = (MultiplicadorDivisao! * Xa)!;
+    Xa = (MultiplicadorDivisao! * Xa);
     double? acumulador;
     Xb = (-(Xb)-Xc);
     acumulador = (Xb/Xa);

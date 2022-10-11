@@ -1,26 +1,30 @@
+import 'package:bhaskara_revisao/Calculos/DELTA.dart';
+import 'package:bhaskara_revisao/CalculosImpl.dart';
 import 'package:bhaskara_revisao/SOLID_interface/ValidaDados.dart';
 
 class ClassficaBhaskara implements validaDados{
   @override
   String? validaCampo({String? campoA, String? campoB, String? campoC}) {
-   try {
-     bool Completas = (
-         campoA != '0'
-      && campoB != '0'
-      && campoC != '0');
-     bool IncompletasTipo1 = (
-         campoA == '0'
-      && campoB == '0'
-      && campoC == '0' );
-     bool IncompletasTipo2 = (
-         double.parse(campoA!) < 0
-      || double.parse(campoB!) < 0
-      || double.parse(campoC!) < 0);
-     return 'Digite apenas Numeros';
-   } on FormatException catch (e) {
-    print('Digita Apenas Números');
-    return 'Digite apenas Numeros';
-   }
+
+    CalculoImpl calculoImpl = CalculoImpl(CalculaDelta());
+    String? ResultadoDelta = calculoImpl.calculobase!.CalculoDoisFatores(
+        valorA: campoA,
+        valorB: campoB,
+        valorC: campoC,);
+
+     bool RaizNegativa = (double.parse(ResultadoDelta!) < 0);
+     bool RaizZero = (double.parse(ResultadoDelta!) == 0);
+     bool RaizNormal = (double.parse(ResultadoDelta!) > 0);
+
+     if(RaizNegativa == true){
+       return 'Raiz negativa';
+     }
+    if(RaizZero == true){
+      return 'Raiz igual a zero';
+    }
+    if(RaizNormal == true){
+      return 'Raiz Normal';
+    }
   }
-  
 }
+  
