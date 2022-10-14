@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:listacontatos/helpers/contact_helper.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
@@ -90,6 +91,11 @@ class DataBaseSqliteWindows{
   Future<int> updateContact(Contact contact) async {
     Database? dbContact = await db;
     return await dbContact!.update(contactTable, contact.toMap(), where: '$idColumn = ?', whereArgs: [contact.id]);
+  }
+
+  Future<int?> getNumber() async{
+    Database? dbContact = await db;
+    return Sqflite.firstIntValue(await dbContact!.rawQuery('SELECT COUNT(*) FROM $contactTable'));
   }
 
 }

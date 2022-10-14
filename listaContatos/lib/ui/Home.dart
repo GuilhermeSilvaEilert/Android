@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:listacontatos/helpers/contact_helper_windows.dart';
-import 'package:listacontatos/ui/TesteSQLite3.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:listacontatos/helpers/contact_helper.dart';
@@ -37,16 +36,6 @@ class _State extends State<Home> {
         backgroundColor: Colors.red,
         centerTitle: true,
         actions: [
-          TextButton(
-              onPressed:(){
-                Navigator.push(context,
-                    MaterialPageRoute(
-                        builder: (context) => SQLite3Teste()));
-              },
-              child:Text('testa sqlite3',
-                  style: TextStyle(
-                      color: Colors.black
-                  ))),
           PopupMenuButton<OrderOptions>(
               itemBuilder: (context) => <PopupMenuEntry<OrderOptions>>[
                 const PopupMenuItem<OrderOptions>(

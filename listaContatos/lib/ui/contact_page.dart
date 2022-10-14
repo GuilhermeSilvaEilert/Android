@@ -121,7 +121,7 @@ class _ContactPageState extends State<ContactPage> {
                   _userEdited = true;
                   _editedContact?.phone = text;
                 },
-                  keyboardType: TextInputType.phone
+                  //keyboardType: TextInputType.phone
               ),
             ],
           ),

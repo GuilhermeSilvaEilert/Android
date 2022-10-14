@@ -5,139 +5,190 @@ import 'package:meutcc/Perfil.dart';
 import 'package:auth_buttons/auth_buttons.dart';
 
 class PaginaLogin extends StatelessWidget {
-  const PaginaLogin({Key? key}) : super(key: key);
+   PaginaLogin({Key? key}) : super(key: key);
+
+  final TextEditingController email = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Padding(
-          padding: const EdgeInsets.all(22.0),
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          title: Row(
+            children: [
+              Image.asset(
+                'Assets/BannerApp/indice.png',
+                width:80, height: 80,
+                alignment: Alignment.center,
+                scale: 0.1,
+              ),
+              Text('Unique'),
+            ],
+          )
+        ),
+        backgroundColor: Colors.amber,
+        body: Center(
           child: Container(
+            alignment: Alignment.center,
+            width:400,
+            height:400,
             decoration: BoxDecoration(
-              color: Colors.white
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              color: Colors.black,
             ),
             child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Expanded(
-                  flex: 0,
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text('Unique',
-                              style: TextStyle(
-                                fontSize: 100,
-                                fontWeight: FontWeight.bold,
-                              ),),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                                'Assets/BannerApp/TccImg.png',
-                                width:150, height: 150,
-                                alignment: Alignment.center),
-                          ],
-                        ),
-                      ],
-                    ),
-                ),
-
-                Expanded(
-                  flex:0,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                      'Email',
-                      textAlign: TextAlign.end,
-                      style: TextStyle(
-                      fontSize: 15,
+                Text('Seja Bem Vindo!!',
+                  style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                      TextField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
-                    ],
+                    fontSize: 30,
+                    color: Colors.white
                   ),
                 ),
-                 Expanded(
-                  flex: 0,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        'Senha',
-                        textAlign: TextAlign.end,
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 450,
+                      height: 300,
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        border: Border.all(
+                          width: 2,
+                          color: Colors.black,
+                          style: BorderStyle.solid,
+                          strokeAlign: StrokeAlign.center
                         ),
                       ),
-                      TextField(
-                      decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      ),
-                     ),
-                   ]
-                 ),
-               ),
-               TextButton(
-                 onPressed: (){
-                   Navigator.push(
-                       context,
-                    MaterialPageRoute(builder: (context)=>Perfis()),
-                   );
-                 },
-                 child: const Text(
-                   'Login',
-                   style: TextStyle(
-                     fontSize: 18,
-                     color: Colors.black,
-                   ),
-                 ),
-               ),
-                Container(
-                  padding: EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    color: Colors.blue
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children:[
-                      GoogleAuthButton(
-                        onPressed:(){
+                      child: Column(
+                        children: [
+                          Expanded(
+                            flex:0,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children:  [
+                                TextField(
+                                  decoration: InputDecoration(
+                                    label:Text('Email',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                    ),),
+                                    hintText: 'example@gmail.com',
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.black,
+                                      )
+                                    ),
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  controller: email,
+                                  cursorColor: Colors.black,
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10,),
+                          Expanded(
+                            flex: 0,
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: const [
+                                  TextField(
+                                    decoration: InputDecoration(
+                                     label: Text('Senha', style: TextStyle(
+                                       fontWeight: FontWeight.bold,
+                                       fontSize: 20,
+                                       color: Colors.black,
+                                     ),
 
-                        }
+                                     ),
+                                      hintText: '******',
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color:Colors.black
+                                        )
+                                      ),
+                                      border: OutlineInputBorder(),
+                                    ),
+                                    cursorColor: Colors.black,
+                                  ),
+                                ]
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context)=>Perfis()),
+
+                              );
+                            },
+                            child: const Text(
+                              'Login',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          Baseline(
+                            baseline: 10,
+                            baselineType: TextBaseline.ideographic,
+                            child: Text('________________________________',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold
+                            ),),
+                            ),
+                          SizedBox(height: 10,),
+                         Container(
+                           height:70,
+                           width:200,
+                           child: Column(
+                             children: [
+                               ElevatedButton(
+                                   onPressed: (){},
+                                   style: ButtonStyle(
+                                     backgroundColor:MaterialStateProperty.all(
+                                       Colors.white,
+                                     ),
+                                     side: MaterialStateProperty.all(
+                                       BorderSide(
+                                         color: Colors.black
+                                       )
+                                     )
+                                   ),
+                                   child: Row(
+                                     children: [
+                                       Image.asset(
+                                         'Assets/BannerApp/google.png',
+                                         width:30, height: 30,
+                                         scale: 1,
+                                       ),
+                                        SizedBox(width: 10,),
+                                       Text('Login com Google',
+                                         style: TextStyle(
+                                             color: Colors.black
+                                         ),
+                                       ),
+                                     ],
+                                   ),
+                               ),
+                             ],
+                           ),
+                         ),
+                        ],
                       ),
-                      TransparentImageButton.assets(
-                        'Assets/BannerApp/google.png',
-                        width: 45,
-                        opacityThreshold: 0.1,
-                        onTapInside: () => print("You tapped the image."),
-                      ),
-                      Text(
-                        'Sign in',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.center,
-                      )
-                    ]
-                  ),
+                    ),
                 ),
               ],
             ),

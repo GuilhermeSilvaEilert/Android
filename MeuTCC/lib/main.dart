@@ -13,12 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Cursos e Turmas Online",
+      title: "Unique Cursos e Turmas Online",
       theme: ThemeData(
         backgroundColor: Colors.white,
-        primarySwatch: Colors.blue,
       ),
-      home: const PaginaLogin(),
+      home:  PaginaLogin(),
     );
   }
 }

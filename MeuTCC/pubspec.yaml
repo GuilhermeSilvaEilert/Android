@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   transparent_image_button: ^1.0.0
   auth_buttons: ^3.0.0
+  platform_detector: ^0.1.1
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +61,8 @@ flutter:
     - Assets/BannerApp/AlunoIcon.jpg
     - Assets/BannerApp/IconeProfessor.png
     - Assets/BannerApp/google.png
+    - Assets/BannerApp/Image.jpg
+    - Assets/BannerApp/indice.png
 
 
   # The following line ensures that the Material Icons font is
