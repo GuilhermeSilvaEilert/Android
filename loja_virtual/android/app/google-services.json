@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "125735504804",
+    "project_id": "lojaflutter-ab025",
+    "storage_bucket": "lojaflutter-ab025.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:125735504804:android:e9f340bc8f4b0805030f31",
+        "android_client_info": {
+          "package_name": "br.com.eilert.loja_virtual"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "125735504804-r1guc8pcuq3chtfeub9j77np58919gvv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJQ4PvK8j2xlQS0tsHtqVrxHkU6eEuskQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "125735504804-r1guc8pcuq3chtfeub9j77np58919gvv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
