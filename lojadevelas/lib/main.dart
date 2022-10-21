@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
-import 'screens/home_screen.dart';
+import 'package:lojadevelas/screens/home_screen.dart';
 
 void main() async {
   runApp(MaterialApp());
@@ -17,10 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Venda de velas',
       debugShowCheckedModeBanner: false,
-      home:Container(
-        color: Colors.white,
-      ),
-      );
+      home: HomeScreen()
+    );
   }
 }
-
