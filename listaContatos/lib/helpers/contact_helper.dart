@@ -29,7 +29,7 @@ class ContactHelper{
       return _db;
     }
   }
-/*
+
   Future<Contact> saveContact(Contact? contact) async {
     Database? dbContact = await db;
     contact!.id = await dbContact!.insert(contactTable, contact.toMap());
@@ -66,7 +66,7 @@ class ContactHelper{
     return Sqflite.firstIntValue(await dbContact!.rawQuery('SELECT COUNT(*) FROM $contactTable'));
   }
 
- */
+
 
   Future close() async{
     Database? dbContact = await db;

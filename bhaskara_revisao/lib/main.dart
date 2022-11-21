@@ -2,11 +2,12 @@ import 'package:bhaskara_revisao/Calculos/DELTA.dart';
 import 'package:bhaskara_revisao/CalculosImpl.dart';
 import 'package:bhaskara_revisao/RegrasDeNeg%C3%B3cio/VALIDATIPODERESULTADO.dart';
 import 'package:bhaskara_revisao/RegrasDeNeg%C3%B3cio/ValidaCampos.dart';
+import 'package:bhaskara_revisao/RegrasDeNeg%C3%B3cio/ValidaDadosThread.dart';
 import 'package:bhaskara_revisao/ValidaCamposIMPL.dart';
 import 'package:flutter/material.dart';
 import 'Calculos/BHASKARANEGATIVA.dart';
 import 'Calculos/BHASKARAPOSITIVA.dart';
-
+import 'dart:isolate';
 
 void main() {
   runApp(const MyApp());
@@ -38,8 +39,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   CalculoImpl calculoImpl = CalculoImpl(CalculaDelta());
-  validaCampoIMPL validacampoimpl = validaCampoIMPL(validaValores());
+ /* validaCampoIMPL validacampoimpl = validaCampoIMPL(validaValores());
   validaValores valores = validaValores();
+  */
+
   final valorAController = TextEditingController();
   final valorBController = TextEditingController();
   final valorCController = TextEditingController();
@@ -48,6 +51,8 @@ class _MyHomePageState extends State<MyHomePage> {
   late final String? Delta;
   late final String? TipoBhaskara;
   String? Status = '';
+  ValidaCampo validaCampo = ValidaCampo();
+
 
   @override
   Widget build(BuildContext context) {
@@ -63,15 +68,17 @@ class _MyHomePageState extends State<MyHomePage> {
               textAlign: TextAlign.center,
               controller: valorAController,
               onChanged: (valor){
-                Status = validacampoimpl.validadados!.validaCampo(campoA: valorAController.text);
+                validaCampo.thread.start();
+                //Status = validacampoimpl.validadados!.validaCampo(campoA: valorAController.text);
                 print(valorAController.text);
               },
             ),
             TextField(
               textAlign: TextAlign.center,
               controller: valorBController,
+
               onChanged: (a){
-                  Status = valores.validaCampo(campoB: valorBController.text);
+                 // Status = valores.validaCampo(campoB: valorBController.text);
                 print(valorBController.text);
               },
             ),
@@ -79,18 +86,19 @@ class _MyHomePageState extends State<MyHomePage> {
               textAlign: TextAlign.center,
               controller: valorCController,
              onChanged: (valor){
-                Status = validacampoimpl.validadados!.validaCampo(campoC: valorCController.text);
+                //Status = validacampoimpl.validadados!.validaCampo(campoC: valorCController.text);
                print(valorCController.text);
              },
             ),
             TextButton(
                 onPressed: (){
-                validacampoimpl.validadados = ClassficaBhaskara();
+                /*validacampoimpl.validadados = ClassficaBhaskara();
                 String? TipoBhaskara = validacampoimpl.validadados?.validaCampo(
                       campoA: valorAController.text,
                       campoB: valorBController.text,
                       campoC: valorCController.text
                   );
+                 */
                 if(TipoBhaskara == 'Raiz negativa'|| Status == 'Digite Apenas Numeros'){
                   setState((){
                     Status = 'Digite numeros validos';
@@ -114,11 +122,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       valorB: valorBController.text,
                       valorC: valorCController.text
                   );
-                  setState((){
-                    Status = ('Delta: $Delta, '
-                        'Bhaskara Positiva: $BhaskaraPositiva, '
-                        'Bhaskara Negativa: $BhaskaraNegativa');
-                  });
                 }
                 }, child: const Text('Calcular Bhaskara'),),
             Text('Status: $Status'),

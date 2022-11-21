@@ -6,15 +6,17 @@ class ClassficaBhaskara implements validaDados{
   @override
   String? validaCampo({String? campoA, String? campoB, String? campoC}) {
 
+    int ClassificadordorBaseRaiz = 0;
+
     CalculoImpl calculoImpl = CalculoImpl(CalculaDelta());
     String? ResultadoDelta = calculoImpl.calculobase!.CalculoDoisFatores(
         valorA: campoA,
         valorB: campoB,
         valorC: campoC,);
 
-     bool RaizNegativa = (double.parse(ResultadoDelta!) < 0);
-     bool RaizZero = (double.parse(ResultadoDelta!) == 0);
-     bool RaizNormal = (double.parse(ResultadoDelta!) > 0);
+     bool RaizNegativa = (double.parse(ResultadoDelta!) < ClassificadordorBaseRaiz);
+     bool RaizZero = (double.parse(ResultadoDelta!) == ClassificadordorBaseRaiz);
+     bool RaizNormal = (double.parse(ResultadoDelta!) > ClassificadordorBaseRaiz);
 
      if(RaizNegativa == true){
        return 'Raiz negativa';

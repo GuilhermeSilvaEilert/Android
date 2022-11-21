@@ -3,20 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:lojadevelas/screens/home_screen.dart';
 
 void main() async {
-  runApp(MaterialApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Venda de velas',
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen()
+    return FutureBuilder(
+      future: Firebase.initializeApp(),
+      builder: (context, snapshot){
+        if(snapshot.hasError){
+          return Container();
+        }
+        if (snapshot.connectionState == ConnectionState.done) {
+          return MaterialApp(
+              title: 'Venda de velas',
+              debugShowCheckedModeBanner: false,
+              home: HomeScreen()
+          );
+        }
+        return const CircularProgressIndicator();
+      }
     );
   }
 }

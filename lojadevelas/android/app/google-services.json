@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "895348687968",
+    "project_id": "lojavelasflutter",
+    "storage_bucket": "lojavelasflutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:895348687968:android:ddc210415f060f7222af05",
+        "android_client_info": {
+          "package_name": "br.com.eilert.loja.velas.lojadevelas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "895348687968-6f420l03n7cjdd4m3sfcd32hqti82654.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB18QGbL4yhFiEZ9gaMINuuPIK8AvSRbeA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "895348687968-6f420l03n7cjdd4m3sfcd32hqti82654.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

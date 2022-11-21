@@ -1,29 +1,29 @@
 import 'package:bhaskara_revisao/SOLID_interface/ValidaDados.dart';
+import 'package:thread/thread.dart';
 
-class validaValores implements validaDados{
-  @override
-  String? validaCampo({String? campoA, String? campoB, String? campoC}) {
+class validaValores {
 
-    bool valorA = (campoA!.isEmpty
-                || campoA.contains(RegExp(r'[A-Z]'))
-                || campoA.contains(RegExp(r'[a-z]')));
+    bool loopingInfinito = true;
+    String? validaCampo = ' ';
 
-    bool valorB = (campoB!.isEmpty
-                || campoB.contains(RegExp(r'[A-Z]'))
-                || campoB.contains(RegExp(r'[a-z]')));
-
-    bool valorC = (campoC!.isEmpty
-                || campoC.contains(RegExp(r'[A-Z]'))
-                || campoC.contains(RegExp(r'[a-z]')));
-
-       if(valorA == true || valorB == true || valorC == true){
-      print('valores invalidos');
-      return 'Digite Apenas Numeros';
-    }else{
-      return ' ';
+    validaValores({String? ValorCampo}){
+      this.validaCampo = ValorCampo;
     }
 
+    final thread = Thread((events){
+      While(loopingInfinito) {
+        events.on('data', (validacampo) async {
+          bool valorA = (validacampo!.toString().isEmpty
+              || validacampo.toString().contains(RegExp(r'[A-Z]'))
+              || validacampo.toString().contains(RegExp(r'[a-z]')));
+          print(validacampo);
+          if (valorA == true) {
+            print('Valores Invalidos');
+          } else {
+            return ' ';
+          }
+        });
+      }
+    });
 
   }
-
-}
