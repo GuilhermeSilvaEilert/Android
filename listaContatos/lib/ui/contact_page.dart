@@ -4,6 +4,7 @@ import 'package:listacontatos/helpers/contact_helper_windows.dart';
 import 'package:listacontatos/ui/Home.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:listacontatos/helpers/contact_helper_web.dart';
 
 class ContactPage extends StatefulWidget {
   const ContactPage({this.contact});
@@ -25,7 +26,7 @@ class _ContactPageState extends State<ContactPage> {
   final _nameFocus = FocusNode();
 
   //ContactHelper? helper = ContactHelper();
-  DataBaseSqliteWindows sqliteWindows =DataBaseSqliteWindows();
+  contact_helper_web sqliteWeb = contact_helper_web();
 
   List<Contact> contacts = [];
 
@@ -162,7 +163,7 @@ class _ContactPageState extends State<ContactPage> {
 
   void getAllContacts(){
     setState((){
-     sqliteWindows!.getAllContacts().then((list){
+     sqliteWeb!.getAllContacts().then((list){
         contacts = list as List<Contact>;
       });
     });

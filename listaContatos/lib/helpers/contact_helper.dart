@@ -3,6 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 
+
 final String contactTable = 'contactTable';
 final String idColumn = 'idColumn';
 final String nameColumn = 'nameColumn';

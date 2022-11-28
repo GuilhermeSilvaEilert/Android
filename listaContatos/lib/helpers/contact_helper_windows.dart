@@ -54,6 +54,7 @@ class DataBaseSqliteWindows{
     return contact;
   }
 
+
   Future getContact(int id) async{
     sqfliteFfiInit();
     var databaseFactory = databaseFactoryFfi;
