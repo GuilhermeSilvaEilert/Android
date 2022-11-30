@@ -1,5 +1,5 @@
 abstract class CalculoDoisFatores{
 
- double CalculaDoisValores(double valorA, double valorB);
+ double CalculaDoisValores({double? valorA, double? valorB});
 
 }

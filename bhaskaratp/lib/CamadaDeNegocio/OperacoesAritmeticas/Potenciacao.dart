@@ -4,7 +4,7 @@ import 'package:bhaskaratp/CamadaDeNegocio/Interface/CalculoDoisFatores.dart';
 
 class Soma implements CalculoDoisFatores{
   @override
-  double CalculaDoisValores(double valorA, double valorB) {
+  double CalculaDoisValores({double? valorA, double? valorB}) {
     double? resultado;
     num representaValorA = num.parse(valorA.toString());
     num representaValorB = num.parse(valorB.toString());
