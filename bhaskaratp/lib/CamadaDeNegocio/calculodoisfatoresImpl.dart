@@ -1,7 +1,8 @@
 import 'package:bhaskaratp/CamadaDeNegocio/Interface/CalculoDoisFatores.dart';
+import 'package:bhaskaratp/CamadaDeNegocio/OperacoesAritmeticas/Radiciacao.dart';
 
 class CalculoDoisFatoresImpl{
-  
+
   _CalculoDoisFatoresImpl(){}
 
   static CalculoDoisFatoresImpl? instancia;
@@ -20,7 +21,7 @@ class CalculoDoisFatoresImpl{
   }
 
   void calculandodoisfatores(){
-    calculodoisfatores?.CalculaDoisValores();
+    calculodoisfatores?.CalculaDoisValores({valorA:, valorB});
   }
 
 }

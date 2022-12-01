@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:bhaskaratp/CamadaDeNegocio/Interface/CalculoDoisFatores.dart';
 
-class Soma implements CalculoDoisFatores{
+class Potenciacao implements CalculoDoisFatores{
   @override
   double CalculaDoisValores({double? valorA, double? valorB}) {
     double? resultado;
