@@ -2,18 +2,13 @@ import 'dart:math';
 
 import 'package:bhaskaratp/CamadaDeNegocio/Interface/CalculoDoisFatores.dart';
 
-class Potenciacao implements CalculoDoisFatores{
-  @override
-  double CalculaDoisValores({double? valorA, double? valorB}) {
-    double? resultado;
-    num representaValorA = num.parse(valorA.toString());
-    num representaValorB = num.parse(valorB.toString());
-    num representaResultado = num.parse(resultado.toString());
-
-    representaResultado = pow(representaValorA, representaValorB);
-
-    resultado = double.parse(representaResultado.toString());
-
+class Potenciacao {
+  double? CalculaPotenciacao({double? valorA}) {
+    print('INICIA POTENCIACAO');
+    double? resultado = 0;
+    print('$valorA');
+    resultado = valorA! * valorA!;
+    print('fim $resultado');
     return resultado;
   }
 

@@ -4,10 +4,15 @@ import 'package:bhaskaratp/CamadaDeNegocio/calculodoisfatoresImpl.dart';
 import '../OperacoesAritmeticas/Potenciacao.dart';
 class CalculaDelta{
 
-  CalculoDoisFatoresImpl calculoDoisFatoresImpl = CalculoDoisFatoresImpl(calculodoisfatores:Potenciacao());
+
+  Potenciacao calculaPotenciacao = Potenciacao();
   CalculandoDelta({double? valorX2, double? valorX1, double? valorX}){
+    print('iniciando delta');
     double? Potenciacao;
-    Potenciacao = calculoDoisFatoresImpl.calculandodoisfatores(valorA:valorX);
+    print('iniciando delta2');
+    Potenciacao =calculaPotenciacao.CalculaPotenciacao(valorA: valorX1);
+    print(Potenciacao);
+    return Potenciacao;
   }
 
 }

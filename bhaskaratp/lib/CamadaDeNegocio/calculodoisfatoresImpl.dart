@@ -20,8 +20,10 @@ class CalculoDoisFatoresImpl{
     this.calculodoisfatores = calculodoisfatores;
   }
 
-  void calculandodoisfatores(){
-    calculodoisfatores?.CalculaDoisValores({valorA:, valorB});
+  double? calculandodoisfatores({double? valorA, double? valorB}){
+    double? resultado;
+    resultado = calculodoisfatores?.CalculaDoisValores(valorA: valorA, valorB: valorB);
+    return  resultado;
   }
 
 }
