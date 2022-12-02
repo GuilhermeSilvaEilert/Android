@@ -5,7 +5,6 @@ class Multiplicacao implements CalculoDoisFatores{
   double CalculaDoisValores({double? valorA, double? valorB}) {
     double resultado;
     resultado = valorA! * valorB!;
-
     return resultado;
   }
 
