@@ -59,6 +59,7 @@ class RecebeDadosBhaskara extends StatelessWidget {
                     valorX1: double.tryParse(valorXBController.text),
                     valorX: double.tryParse(valorXController.text));
                 print(resultado);
+
             },
           ),
       ],
