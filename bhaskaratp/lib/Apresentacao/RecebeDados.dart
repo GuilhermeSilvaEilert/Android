@@ -4,6 +4,7 @@ import 'package:bhaskaratp/CamadaDeNegocio/ChamaCalculosFacade/ChamaCalculosFaca
 import '../CamadaDeNegocio/OperacoesAritmeticas/Radiciacao.dart';
 import '../CamadaDeNegocio/OperacoesCompostas/Delta.dart';
 
+
 class RecebeDadosBhaskara extends StatelessWidget {
    RecebeDadosBhaskara({Key? key}) : super(key: key);
 
@@ -12,7 +13,7 @@ class RecebeDadosBhaskara extends StatelessWidget {
   final TextEditingController  valorXBController = TextEditingController();
   
   CalculaDelta delta = CalculaDelta();
-  ChamaCalculosFacade chamaCalculosFacade =  ChamaCalculosFacade();
+  ChamaCalculosFacadePositivo chamaCalculosFacade =  ChamaCalculosFacadePositivo();
   double? resultadoPositivo;
   double? resultadoNegativo;
   double? resultadoDaraiz;
@@ -63,16 +64,7 @@ class RecebeDadosBhaskara extends StatelessWidget {
                     valorX1: double.tryParse(valorXBController.text),
                     valorX: double.tryParse(valorXController.text));
               print(resultadoDaraiz);
-              resultadoPositivo = chamaCalculosFacade.executaCalculosBasePos(
-                  double.tryParse(valorXAController.text),
-                  double.tryParse(valorXBController.text),
-                  resultadoDaraiz);
-              print(resultadoPositivo);
-              resultadoNegativo = chamaCalculosFacade.executaCalculosBaseNeg(
-                  double.tryParse(valorXAController.text),
-                  double.tryParse(valorXBController.text),
-                  resultadoDaraiz);
-              print(resultadoNegativo);
+
             },
           ),
       ],
