@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bhaskaratp/CamadaDeNegocio/calculodoisfatoresImpl.dart';
-
+import 'package:bhaskaratp/CamadaDeNegocio/ChamaCalculosFacade/ChamaCalculosFacade.dart';
 import '../CamadaDeNegocio/OperacoesAritmeticas/Radiciacao.dart';
 import '../CamadaDeNegocio/OperacoesCompostas/Delta.dart';
 
@@ -12,7 +12,11 @@ class RecebeDadosBhaskara extends StatelessWidget {
   final TextEditingController  valorXBController = TextEditingController();
   
   CalculaDelta delta = CalculaDelta();
-  double? resultado;
+  ChamaCalculosFacade chamaCalculosFacade =  ChamaCalculosFacade();
+  double? resultadoPositivo;
+  double? resultadoNegativo;
+  double? resultadoDaraiz;
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +58,21 @@ class RecebeDadosBhaskara extends StatelessWidget {
               print('Controller A = ' + valorXAController.text);
               print('Controller B = ' + valorXBController.text);
               print('Controller C = ' + valorXController.text);
-                resultado = delta.CalculandoDelta(
+              resultadoDaraiz = delta.CalculandoDelta(
                     valorX2: double.tryParse(valorXAController.text),
                     valorX1: double.tryParse(valorXBController.text),
                     valorX: double.tryParse(valorXController.text));
-                print(resultado);
-
+              print(resultadoDaraiz);
+              resultadoPositivo = chamaCalculosFacade.executaCalculosBasePos(
+                  double.tryParse(valorXAController.text),
+                  double.tryParse(valorXBController.text),
+                  resultadoDaraiz);
+              print(resultadoPositivo);
+              resultadoNegativo = chamaCalculosFacade.executaCalculosBaseNeg(
+                  double.tryParse(valorXAController.text),
+                  double.tryParse(valorXBController.text),
+                  resultadoDaraiz);
+              print(resultadoNegativo);
             },
           ),
       ],
