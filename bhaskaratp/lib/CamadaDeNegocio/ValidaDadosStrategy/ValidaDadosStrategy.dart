@@ -4,18 +4,15 @@ import 'package:bhaskaratp/CamadaDeNegocio/ChamaCalculosFacade/ChamaCalculoNegat
 
 class validaDadosStrategy{
 
-  validaResultadoDaRaiz (String Raiz){
-    if(Raiz == 'RaizSoma'){
-       return ChamaCalculosFacadePositivo();
+  String CalculoPositivo  = 'cp';
+  String CalculoNegativo = 'cn';
+
+  AcionaBhaskara (String Bhaskara, double? valorA,double? valorB, double? resultadoRaiz){
+    if(Bhaskara == CalculoPositivo){
+       return ChamaCalculosFacadePositivo().executaCalculosBasePos(valorA, valorB, resultadoRaiz);
     }
-    if(Raiz == 'RaizSubtracao'){
-      return ChamaCalculosFacadeNegativo();
-    }
-    if(Raiz == 'Raiz Negativa'){
-      return 'Raiz Negativa';
-    }
-    if(Raiz == 'Raiz Igual a Zero'){
-      return 'Raiz igual a zero';
+    if(Bhaskara == CalculoNegativo) {
+      return ChamaCalculosFacadeNegativo().executaCalculosBaseNeg(valorA, valorB, resultadoRaiz);
     }
   }
 
