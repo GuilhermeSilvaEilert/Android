@@ -1,7 +1,15 @@
+import 'package:cardapiovirtual/Apresentacao/HomePage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
+
+
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -9,6 +17,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
 
   bool? teste;
+
+  ConectaFirebase conectaFirebase = ConectaFirebase();
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +100,10 @@ class _LoginPageState extends State<LoginPage> {
             ),
 
             TextButton(
-              onPressed: (){},
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AdmHomePage()));
+                conectaFirebase.ConectarAoFirebase('teste');
+              },
               child: Padding(
                 padding: const EdgeInsets.only( top: 9, right: 60, left: 60, bottom: 9),
                 child: Text('LOGIN',
