@@ -98,3 +98,5 @@ flutter:
 
   assets:
     - Assets/LogoMarca/LogoMarcaTG.png
+    - Assets/cardapio/menu.jpg
+    - Assets/qrcodemesa/QRcodeMesa.jpg

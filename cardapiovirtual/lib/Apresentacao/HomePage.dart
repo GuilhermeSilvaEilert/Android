@@ -1,5 +1,6 @@
 import 'dart:io';
-
+import 'package:cardapiovirtual/Apresentacao/AdicionaItemCardapio/AdicionaItemCardapio.dart';
+import 'package:cardapiovirtual/Apresentacao/Widgets/Drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -12,90 +13,147 @@ class AdmHomePage extends StatefulWidget {
 }
 
 class _AdmHomePageState extends State<AdmHomePage> {
+  final _pageController = PageController();
+
   final ImagePicker _picker = ImagePicker();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Color.fromARGB(255, 78, 90, 85),
-        title: Row(
-          children: [
-            Image.asset('Assets/LogoMarca/LogoMarcaTG.png', height: 50, width: 50,),
-            SizedBox(width: 10,),
-            Text('Seu Cardapio', style:TextStyle(fontWeight: FontWeight.bold),),
-          ],
-        )
-      ),
-       body: Container(
-         alignment: Alignment.center,
-         child: IconButton(
-           onPressed: (){
-               showModalBottomSheet(
-                   context: context,
-                   builder: (context){
-                     return BottomSheet(
-                       builder: (context){
-                         return Container(
-                           padding: EdgeInsets.all(10),
-                           child: Row(
-                             mainAxisAlignment: MainAxisAlignment.center,
-                             mainAxisSize: MainAxisSize.min,
-                             children: [
-                               Column(
-                                 mainAxisSize: MainAxisSize.min,
-                                 children: [
-                                   Padding(
-                                     padding: const EdgeInsets.all(8.0),
-                                     child: FloatingActionButton(
-                                       onPressed: () async {
-                                         Navigator.pop(context);
-                                        final PickedFile? imgFile = await ImagePicker.platform.pickImage(source: ImageSource.camera);
-                                         if(imgFile == null) return;
 
-                                       },
-                                       backgroundColor: Colors.red,
-                                       child:  Icon(Icons.photo_camera, color: Colors.white),
-                                     ),
-                                   ),
-                                   Text('Camera'),
-                                 ],
-                               ),
-                               Column(
-                                 mainAxisSize: MainAxisSize.min,
-                                 children: [
-                                   Padding(
-                                     padding: const EdgeInsets.all(8.0),
-                                     child: FloatingActionButton(
-                                       backgroundColor: Colors.red,
-                                       onPressed: () {
-                                         Navigator.pop(context);
-                                         _picker.pickImage(source: ImageSource.gallery).then((file){
-                                           if(file == null) return;
-                                           setState(() {
-                                           });
-                                         });
-                                       },
-                                       child: Icon(Icons.photo_album, color: Colors.white),
-                                     ),
-                                   ),
-                                   Text('Galeria'),
-                                 ],
-                               ),
-                             ],
-                           ),
-                         );
-                       }, onClosing: () {  },
-                     );
-                   });
-             },
-           icon: Column(
-             children: [
-               Icon(Icons.add_a_photo),
-             ],
-           ),
-         ),
-       ),
+    return PageView(
+      physics: const NeverScrollableScrollPhysics(),
+      controller: _pageController,
+      children: [
+        Scaffold(
+          drawer: CustomDrawer(),
+          appBar: AppBar(
+              backgroundColor: Color.fromARGB(255, 78, 90, 85),
+              title: Text('Seu Cardapio', style:TextStyle(fontWeight: FontWeight.bold),),
+          ),
+          body: Container(
+            decoration: BoxDecoration(
+              color: Color.fromARGB(255, 78, 90, 85),
+            ),
+            padding: EdgeInsets.all(30),
+            alignment: Alignment.center,
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 124, 112, 97),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        children:[
+                          Image.asset('Assets/qrcodemesa/QRcodeMesa.jpg',
+                            height: 170, width: 170,),
+                          SizedBox(width: 10,),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('GERAR QRCODE \nDA Mesa',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 22,
+                                ),
+                              ),
+                              Text('10 Mesas \n Cadastradas',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(height: 10,),
+                              TextButton(
+                                style:  ButtonStyle(
+                                  backgroundColor: MaterialStatePropertyAll(
+                                    Color.fromARGB(255, 177, 66, 78),
+                                  ),
+                                ),
+                                onPressed: () {
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 8, left: 30, right: 30, top: 8),
+                                  child: Text('ADD ou Editar',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 10,),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 124, 112, 97),
+                  ),
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 10,),
+                      Row(
+                        children:[
+                          Image.asset('Assets/cardapio/menu.jpg',
+                          height: 170, width: 170,),
+                          SizedBox(width: 10,),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('MEU \nCARDAPIO',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25,
+                                ),
+                              ),
+                              Text('60 itens \nno cardapio',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(height: 10,),
+                              TextButton(
+                                  style:  ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(
+                                      Color.fromARGB(255, 177, 66, 78),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(context,MaterialPageRoute(builder: (context) =>  AdicionaItemCardapio(),));
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 8, left: 30, right: 30, top: 8),
+                                    child: Text('ADD ou Editar',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                  ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
 
   }

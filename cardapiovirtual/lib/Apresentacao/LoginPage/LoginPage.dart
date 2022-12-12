@@ -102,7 +102,6 @@ class _LoginPageState extends State<LoginPage> {
             TextButton(
               onPressed: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context) => AdmHomePage()));
-                conectaFirebase.ConectarAoFirebase('teste');
               },
               child: Padding(
                 padding: const EdgeInsets.only( top: 9, right: 60, left: 60, bottom: 9),
