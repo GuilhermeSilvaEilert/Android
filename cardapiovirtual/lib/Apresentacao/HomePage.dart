@@ -1,33 +1,58 @@
 import 'dart:io';
 import 'package:cardapiovirtual/Apresentacao/AdicionaItemCardapio/AdicionaItemCardapio.dart';
 import 'package:cardapiovirtual/Apresentacao/Widgets/Drawer.dart';
+import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 
 class AdmHomePage extends StatefulWidget {
   const AdmHomePage({Key? key}) : super(key: key);
-
   @override
   State<AdmHomePage> createState() => _AdmHomePageState();
 }
 
 class _AdmHomePageState extends State<AdmHomePage> {
-  final _pageController = PageController();
 
+  final _pageController = PageController();
   final ImagePicker _picker = ImagePicker();
+  final ConectaFirebase conectaFirebase = ConectaFirebase();
+
   @override
   Widget build(BuildContext context) {
-
     return PageView(
       physics: const NeverScrollableScrollPhysics(),
       controller: _pageController,
       children: [
         Scaffold(
-          drawer: CustomDrawer(),
+          drawer: CustomDrawer(pageController: _pageController,),
           appBar: AppBar(
               backgroundColor: Color.fromARGB(255, 78, 90, 85),
-              title: Text('Seu Cardapio', style:TextStyle(fontWeight: FontWeight.bold),),
+              centerTitle: true,
+              title: Container(
+                height: 45,
+                width: 250,
+                child: TextField(
+                  cursorColor: Colors.black12,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Color.fromARGB(148, 255, 255, 255),
+                    focusedBorder: OutlineInputBorder(
+                      gapPadding: 10,
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide:BorderSide(color: Colors.black),
+                    ),
+                    hintText: 'Pesquise usuarios',
+                    counterStyle: TextStyle(color: Colors.black),
+                    labelStyle: TextStyle(color: Colors.black,),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                ),
+              ),
           ),
           body: Container(
             decoration: BoxDecoration(
@@ -66,7 +91,7 @@ class _AdmHomePageState extends State<AdmHomePage> {
                               ),
                               SizedBox(height: 10,),
                               TextButton(
-                                style:  ButtonStyle(
+                                style: ButtonStyle(
                                   backgroundColor: MaterialStatePropertyAll(
                                     Color.fromARGB(255, 177, 66, 78),
                                   ),
@@ -116,11 +141,21 @@ class _AdmHomePageState extends State<AdmHomePage> {
                                     fontSize: 25,
                                 ),
                               ),
-                              Text('60 itens \nno cardapio',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                ),
+
+                              FutureBuilder<QuerySnapshot>(
+                                  future: FirebaseFirestore
+                                      .instance
+                                      .collection('Itens Cardapio')
+                                      .get(),
+                                  builder: (context, snapshot){
+                                    return Text('${snapshot.data!.docs.length} itens \nno cardapio',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    );
+                                  }
                               ),
+
                               SizedBox(height: 10,),
                               TextButton(
                                   style:  ButtonStyle(

@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
-
-
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -17,8 +15,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
 
   bool? teste;
-
-  ConectaFirebase conectaFirebase = ConectaFirebase();
 
   @override
   Widget build(BuildContext context) {

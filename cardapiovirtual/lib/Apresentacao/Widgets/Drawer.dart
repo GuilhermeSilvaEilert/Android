@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
 
+import 'DrawerTile.dart';
+
 class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({Key? key}) : super(key: key);
+  const CustomDrawer({Key? key, required this.pageController}) : super(key: key);
+
+  final PageController  pageController;
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +41,27 @@ class CustomDrawer extends StatelessWidget {
                         ),
                       ),
                     ),
+                    Positioned(
+                      left: 0.0,
+                      bottom: 0.0,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children:[
+                          Text('Ola, seja bem vindo',
+                            style:TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
+              Divider(),
+              DrawerTile(icon: Icons.create_rounded,text: 'Criar usuario', pageController: pageController, page: 0),
+              DrawerTile(icon: Icons.settings,text: 'Configurações',pageController: pageController, page: 1),
             ],
           ),
         ],
