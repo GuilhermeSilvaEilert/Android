@@ -13,6 +13,9 @@ class ConectaFirebase{
   Future<void> sendDados({String? NomeProduto, double? preco, File? imgFile}) async {
     await Firebase.initializeApp();
 
+    int TamanhoEixoX = 1;
+    int TamanhoEixoY = 1;
+
 
     if (imgFile != null && NomeProduto != null && preco != null) {
 
@@ -29,6 +32,8 @@ class ConectaFirebase{
         'Preço do Produto': preco,
         'Imagem Produto': url,
         'time': Timestamp.now(),
+        'x': TamanhoEixoX,
+        'y': TamanhoEixoY
       };
 
       FirebaseFirestore.instance.collection('Itens Cardapio').add(data);

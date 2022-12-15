@@ -9,7 +9,6 @@ class CustomDrawer extends StatelessWidget {
 
   final PageController  pageController;
 
-
   @override
   Widget build(BuildContext context) {
     Widget _buildDrawerBack()=> Container(
@@ -60,8 +59,10 @@ class CustomDrawer extends StatelessWidget {
                 ),
               ),
               Divider(),
-              DrawerTile(icon: Icons.create_rounded,text: 'Criar usuario', pageController: pageController, page: 0),
-              DrawerTile(icon: Icons.settings,text: 'Configurações',pageController: pageController, page: 1),
+              DrawerTile(icon: Icons.home,text: 'Home', pageController: pageController, page: 0),
+              DrawerTile( icon: Icons.list, text: 'Ver Cardapio', pageController: pageController, page: 1),
+              DrawerTile(icon: Icons.create_rounded,text: 'Criar usuario', pageController: pageController, page: 2),
+              DrawerTile(icon: Icons.settings,text: 'Configurações',pageController: pageController, page: 3),
             ],
           ),
         ],
