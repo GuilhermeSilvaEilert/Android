@@ -28,9 +28,9 @@ class ConectaFirebase{
       String url = await taskSnapshot.ref.getDownloadURL();
 
       Map<String, dynamic> data = {
-        'Nome do Produto': NomeProduto,
-        'Preço do Produto': preco,
-        'Imagem Produto': url,
+        'Nome': NomeProduto,
+        'Preco': preco,
+        'Imagem': url,
         'time': Timestamp.now(),
         'x': TamanhoEixoX,
         'y': TamanhoEixoY

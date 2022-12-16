@@ -10,32 +10,6 @@ class HomeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     /* appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 78, 90, 85),
-        centerTitle: true,
-        title: Container(
-          height: 45,
-          width: 250,
-          child: TextField(
-            cursorColor: Colors.black12,
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Color.fromARGB(148, 255, 255, 255),
-              focusedBorder: OutlineInputBorder(
-                gapPadding: 10,
-                borderRadius: BorderRadius.circular(15),
-                borderSide:BorderSide(color: Colors.black),
-              ),
-              hintText: 'Pesquise usuarios',
-              counterStyle: TextStyle(color: Colors.black),
-              labelStyle: TextStyle(color: Colors.black,),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-            ),
-          ),
-        ),
-      ),*/
       body: Container(
         decoration: BoxDecoration(
           color: Color.fromARGB(255, 78, 90, 85),

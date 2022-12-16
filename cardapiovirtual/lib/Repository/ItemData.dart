@@ -1,18 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ItemData{
-
+  String? category;
   String? id;
   String? NomeDoProduto;
   double? PrecoDoProduto;
-  List? images;
+  String? images;
 
   ItemData.fromDocument(DocumentSnapshot snapshot){
-    id = snapshot.get('time');
-    NomeDoProduto = snapshot.get('Nome do Produto');
-    PrecoDoProduto = snapshot.get('Preço do Produto') + 0.0;
-    images = snapshot.get('Imagem Produto');
+    id = snapshot.id;
+    images = snapshot.get('Imagem');
+    NomeDoProduto = snapshot.get('Nome');
+    PrecoDoProduto = snapshot.get('Preco') + 0.0;
 
+    print('$id, $NomeDoProduto, $PrecoDoProduto, $images');
   }
 
 }

@@ -8,48 +8,82 @@ import 'package:transparent_image/transparent_image.dart';
 import '../../Repository/ItemData.dart';
 
 class ItensDoCardapio extends StatelessWidget {
-  ItensDoCardapio(this.snapshot);
-  final DocumentSnapshot snapshot;
-  final _pageController = PageController();
+
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      body: FutureBuilder<QuerySnapshot>(
-        future: FirebaseFirestore
-            .instance
-            .collection('Itens Cardapio')
-            .orderBy('Preço').get(),
-        builder: (context, snapshot) {
-          if(snapshot.hasData){
-            return Center(
-              child: CircularProgressIndicator(
-              ),
-            );
-          }else{
-            return TabBarView(
-              physics: NeverScrollableScrollPhysics(),
-                children: [
-                  GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 4,
-                        crossAxisSpacing: 4,
-                        childAspectRatio: 0.65
-                      ),
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (context, index) {
-                      return CardProduto(
-                        product: ItemData.fromDocument(
-                          snapshot!.data!.docs[index],
+    return  Scaffold(
+      body: Stack(
+        children: [
+          CustomScrollView(
+            slivers: [
+              FutureBuilder<QuerySnapshot>(
+                future: FirebaseFirestore.instance.
+                collection('Itens Cardapio').get(),
+                builder: (context, snapshot){
+                  if(!snapshot.hasData) {
+                    return SliverToBoxAdapter(
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: const CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                         ),
-                      );
-                    },
-                  ),
-                ],
-            );
-          }
-        },
+                      ),
+                    );
+                  } else {
+                    return
+                        SliverToBoxAdapter(
+                          child: GridView.builder(
+                            itemBuilder: (context, index) {
+                                return Container(
+                                  child: Card(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                      AspectRatio(
+                                          aspectRatio: 0.6,
+                                          child: Image.network(
+                                            snapshot.data!.docs[index]['Imagem'],
+                                              fit:BoxFit.cover
+                                          ),
+
+                                      ),
+                                        Expanded(
+                                            child: Container(
+                                              child: Column(
+                                                children:[
+                                                  Text(snapshot.data!.docs[index]['Nome']),
+                                                  Text(snapshot.data!.docs[index]['Preco'].toString()),
+                                                ],
+                                              ),
+                                            ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                            },
+                            itemCount: snapshot.data!.docs.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate: SliverQuiltedGridDelegate(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 1,
+                              crossAxisSpacing: 1,
+                              repeatPattern: QuiltedGridRepeatPattern.inverted,
+                              pattern: snapshot.data!.docs.map((e) {
+                                return QuiltedGridTile(e['y'], e['x']);
+                              }).toList(),
+                            ),
+                          ),
+                        );
+                  }
+                },
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

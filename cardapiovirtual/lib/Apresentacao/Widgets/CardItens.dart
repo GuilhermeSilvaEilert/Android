@@ -1,4 +1,5 @@
 import 'package:cardapiovirtual/Repository/ItemData.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class CardProduto extends StatelessWidget {
@@ -9,6 +10,9 @@ class CardProduto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  InkWell(
+      onTap: (){
+
+      },
       child: Card(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -17,7 +21,7 @@ class CardProduto extends StatelessWidget {
             AspectRatio(
               aspectRatio: 0.8,
               child: Image.network(
-                product.images![0],
+                product.images!.toString(),
                 fit: BoxFit.cover,
               ),
             ),
