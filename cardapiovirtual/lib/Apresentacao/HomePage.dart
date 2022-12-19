@@ -1,6 +1,7 @@
-import 'package:cardapiovirtual/Apresentacao/Widgets/Drawer.dart';
-import 'package:cardapiovirtual/Apresentacao/Widgets/HomeWidget.dart';
-import 'package:cardapiovirtual/Apresentacao/Widgets/ItensDoCardapio.dart';
+import 'package:cardapiovirtual/Apresentacao/Telas/CategoriasDoCardapio.dart';
+import 'package:cardapiovirtual/Apresentacao/Telas/Drawer.dart';
+import 'package:cardapiovirtual/Apresentacao/Telas/HomeWidget.dart';
+import 'package:cardapiovirtual/Apresentacao/Telas/ItensDoCardapio.dart';
 import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class AdmHomePage extends StatelessWidget {
             title: Text('Seu Cardapio'),
           ),
           backgroundColor: Color.fromARGB(255, 78, 90, 85),
-          body: ItensDoCardapio(),
+          body: CategoriasDoCardapio(),
           drawer: CustomDrawer(pageController: _pageController),
         ),
       ],

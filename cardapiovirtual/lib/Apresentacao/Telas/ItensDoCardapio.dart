@@ -1,5 +1,4 @@
-import 'package:cardapiovirtual/Apresentacao/Widgets/CardItens.dart';
-import 'package:cardapiovirtual/Apresentacao/Widgets/Drawer.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -36,46 +35,57 @@ class ItensDoCardapio extends StatelessWidget {
                           child: GridView.builder(
                             itemBuilder: (context, index) {
                                 return Container(
-                                  child: Card(
+                                  padding: EdgeInsets.all(10),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.stretch,
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                      AspectRatio(
-                                          aspectRatio: 0.6,
-                                          child: Image.network(
-                                            snapshot.data!.docs[index]['Imagem'],
-                                              fit:BoxFit.cover
-                                          ),
-
-                                      ),
-                                        Expanded(
-                                            child: Container(
-                                              child: Column(
-                                                children:[
-                                                  Text(snapshot.data!.docs[index]['Nome']),
-                                                  Text(snapshot.data!.docs[index]['Preco'].toString()),
-                                                ],
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                             FadeInImage.memoryNetwork(
+                                                  placeholder: kTransparentImage,
+                                                  image: snapshot.data!.docs[index]['Imagem'],
+                                               height: 300,
+                                               width: 300,
                                               ),
+                                            Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                Expanded(
+                                                    child: Container(
+                                                      child: Column(
+                                                        children:[
+                                                          Text(snapshot.data!.docs[index]['Nome']),
+                                                          Text(snapshot.data!.docs[index]['Preco'].toString()),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                ),
+                                              ],
                                             ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                  ),
                                 );
                             },
                             itemCount: snapshot.data!.docs.length,
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             gridDelegate: SliverQuiltedGridDelegate(
-                              crossAxisCount: 2,
+                              crossAxisCount: 1,
                               mainAxisSpacing: 1,
                               crossAxisSpacing: 1,
                               repeatPattern: QuiltedGridRepeatPattern.inverted,
                               pattern: snapshot.data!.docs.map((e) {
                                 return QuiltedGridTile(e['y'], e['x']);
                               }).toList(),
+
                             ),
+
                           ),
                         );
                   }

@@ -36,7 +36,7 @@ class ConectaFirebase{
         'y': TamanhoEixoY
       };
 
-      FirebaseFirestore.instance.collection('Itens Cardapio').add(data);
+      FirebaseFirestore.instance.collection('Itens Cardapio').doc('Xis').collection('Xis').add(data);
     }else{
       print('valores nulos');
     }
