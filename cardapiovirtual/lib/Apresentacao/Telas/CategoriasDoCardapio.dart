@@ -10,12 +10,27 @@ class CategoriasDoCardapio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 78, 90, 85),
       bottomNavigationBar: BottomAppBar(
-        child: IconButton(
-          icon: Icon(Icons.add),
-          onPressed: (){
-          },
+        shape:  CircularNotchedRectangle(),
+        color: Color.fromARGB(255, 124, 112, 97),
+        child: Row(
+          children: [
+            IconButton(
+              style: ButtonStyle(
+              ),
+              onPressed: (){},
+              icon: Icon(Icons.filter_alt),
+            ),
+          ],
         ),
+      ),
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color.fromARGB(255, 150, 0, 0),
+        onPressed: (){},
+        child: Icon(Icons.add),
       ),
       body: Stack(
         children: [
@@ -39,12 +54,27 @@ class CategoriasDoCardapio extends StatelessWidget {
                       SliverToBoxAdapter(
                         child: GridView.builder(
                           itemBuilder: (context, index) {
-                            return ElevatedButton(
+                            return
+                             ElevatedButton(
+                                style: ButtonStyle(
+                                  fixedSize: MaterialStateProperty.all(
+                                    Size(180, 180),
+                                  ),
+                                  shadowColor: MaterialStateProperty.all(
+                                    Colors.transparent,
+                                  ),
+                                  backgroundColor: MaterialStateProperty.all(
+                                    Colors.transparent,
+                                  ),
+                                  enableFeedback: true,
+                                ),
                                 onPressed: (){
 
                                 },
                                 child: Container(
-                                  padding: EdgeInsets.all(10),
+                                  height: 200,
+                                  width: 200,
+                                  padding: EdgeInsets.all(0),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.stretch,
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -52,13 +82,24 @@ class CategoriasDoCardapio extends StatelessWidget {
                                       FadeInImage.memoryNetwork(
                                         placeholder: kTransparentImage,
                                         image: snapshot.data!.docs[index]['Imagem'],
-                                        width: 150,
+                                        width: 125,
+                                        height: 125,
+                                        fit: BoxFit.cover,
                                       ),
                                       Expanded(
                                         child: Container(
                                           child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children:[
-                                              Text(snapshot.data!.docs[index]['Nome']),
+                                              Text(
+                                                  snapshot.data!.docs[index]['Nome'],
+                                                  style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
+                                                    color:Colors.white,
+                                                  ),
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -68,7 +109,6 @@ class CategoriasDoCardapio extends StatelessWidget {
                                 ),
                             );
                           },
-
                           itemCount: snapshot.data!.docs.length,
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
