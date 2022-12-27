@@ -14,7 +14,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
-  bool? teste;
+  bool? salvaSenha = false;
 
   @override
   Widget build(BuildContext context) {
@@ -87,9 +87,12 @@ class _LoginPageState extends State<LoginPage> {
                 child: Row(
                   children: [
                     Checkbox(
-                        value: false,
+                        value: salvaSenha,
                         onChanged: (value) {
-                          print('teste');
+                         setState(() {
+                           value = true;
+                           salvaSenha = true;
+                         });
                         }),
                     Text('Lembrar da senha ?'),
                   ],

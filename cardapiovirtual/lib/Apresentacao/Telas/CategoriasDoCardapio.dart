@@ -1,3 +1,5 @@
+import 'package:cardapiovirtual/Apresentacao/Telas/CriaCategoriasScreen.dart';
+import 'package:cardapiovirtual/Apresentacao/Telas/ItensDoCardapio.dart';
 import 'package:cardapiovirtual/Apresentacao/Telas/ListTile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +7,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class CategoriasDoCardapio extends StatelessWidget {
-  const CategoriasDoCardapio({Key? key}) : super(key: key);
+
+  String? Itens;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,9 @@ class CategoriasDoCardapio extends StatelessWidget {
             IconButton(
               style: ButtonStyle(
               ),
-              onPressed: (){},
+              onPressed: (){
+
+              },
               icon: Icon(Icons.filter_alt),
             ),
           ],
@@ -29,7 +34,9 @@ class CategoriasDoCardapio extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color.fromARGB(255, 150, 0, 0),
-        onPressed: (){},
+        onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => CriaCategoria(),));
+        },
         child: Icon(Icons.add),
       ),
       body: Stack(
@@ -69,7 +76,9 @@ class CategoriasDoCardapio extends StatelessWidget {
                                   enableFeedback: true,
                                 ),
                                 onPressed: (){
-
+                                  Itens = snapshot.data!.docs[index]['Nome'];
+                                  print('Categpria do Categoria Do Cardapio $Itens');
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => ItensDoCardapio(Itens: Itens!),),);
                                 },
                                 child: Container(
                                   height: 200,

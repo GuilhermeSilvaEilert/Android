@@ -9,14 +9,14 @@ import 'package:image_picker/image_picker.dart';
 
 class ConectaFirebase{
 
-  Future<void> sendDados({String? NomeProduto, double? preco, File? imgFile}) async {
+  Future<void> sendDados({String? NomeProduto, double? preco, File? imgFile, String? categoria, String? descricao}) async {
     await Firebase.initializeApp();
 
     int TamanhoEixoX = 1;
     int TamanhoEixoY = 1;
 
 
-    if (imgFile != null && NomeProduto != null && preco != null) {
+    if (imgFile != null && NomeProduto != null && preco != null && categoria != null) {
 
       UploadTask task = FirebaseStorage.instance
           .ref()
@@ -30,12 +30,13 @@ class ConectaFirebase{
         'Nome': NomeProduto,
         'Preco': preco,
         'Imagem': url,
+        'Descrição': descricao,
         'time': Timestamp.now(),
         'x': TamanhoEixoX,
         'y': TamanhoEixoY
       };
 
-      FirebaseFirestore.instance.collection('Itens Cardapio').doc('Xis').collection('Xis').add(data);
+      FirebaseFirestore.instance.collection('Itens Cardapio').doc(categoria).collection('Itens').add(data);
     }else{
       print('valores nulos');
     }
@@ -65,10 +66,33 @@ class ConectaFirebase{
         'y': TamanhoEixoY
       };
 
-      FirebaseFirestore.instance.collection('Itens Cardapio').add(data);
+      FirebaseFirestore.instance.collection('Itens Cardapio').doc(NomeCategoria).set(data);
     }else{
       print('valores nulos');
     }
 
   }
+
+  Future ListaItens() async{
+    await Firebase.initializeApp();
+    FirebaseFirestore.instance.collection('Itens Cardapio').get();
+  }
+
+   RetornaLista() async{
+    final List list = [];
+    final QuerySnapshot result = await Future.value(
+        FirebaseFirestore
+            .instance
+            .collection('Itens Cardapio')!.get()
+    );
+    int tamanhoArray =  (result!.docs!.length)-1;
+    for(int i = 0; i<=tamanhoArray; i++){
+      print(result.docs[i]['Nome']);
+      list!.add( result.docs[i]['Nome']);
+      print(list);
+    }
+    return list;
+  }
+
 }
+
