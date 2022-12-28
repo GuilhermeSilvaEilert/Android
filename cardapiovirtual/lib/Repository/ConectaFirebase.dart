@@ -30,7 +30,7 @@ class ConectaFirebase{
         'Nome': NomeProduto,
         'Preco': preco,
         'Imagem': url,
-        'Descrição': descricao,
+        'Descricao': descricao,
         'time': Timestamp.now(),
         'x': TamanhoEixoX,
         'y': TamanhoEixoY
@@ -66,7 +66,7 @@ class ConectaFirebase{
         'y': TamanhoEixoY
       };
 
-      FirebaseFirestore.instance.collection('Itens Cardapio').doc(NomeCategoria).set(data);
+      FirebaseFirestore.instance.collection('Itens Cardapio').doc(NomeCategoria).collection('Itens').add(data);
     }else{
       print('valores nulos');
     }

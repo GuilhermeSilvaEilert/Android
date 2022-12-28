@@ -21,29 +21,24 @@ class ItensDoCardapio extends StatelessWidget {
         children: [
           CustomScrollView(
             slivers: [
-              FutureBuilder<QuerySnapshot>(
+              FutureBuilder(
                 future: FirebaseFirestore.instance
                     .collection('Itens Cardapio')
                     .doc(Itens)
                     .collection('Itens')
                     .get(),
                 builder: (context, snapshot) {
+                  //print('Itens do Cardapio de $Itens');
                   if (!snapshot.hasData) {
                     return SliverToBoxAdapter(
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: const CircularProgressIndicator(
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
-                        ),
-                      ),
+                      child: CircularProgressIndicator(),
                     );
                   } else {
-                    return SliverToBoxAdapter(
+                    print('Retorna Sliver');
+                    return  SliverToBoxAdapter(
                       child: GridView.builder(
                         itemBuilder: (context, index) {
-                          return Container(
-                            child: Column(
+                          return Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -109,12 +104,15 @@ class ItensDoCardapio extends StatelessWidget {
                                           ),
                                         ),
                                         onPressed: () {
-                                          print(
-                                              'Categoria do Itens do Cardapio $Itens');
+                                         // print('Categoria do Itens do Cardapio $Itens');
                                           String Nome = snapshot.data?.docs[index]['Nome'];
+                                          print('Nome do Produto $Nome');
                                           double Preco = snapshot.data?.docs[index]['Preco'];
+                                          print('Preco do Produto $Preco');
                                           String Image = snapshot.data?.docs[index]['Imagem'];
+                                          print('Foto do Produto $Image');
                                           String Descricao = snapshot.data?.docs[index]['Descricao'];
+                                          print('Descrição do produto $Descricao');
                                           Navigator.of(context).push(MaterialPageRoute(
                                               builder: (context) => ApresentaProdutos(
                                                 Descricao: Descricao,
@@ -130,10 +128,9 @@ class ItensDoCardapio extends StatelessWidget {
                                   ),
                                 ),
                               ],
-                            ),
-                          );
+                            );
                         },
-                        itemCount: snapshot.data!.docs.length,
+                        itemCount: snapshot.data?.docs.length,
                         shrinkWrap: true,
                         gridDelegate: SliverQuiltedGridDelegate(
                           crossAxisCount: 2,

@@ -1,7 +1,5 @@
 import 'dart:io';
 import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
-import 'package:cardapiovirtual/Repository/itensData.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,13 +33,13 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
     final QuerySnapshot result = await Future.value(
         FirebaseFirestore
             .instance
-            .collection('Itens Cardapio')!.get()
+            .collection('Itens Cardapio').get()
     );
       if(list.isEmpty) {
-        int tamanhoArray = (result!.docs!.length) - 1;
+        int tamanhoArray = (result.docs.length) - 1;
         for (int i = 0; i <= tamanhoArray; i++) {
           print(result.docs[i]['Nome']);
-          list!.add(result.docs[i]['Nome']);
+          list.add(result.docs[i]['Nome']);
           print(list);
         }
       }

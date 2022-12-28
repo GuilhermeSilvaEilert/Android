@@ -106,7 +106,7 @@ class HomeWidget extends StatelessWidget {
                                   .collection('Itens Cardapio')
                                   .get(),
                               builder: (context, snapshot){
-                                return Text('${snapshot.data!.docs.length} itens \nno cardapio',
+                                return Text('${snapshot.data?.docs.length} itens \nno cardapio',
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
