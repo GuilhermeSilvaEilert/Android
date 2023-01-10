@@ -17,7 +17,6 @@ class AdmHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageView(
-      physics: const NeverScrollableScrollPhysics(),
       controller: _pageController,
       children: [
         Scaffold(

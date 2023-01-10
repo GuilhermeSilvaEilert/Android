@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class CriaCategoria extends StatefulWidget {
-  const CriaCategoria({Key? key}) : super(key: key);
+class AtualizaCategoria extends StatefulWidget {
+  AtualizaCategoria({Key? key,
+    this.NomeCategoria,
+    this.LocalArquivo,
+    this.NomeArquivo}) : super(key: key);
+
+  String? NomeCategoria;
+  String? NomeArquivo;
+  String? LocalArquivo;
 
   @override
-  State<CriaCategoria> createState() => _CriaCategoria();
+  State<AtualizaCategoria> createState() => _AtualizaCategoria();
 }
 
-class _CriaCategoria extends State<CriaCategoria> {
+class _AtualizaCategoria extends State<AtualizaCategoria> {
 
   final ImagePicker _picker = ImagePicker();
   ConectaFirebase conectaFirebase = ConectaFirebase();
   File? fileSend;
   XFile? imgFile;
-  final TextEditingController nomeCategoria = TextEditingController();
+  TextEditingController nomeCategoria = TextEditingController();
   String? file;
 
   @override
@@ -25,7 +31,7 @@ class _CriaCategoria extends State<CriaCategoria> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 78, 90, 85),
-        title: Text('Adicione um item',
+        title: Text('Atualize a Categoria ${widget.NomeCategoria}',
           style: TextStyle(
               fontWeight: FontWeight.bold
           ),
@@ -151,6 +157,7 @@ class _CriaCategoria extends State<CriaCategoria> {
                 ),
               ),
             ),
+
             SizedBox(height: 50,),
             TextButton(
               style: ButtonStyle(
@@ -159,13 +166,18 @@ class _CriaCategoria extends State<CriaCategoria> {
                 ),
               ),
               onPressed: (){
-                conectaFirebase.CriaCategoria(
+
+                if(nomeCategoria.text.isEmpty){
+                  nomeCategoria.text = 'Vazia';
+                }
+                conectaFirebase.AtualizaCategoria(
+                  localFile: widget.LocalArquivo,
                   imgFile: fileSend,
                   NomeCategoria: nomeCategoria.text,
-                  localFile: file,
+                  oldimgFile: widget.NomeArquivo,
+                  oldlocalFile: widget.LocalArquivo,
+                  oldNomecategoria: widget.NomeCategoria,
                 );
-
-                nomeCategoria.clear();
               },
               child: Padding(
                 padding: const EdgeInsets.only( top: 9, right: 50, left: 50, bottom: 9),

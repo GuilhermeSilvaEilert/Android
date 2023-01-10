@@ -24,8 +24,8 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
   final TextEditingController precoProduto = TextEditingController();
   final TextEditingController categoriaProduto = TextEditingController();
   final TextEditingController descricaoProduto = TextEditingController();
-  
 
+  String? file;
 
   String? valorDropDonw;
 
@@ -100,13 +100,15 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
                                           padding: const EdgeInsets.all(8.0),
                                           child: FloatingActionButton(
                                             onPressed: () async {
-
                                               imgFile = await _picker.pickImage(source: ImageSource.camera);
+                                              print(imgFile);
                                               setState(() {
                                                 if(imgFile == null){
                                                   return;
                                                 }else{
                                                   fileSend = File(imgFile!.path);
+                                                  file = fileSend.toString();
+                                                  print(fileSend);
                                                 }
                                               });
                                               Navigator.pop(context);
@@ -132,6 +134,8 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
                                                   return;
                                                 }else{
                                                   fileSend = File(imgFile!.path);
+                                                  file = fileSend.toString();
+                                                  print(fileSend);
                                                 }
                                               });
                                               Navigator.pop(context);
@@ -154,6 +158,7 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
                         return;
                       }else{
                         fileSend = File(imgFile!.path);
+                        file = fileSend.toString();
                       }
                     });
                   },
@@ -252,7 +257,6 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
                                   FirstItem = value;
                                 });
                                 categoriaProduto.text = FirstItem;
-                                print(categoriaProduto);
                               },
 
                               items: list.map((item) => DropdownMenuItem<dynamic>(
@@ -271,7 +275,6 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
                           ),
                         );
                       }
-
                     }
                 ),
                 SizedBox(height: 20,),
@@ -313,10 +316,12 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
                       imgFile: fileSend,
                       categoria: categoriaProduto.text,
                       descricao: descricaoProduto.text,
+                      file: file,
                     );
                     print(categoriaProduto);
                     nomeProduto.clear();
                     precoProduto.clear();
+                    descricaoProduto.clear();
                     print(categoriaProduto);
                   },
                   child: Padding(
@@ -345,7 +350,6 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
           ),
         ),
       ],
-
      ),
     );
   }
