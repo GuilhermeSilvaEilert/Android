@@ -183,10 +183,10 @@ class _GridItensCardapioState extends State<GridItensCardapio> {
                                   print('Descrição do produto $Descricao');
                                   Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => ApresentaProdutos(
-                                      Descricao: Descricao,
-                                      Imagem: Image,
-                                      Nome: Nome,
-                                      Preco: Preco,
+                                      descricao: Descricao,
+                                      imagem: Image,
+                                      nome: Nome,
+                                      preco: Preco,
                                     ),
                                   ),
                                   );

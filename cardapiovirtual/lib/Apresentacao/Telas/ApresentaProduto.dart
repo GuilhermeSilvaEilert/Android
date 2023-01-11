@@ -1,34 +1,39 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// ignore_for_file: file_names, must_be_immutable
+
 import 'package:flutter/material.dart';
 
-class ApresentaProdutos extends StatelessWidget {
-  ApresentaProdutos({required this.Nome,
-    required this.Descricao,
-    required this.Imagem,
-    required this.Preco});
+class ApresentaProdutos extends StatefulWidget {
+  ApresentaProdutos({super.key, required this.nome,
+    required this.descricao,
+    required this.imagem,
+    required this.preco});
 
-  String Nome;
-  String Descricao;
-  String Imagem;
-  double Preco;
+  String nome;
+  String descricao;
+  String imagem;
+  double preco;
 
+  @override
+  State<ApresentaProdutos> createState() => _ApresentaProdutosState();
+}
 
+class _ApresentaProdutosState extends State<ApresentaProdutos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 124, 112, 97),
+      backgroundColor: const Color.fromARGB(255, 124, 112, 97),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 78, 90, 85),
-        title: Text(Nome,
+        backgroundColor: const Color.fromARGB(255, 78, 90, 85),
+        title: Text(widget.nome,
           textAlign: TextAlign.center,
         ),
         centerTitle: true,
       ),
-      body: Nome == null ? Center(child: CircularProgressIndicator(),)
+      body: widget.nome == null ? const Center(child: CircularProgressIndicator(),)
           :Card(
         shadowColor: Colors.transparent,
         borderOnForeground: false,
-        color: Color.fromARGB(255, 124, 112, 97),
+        color: const Color.fromARGB(255, 124, 112, 97),
         child: Container(
           height: 500,
           width: 500,
@@ -36,23 +41,23 @@ class ApresentaProdutos extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.network(
-                Imagem,
+                widget.imagem,
                 fit: BoxFit.cover,
                 width: 300,
                 height: 300,
               ),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               Container(
                 height: 60,
                 width: 400,
-                padding: EdgeInsets.only(left: 50),
+                padding: const EdgeInsets.only(left: 50),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(width: 50,),
-                    Text(Nome,
-                      style: TextStyle(
+                    const SizedBox(width: 50,),
+                    Text(widget.nome,
+                      style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 25,
                           color: Colors.white
@@ -60,8 +65,8 @@ class ApresentaProdutos extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 100),
-                      child: Text('R\$ ${Preco}',
-                        style: TextStyle(
+                      child: Text('R\$ ${widget.preco}',
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 25,
                             color: Colors.white
@@ -71,11 +76,11 @@ class ApresentaProdutos extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               Container(
-                padding: EdgeInsets.only(left: 50, right: 50),
-                child: Text(Descricao,
-                  style: TextStyle(
+                padding: const EdgeInsets.only(left: 50, right: 50),
+                child: Text(widget.descricao,
+                  style: const TextStyle(
                       fontSize: 15,
                       color: Colors.white
                   ),

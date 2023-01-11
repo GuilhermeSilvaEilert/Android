@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:io';
 import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -29,7 +31,7 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
 
   String? valorDropDonw;
 
-  RetornaLista() async {
+  retornaLista() async {
     final QuerySnapshot result = await Future.value(
         FirebaseFirestore
             .instance
@@ -38,41 +40,39 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
       if(list.isEmpty) {
         int tamanhoArray = (result.docs.length) - 1;
         for (int i = 0; i <= tamanhoArray; i++) {
-          print(result.docs[i]['Nome']);
           list.add(result.docs[i]['Nome']);
-          print(list);
         }
       }
     return list;
   }
 
-  dynamic FirstItem;// = list.first;
+  dynamic firstItem;// = list.first;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 78, 90, 85),
-        title: Text('Adicione um item',
+        backgroundColor: const Color.fromARGB(255, 78, 90, 85),
+        title: const Text('Adicione um item',
           style: TextStyle(
             fontWeight: FontWeight.bold
           ),
         ),
       ),
-     backgroundColor: Color.fromARGB(255, 78, 90, 85),
+     backgroundColor: const Color.fromARGB(255, 78, 90, 85),
      body: CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
           child: Container(
-            padding: EdgeInsets.fromLTRB(20, 40, 20, 0),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.fromLTRB(20, 40, 20, 0),
+            decoration: const BoxDecoration(
 
               color: Color.fromARGB(255, 78, 90, 85),
             ),
             child: Column(
               children: [
                 ElevatedButton(
-                  style: ButtonStyle(
+                  style: const ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(
                         Colors.transparent
                     ),
@@ -88,7 +88,7 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
                             builder: (context){
                               LogicalKeyboardKey.close;
                               return Container(
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   mainAxisSize: MainAxisSize.min,
@@ -101,23 +101,20 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
                                           child: FloatingActionButton(
                                             onPressed: () async {
                                               imgFile = await _picker.pickImage(source: ImageSource.camera);
-                                              print(imgFile);
                                               setState(() {
                                                 if(imgFile == null){
                                                   return;
                                                 }else{
                                                   fileSend = File(imgFile!.path);
                                                   file = fileSend.toString();
-                                                  print(fileSend);
                                                 }
                                               });
-                                              Navigator.pop(context);
                                             },
                                             backgroundColor: Colors.red,
-                                            child:  Icon(Icons.photo_camera, color: Colors.white),
+                                            child:  const Icon(Icons.photo_camera, color: Colors.white),
                                           ),
                                         ),
-                                        Text('Camera'),
+                                        const Text('Camera'),
                                       ],
                                     ),
                                     Column(
@@ -135,15 +132,13 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
                                                 }else{
                                                   fileSend = File(imgFile!.path);
                                                   file = fileSend.toString();
-                                                  print(fileSend);
                                                 }
                                               });
-                                              Navigator.pop(context);
                                             },
-                                            child: Icon(Icons.photo_album, color: Colors.white),
+                                            child: const Icon(Icons.photo_album, color: Colors.white),
                                           ),
                                         ),
-                                        Text('Galeria'),
+                                        const Text('Galeria'),
                                       ],
                                     ),
                                   ],
@@ -170,13 +165,13 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
                         fit: BoxFit.cover,
                         image: imgFile != null ?
                         FileImage(File(imgFile!.path),) :
-                        AssetImage('Assets/cardapio/AddComida.png',
+                        const AssetImage('Assets/cardapio/AddComida.png',
                         ) as ImageProvider,
                       ),
                     ),
                   ),
                 ),
-                SizedBox(height: 40,),
+                const SizedBox(height: 40,),
                 TextField(
                   controller: nomeProduto,
                   cursorColor: Colors.black,
@@ -186,17 +181,17 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
                     hoverColor: Colors.black,
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
-                      borderSide:BorderSide(color: Colors.black),
+                      borderSide:const BorderSide(color: Colors.black),
                     ),
                     hintText: 'Nome do Produto',
-                    counterStyle: TextStyle(color: Colors.black),
-                    labelStyle: TextStyle(color: Colors.black,),
+                    counterStyle: const TextStyle(color: Colors.black),
+                    labelStyle: const TextStyle(color: Colors.black,),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
                   ),
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 TextField(
                   controller: precoProduto,
                   keyboardType: TextInputType.number,
@@ -207,25 +202,25 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
                     hoverColor: Colors.black,
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
-                      borderSide:BorderSide(color: Colors.black),
+                      borderSide:const BorderSide(color: Colors.black),
                     ),
                     hintText: 'Preço do Produto',
-                    counterStyle: TextStyle(color: Colors.black),
-                    labelStyle: TextStyle(color: Colors.black,),
+                    counterStyle: const TextStyle(color: Colors.black),
+                    labelStyle: const TextStyle(color: Colors.black,),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
                   ),
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 FutureBuilder(
-                    future: RetornaLista(),
+                    future: retornaLista(),
                     builder: (context, snapshot) {
                       if(list.isEmpty){
-                        return CircularProgressIndicator();
+                        return const CircularProgressIndicator();
                       }else{
                         return Container(
-                          padding: EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
                           width: 400,
                           height: 60,
                           decoration: BoxDecoration(
@@ -250,13 +245,13 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
                                   ),
                                 ],
                               ),
-                              value: FirstItem,
+                              value: firstItem,
                               isExpanded: true,
                               onChanged: (value){
                                 setState(() {
-                                  FirstItem = value;
+                                  firstItem = value;
                                 });
-                                categoriaProduto.text = FirstItem;
+                                categoriaProduto.text = firstItem;
                               },
 
                               items: list.map((item) => DropdownMenuItem<dynamic>(
@@ -277,7 +272,7 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
                       }
                     }
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 Container(
                   height: 200,
                   width: 400,
@@ -291,22 +286,22 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
                         hoverColor: Colors.black,
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
-                          borderSide:BorderSide(color: Colors.black),
+                          borderSide:const BorderSide(color: Colors.black),
                         ),
                         hintText: 'Descrição do produto',
-                        counterStyle: TextStyle(color: Colors.black),
-                        labelStyle: TextStyle(color: Colors.black,),
+                        counterStyle: const TextStyle(color: Colors.black),
+                        labelStyle: const TextStyle(color: Colors.black,),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
                       ),
                     ),
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 TextButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
-                      Color.fromARGB(255, 150, 0, 0),
+                      const Color.fromARGB(255, 150, 0, 0),
                     ),
                   ),
                   onPressed: (){
@@ -318,18 +313,16 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
                       descricao: descricaoProduto.text,
                       file: file,
                     );
-                    print(categoriaProduto);
                     nomeProduto.clear();
                     precoProduto.clear();
                     descricaoProduto.clear();
-                    print(categoriaProduto);
                   },
                   child: Padding(
                     padding: const EdgeInsets.only( top: 9, right: 50, left: 50, bottom: 9),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: const [
                         Icon(Icons.save,
                           size: 30,
                           color: Colors.white,

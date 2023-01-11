@@ -1,12 +1,12 @@
-import 'package:cardapiovirtual/Apresentacao/AdicionaItemCardapio/AdicionaItemCardapio.dart';
+import 'package:cardapiovirtual/Apresentacao/AdicionaItemCardapio/AdicionaItemCardapio.dart' show AdicionaItemCardapio;
 import 'package:cardapiovirtual/Apresentacao/Telas/CriaCategoriasScreen.dart';
+import 'package:cardapiovirtual/Apresentacao/Telas/ListViewGridViewUnico/GridView.dart';
+import 'package:cardapiovirtual/Apresentacao/Telas/ListViewGridViewUnico/ListView.dart';
 import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floating_action_bubble/floating_action_bubble.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'Widgets/GridItens.dart';
-import 'Widgets/ListaItens.dart';
 
 class CategoriasDoCardapio extends StatefulWidget {
   const CategoriasDoCardapio({Key? key}) : super(key: key);
@@ -192,7 +192,10 @@ class _CategoriasDoCardapioState extends State<CategoriasDoCardapio> with Single
                             ),
                           )
                               :
-                              ListaItens()
+                          ListaViewUnico(
+                            categoriaOuItem: true,
+                          )
+                              //ListaItens()
                               : consultaCategorias == 0 || consultaCategorias == null ?
                            Center(
                             heightFactor: 20,
@@ -208,7 +211,11 @@ class _CategoriasDoCardapioState extends State<CategoriasDoCardapio> with Single
                               :
                           Container(
                             padding: EdgeInsets.only(top: 10),
-                              child: GridItens()
+                              child: GridViewItens(
+                                categoriaOuItem: true,
+                                crossAxisCount: 2,
+                              )
+                                    // GridItens()
                           ),
                         );
                     }

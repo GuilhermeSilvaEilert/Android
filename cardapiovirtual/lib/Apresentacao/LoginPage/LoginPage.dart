@@ -1,8 +1,6 @@
+// ignore_for_file: file_names
+
 import 'package:cardapiovirtual/Apresentacao/HomePage.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -21,17 +19,17 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(50),
+        padding: const EdgeInsets.all(50),
         alignment: Alignment.topCenter,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Color.fromARGB(255, 78, 90, 85),
         ),
           child: Column(
             children:[
               Image.asset('Assets/LogoMarca/LogoMarcaTG.png', height: 100, width: 100,),
               Container(
-                padding: EdgeInsets.all(30),
-                  child: Text('Bem Vindo', style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),
+                padding: const EdgeInsets.all(30),
+                  child: const Text('Bem Vindo', style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),
                   ),
               ),
               Container(
@@ -47,11 +45,11 @@ class _LoginPageState extends State<LoginPage> {
                     focusedBorder: OutlineInputBorder(
                       gapPadding: 10,
                       borderRadius: BorderRadius.circular(15),
-                      borderSide:BorderSide(color: Colors.black),
+                      borderSide:const BorderSide(color: Colors.black),
                     ),
                     hintText: 'Login',
-                    counterStyle: TextStyle(color: Colors.black),
-                    labelStyle: TextStyle(color: Colors.black,),
+                    counterStyle: const TextStyle(color: Colors.black),
+                    labelStyle: const TextStyle(color: Colors.black,),
                     border: OutlineInputBorder(
                      borderRadius: BorderRadius.circular(15),
                     ),
@@ -70,11 +68,11 @@ class _LoginPageState extends State<LoginPage> {
                     hoverColor: Colors.black,
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
-                      borderSide:BorderSide(color: Colors.black),
+                      borderSide:const BorderSide(color: Colors.black),
                     ),
                     hintText: 'Senha',
-                    counterStyle: TextStyle(color: Colors.black),
-                    labelStyle: TextStyle(color: Colors.black,),
+                    counterStyle: const TextStyle(color: Colors.black),
+                    labelStyle: const TextStyle(color: Colors.black,),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
@@ -83,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
 
               Padding(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 child: Row(
                   children: [
                     Checkbox(
@@ -94,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                            salvaSenha = true;
                          });
                         }),
-                    Text('Lembrar da senha ?'),
+                    const Text('Lembrar da senha ?'),
                   ],
                 ),
               ),
@@ -103,22 +101,22 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => AdmHomePage()));
                 },
-                child: Padding(
-                  padding: const EdgeInsets.only( top: 9, right: 60, left: 60, bottom: 9),
-                  child: Text('LOGIN',
-                              style: TextStyle(
-                              color: Colors.white
-                            ),
-                          ),
-                ),
                 style:  ButtonStyle(
                   shape:MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(0),
                     ),
                   ),
-                  backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 150, 0, 0),
+                  backgroundColor: const MaterialStatePropertyAll(Color.fromARGB(255, 150, 0, 0),
                   ),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.only( top: 9, right: 60, left: 60, bottom: 9),
+                  child: Text('LOGIN',
+                              style: TextStyle(
+                              color: Colors.white
+                            ),
+                          ),
                 ),
               ),
             ]

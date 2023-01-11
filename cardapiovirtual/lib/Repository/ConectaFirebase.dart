@@ -127,7 +127,7 @@ class ConectaFirebase {
       UploadTask task = FirebaseStorage.instance
           .ref()
           .child('$imgFile')
-          .putFile(imgFile!);
+          .putFile(imgFile);
 
       TaskSnapshot taskSnapshot = await task;
 
@@ -168,7 +168,7 @@ class ConectaFirebase {
       UploadTask task = FirebaseStorage.instance
           .ref()
           .child('$imgFile')
-          .putFile(imgFile!);
+          .putFile(imgFile);
 
       TaskSnapshot taskSnapshot = await task;
 
@@ -234,7 +234,7 @@ class ConectaFirebase {
       UploadTask task = FirebaseStorage.instance
           .ref()
           .child('$imgFile')
-          .putFile(imgFile!);
+          .putFile(imgFile);
 
       TaskSnapshot taskSnapshot = await task;
 
