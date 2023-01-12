@@ -1,23 +1,19 @@
+import 'dart:io';
+
 import 'package:cardapiovirtual/Apresentacao/Telas/ItensDoCardapio.dart';
 import 'package:cardapiovirtual/Apresentacao/Telas/ListViewGridViewUnico/layoutButton/layouElevatedButtonCategoryGrid.dart';
-import 'package:cardapiovirtual/Apresentacao/Telas/ListViewGridViewUnico/layoutButton/layoutElevatedButtonList.dart';
-import 'package:cardapiovirtual/Apresentacao/Telas/ListViewGridViewUnico/layoutButton/layoutElevatedItens.dart';
+import 'package:cardapiovirtual/Apresentacao/Telas/ListViewGridViewUnico/layoutButton/layoutElevatedButtonItenGrid.dart';
 import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:cardapiovirtual/Apresentacao/Telas/TelaAtualizaCategoria.dart';
-
 import '../ApresentaProduto.dart';
 
-class GridViewItens extends StatelessWidget {
+class GridViewItens extends StatefulWidget {
   GridViewItens({
     Key? key,
     this.categoria,
-    this.resultadoConsulta,
-    this.Itens,
     this.categoriaOuItem,
     this.crossAxisCount
   }) : super(key: key);
@@ -26,7 +22,17 @@ class GridViewItens extends StatelessWidget {
   String? categoria;
   int? crossAxisCount;
 
+  @override
+  State<GridViewItens> createState() => _GridViewItensState();
+}
+
+class _GridViewItensState extends State<GridViewItens> {
   ConectaFirebase conectaFirebase = ConectaFirebase();
+  @override
+  void initState() {
+    // TODO: implement initState
+    FirebaseFirestore.instance.collection('Itens Cardapio').get();
+  }
 
   var existeItens;
 
@@ -37,6 +43,8 @@ class GridViewItens extends StatelessWidget {
   var decisao;
 
   int? consultaCategorias;
+
+  int? QtdItens;
 
   Future<int?> ValidaExistenciaDeDados(String? Categoria) async {
     final QuerySnapshot result = await Future.value(
@@ -67,14 +75,20 @@ class GridViewItens extends StatelessWidget {
     return consultaCategorias!;
   }
 
+  AtualizaDados() async{
+    setState(() {
+      FirebaseFirestore.instance.collection('Itens Cardapio').get();
+    });
+  }
+
   String? Itens;
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<QuerySnapshot>(
-      future:categoriaOuItem == true ?
+      future:widget.categoriaOuItem == true ?
       FirebaseFirestore.instance.collection('Itens Cardapio').get() :
-      FirebaseFirestore.instance.collection('Itens Cardapio').doc(categoria).collection('Itens').get(),
+      FirebaseFirestore.instance.collection('Itens Cardapio').doc(widget.categoria).collection('Itens').get(),
       builder: (context, snapshot) {
         ValidaExistenciaCategoria();
         if (!snapshot.hasData) {
@@ -85,8 +99,10 @@ class GridViewItens extends StatelessWidget {
             ),
           );
         } else {
+          AtualizaDados();
           return GridView.builder(
             itemBuilder: (context, index) {
+              AtualizaDados();
               return ElevatedButton(
                 style: ButtonStyle(
                   fixedSize: MaterialStateProperty.all(
@@ -100,8 +116,9 @@ class GridViewItens extends StatelessWidget {
                   ),
                   enableFeedback: true,
                 ),
+
                 onPressed: () async {
-                  if(categoriaOuItem == true){
+                  if(widget.categoriaOuItem == true){
                     Itens = snapshot.data!.docs[index]['Nome'];
                     await ValidaExistenciaDeDados(Itens);
                     print(resultadoConsulta);
@@ -151,29 +168,31 @@ class GridViewItens extends StatelessWidget {
                               imagem: Image,
                               preco: Preco),
                     ));
+                    initState();
                   }
                 },
-                child: categoriaOuItem == true ?
+                child: widget.categoriaOuItem == true ?
                 layoutElevatedCategotyGrid(
                   LocalStorage: snapshot.data!.docs[index]['LocalStorage'],
                   Imagem: snapshot.data!.docs[index]['Imagem'],
                   Nome: snapshot.data!.docs[index]['Nome'],
                 )
                   :
-              layoutItens(
-              Nome: snapshot.data!.docs[index]['Nome'],
-              Imagem: snapshot.data?.docs[index]['Imagem'],
-              LocalStorage: snapshot.data!.docs[index]['LocalStorage'],
-              Categoria: categoria,
-              Preco:  snapshot.data!.docs[index]['Preco'],
-              ),
+                layoutElevatedGridItens(
+                  Descricao: snapshot.data!.docs[index]['Descricao'],
+                  Nome: snapshot.data!.docs[index]['Nome'],
+                  Imagem: snapshot.data?.docs[index]['Imagem'],
+                  LocalStorage: snapshot.data!.docs[index]['LocalStorage'],
+                  categoria: widget.categoria,
+                  Preco:  snapshot.data!.docs[index]['Preco'],
+                ),
               );
             },
             itemCount: snapshot.data!.docs.length,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: SliverQuiltedGridDelegate(
-              crossAxisCount: crossAxisCount!,
+              crossAxisCount: widget.crossAxisCount!,
               mainAxisSpacing: 1,
               crossAxisSpacing: 1,
               repeatPattern: QuiltedGridRepeatPattern.inverted,
@@ -186,4 +205,9 @@ class GridViewItens extends StatelessWidget {
       },
     );
   }
+
+  Future _onBackPressed() {
+    return FirebaseFirestore.instance.collection('Itens Cardapio').get();
+  }
+
 }

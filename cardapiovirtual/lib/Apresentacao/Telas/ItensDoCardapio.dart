@@ -1,15 +1,8 @@
-import 'package:cardapiovirtual/Apresentacao/Telas/ApresentaProduto.dart';
+import 'package:cardapiovirtual/Apresentacao/Telas/ListViewGridViewUnico/GridView.dart';
 import 'package:cardapiovirtual/Apresentacao/Telas/ListViewGridViewUnico/ListView.dart';
-import 'package:cardapiovirtual/Apresentacao/Telas/TelaDeAtualizarItem.dart';
-import 'package:cardapiovirtual/Apresentacao/Telas/WidgetsItensDoCardapio/GridItensCardapio.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:transparent_image/transparent_image.dart';
-
 import '../../Repository/ConectaFirebase.dart';
-import 'Widgets/GridItens.dart';
 
 class ItensDoCardapio extends StatefulWidget {
   ItensDoCardapio({required this.Itens});
@@ -119,8 +112,10 @@ class _ItensDoCardapioState extends State<ItensDoCardapio> {
                       :
                       Container(
                         padding: EdgeInsets.only(top: 10),
-                        child: GridItensCardapio(
-                          Itens: Itens,
+                        child: GridViewItens(
+                          categoriaOuItem: false,
+                          crossAxisCount: 1,
+                          categoria: Itens,
                         ),
                       ),
                     );

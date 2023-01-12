@@ -80,7 +80,6 @@ class layoutElevatedCategotyGrid extends StatelessWidget {
                     await FirebaseStorage.instance
                         .ref(LocalStorage)
                         .delete();
-
                     await FirebaseFirestore.instance
                         .collection('Itens Cardapio')
                         .doc(Nome)

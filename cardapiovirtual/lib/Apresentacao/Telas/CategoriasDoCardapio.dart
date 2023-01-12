@@ -6,7 +6,6 @@ import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
-import 'Widgets/GridItens.dart';
 
 class CategoriasDoCardapio extends StatefulWidget {
   const CategoriasDoCardapio({Key? key}) : super(key: key);
@@ -27,6 +26,14 @@ class _CategoriasDoCardapioState extends State<CategoriasDoCardapio> with Single
   int? resultadoConsulta;
   var decisao;
   int? consultaCategorias;
+  int? QuantidadeItens;
+
+  Future AtualizaPagina() async{
+      FirebaseFirestore
+          .instance
+          .collection('Itens Cardapio').get();
+  }
+
 
   Future<int> ValidaExistenciaCategoria() async {
 
@@ -52,7 +59,7 @@ class _CategoriasDoCardapioState extends State<CategoriasDoCardapio> with Single
 
     final curvedAnimation = CurvedAnimation(curve: Curves.easeInOut, parent: _animationController!);
     _animation = Tween<double>(begin: 0, end: 1).animate(curvedAnimation);
-   
+
     super.initState();
   }
 
@@ -142,6 +149,20 @@ class _CategoriasDoCardapioState extends State<CategoriasDoCardapio> with Single
                 },
              ),
             Bubble(
+              icon: Icons.restart_alt,
+              iconColor: Colors.white,
+              title: 'Recarregar',
+              titleStyle: const TextStyle(color: Colors.white),
+              bubbleColor: const Color.fromARGB(255, 150, 0, 0),
+              onPress: (){
+                setState(() {
+                  FirebaseFirestore
+                      .instance
+                      .collection('Itens Cardapio').get();
+                });
+              },
+            ),
+            Bubble(
               icon: Icons.category,
               iconColor: Colors.white,
               title: ' + Itens',
@@ -155,6 +176,7 @@ class _CategoriasDoCardapioState extends State<CategoriasDoCardapio> with Single
                 ),);
               },
             ),
+
           ],
         ),
         body: Stack(
@@ -162,8 +184,8 @@ class _CategoriasDoCardapioState extends State<CategoriasDoCardapio> with Single
             CustomScrollView(
               slivers: [
                 FutureBuilder<QuerySnapshot>(
-                  future: FirebaseFirestore.instance.
-                  collection('Itens Cardapio').get(),
+                  future: FirebaseFirestore.instance
+                      .collection('Itens Cardapio').get(),
                   builder: (context, snapshot){
                     ValidaExistenciaCategoria();
                     if(!snapshot.hasData) {

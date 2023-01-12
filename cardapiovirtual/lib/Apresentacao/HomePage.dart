@@ -6,6 +6,8 @@ import 'package:cardapiovirtual/Apresentacao/Telas/HomeWidget.dart';
 import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cardapiovirtual/CamadaDeNegócio/ConfiguracoesSistema/Configuracoes.dart';
+import 'Telas/CriandoUsuario/CriaUsuario.dart';
 
 
 class AdmHomePage extends StatelessWidget {
@@ -18,6 +20,7 @@ class AdmHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageView(
+      physics: NeverScrollableScrollPhysics(),
       controller: _pageController,
       children: [
         Scaffold(
@@ -38,6 +41,26 @@ class AdmHomePage extends StatelessWidget {
           ),
           backgroundColor: const Color.fromARGB(255, 78, 90, 85),
           body: const CategoriasDoCardapio(),
+          drawer: CustomDrawer(pageController: _pageController),
+        ),
+        Scaffold(
+          appBar: AppBar(
+            backgroundColor: const Color.fromARGB(255, 78, 90, 85),
+            centerTitle: true,
+            title: const Text('Seu Cardapio'),
+          ),
+          backgroundColor: const Color.fromARGB(255, 78, 90, 85),
+          body: const CriaUsuarioGarsom(),
+          drawer: CustomDrawer(pageController: _pageController),
+        ),
+        Scaffold(
+          appBar: AppBar(
+            backgroundColor: const Color.fromARGB(255, 78, 90, 85),
+            centerTitle: true,
+            title: const Text('Seu Cardapio'),
+          ),
+          backgroundColor: const Color.fromARGB(255, 78, 90, 85),
+          body: const Configuracoes(),
           drawer: CustomDrawer(pageController: _pageController),
         ),
       ],

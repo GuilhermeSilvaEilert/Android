@@ -267,4 +267,9 @@ class ConectaFirebase {
       print('valores nulos');
     }
   }
+
+  AtualizaDados() async{
+      FirebaseFirestore.instance.collection('Itens Cardapio').get();
+  }
+
 }

@@ -79,6 +79,7 @@ class layoutCategoria extends StatelessWidget {
                             .collection('Itens Cardapio')
                             .doc(Nome)
                             .delete();
+                        FirebaseFirestore.instance.collection('Itens Cardapio').get();
                       }
                     },
                   ),
