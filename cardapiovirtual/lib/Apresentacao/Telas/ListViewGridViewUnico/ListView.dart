@@ -1,9 +1,7 @@
 import 'package:cardapiovirtual/Apresentacao/Telas/ApresentaProduto.dart';
 import 'package:cardapiovirtual/Apresentacao/Telas/ListViewGridViewUnico/layoutButton/layoutElevatedButtonList.dart';
 import 'package:cardapiovirtual/Apresentacao/Telas/ListViewGridViewUnico/layoutButton/layoutElevatedItens.dart';
-import 'package:cardapiovirtual/Apresentacao/Telas/TelaDeAtualizarItem.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import '../../../Repository/ConectaFirebase.dart';
 import '../ItensDoCardapio.dart';

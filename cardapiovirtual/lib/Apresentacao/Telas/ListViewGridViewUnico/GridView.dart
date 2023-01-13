@@ -100,105 +100,123 @@ class _GridViewItensState extends State<GridViewItens> {
           );
         } else {
           AtualizaDados();
-          return GridView.builder(
-            itemBuilder: (context, index) {
-              AtualizaDados();
-              return ElevatedButton(
-                style: ButtonStyle(
-                  fixedSize: MaterialStateProperty.all(
-                    const Size(180, 180),
-                  ),
-                  shadowColor: MaterialStateProperty.all(
-                    Colors.transparent,
-                  ),
-                  backgroundColor: MaterialStateProperty.all(
-                    Colors.transparent,
-                  ),
-                  enableFeedback: true,
-                ),
+          return Padding(
+            padding: const EdgeInsets.only(top: 5, bottom: 0, left: 9, right: 9),
+            child: GridView.builder(
+              itemBuilder: (context, index) {
+                AtualizaDados();
+                return ElevatedButton(
+                  style: ButtonStyle(
 
-                onPressed: () async {
-                  if(widget.categoriaOuItem == true){
-                    Itens = snapshot.data!.docs[index]['Nome'];
-                    await ValidaExistenciaDeDados(Itens);
-                    print(resultadoConsulta);
-                    if (resultadoConsulta! > 0) {
+                    padding: MaterialStateProperty.all(
+                     const EdgeInsets.only(top: 5),
+                    ),
+                    fixedSize: MaterialStateProperty.all(
+                      const Size(180, 180),
+                    ),
+                    shadowColor: MaterialStateProperty.all(
+                      widget.categoriaOuItem == true ?
+                      Colors.transparent
+                          :
+                      Color.fromARGB(255, 124, 112, 97),
+                    ),
+                    backgroundColor: MaterialStateProperty.all(
+                      widget.categoriaOuItem == true ?
+                      Colors.transparent
+                          :
+                      Color.fromARGB(255, 124, 112, 97),
+                    ),
+                    enableFeedback: true,
+                    shape: MaterialStateProperty.all(
+                      ContinuousRectangleBorder(
+                        borderRadius: BorderRadius.circular(50)
+                      )
+                    ),
+                  ),
+
+                  onPressed: () async {
+                    if(widget.categoriaOuItem == true){
+                      Itens = snapshot.data!.docs[index]['Nome'];
+                      await ValidaExistenciaDeDados(Itens);
+                      print(resultadoConsulta);
+                      if (resultadoConsulta! > 0) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                ItensDoCardapio(Itens: Itens!)
+                        ));
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              icon: const Icon(
+                                Icons.crisis_alert_outlined,
+                                color: Color.fromARGB(255, 150, 0, 0),
+                                size: 150,
+                              ),
+                              backgroundColor:
+                              const Color.fromARGB(255, 124, 112, 97),
+                              title: Text(
+                                'A categoria $Itens está vazia \n',
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            );
+                          },
+                        );
+                      }
+                    }else{
+                      String Nome = snapshot.data?.docs[index]['Nome'];
+                      print('Nome do Produto $Nome');
+                      double Preco = snapshot.data?.docs[index]['Preco'];
+                      print('Preco do Produto $Preco');
+                      String Image = snapshot.data?.docs[index]['Imagem'];
+                      print('Foto do Produto $Image');
+                      String Descricao = snapshot.data?.docs[index]['Descricao'];
+                      print('Descrição do produto $Descricao');
+
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              ItensDoCardapio(Itens: Itens!)
+                        builder: (context) =>
+                            ApresentaProdutos(
+                                nome: Nome,
+                                descricao: Descricao,
+                                imagem: Image,
+                                preco: Preco),
                       ));
-                    } else {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            icon: const Icon(
-                              Icons.crisis_alert_outlined,
-                              color: Color.fromARGB(255, 150, 0, 0),
-                              size: 150,
-                            ),
-                            backgroundColor:
-                            const Color.fromARGB(255, 124, 112, 97),
-                            title: Text(
-                              'A categoria $Itens está vazia \n',
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          );
-                        },
-                      );
+                      initState();
                     }
-                  }else{
-                    String Nome = snapshot.data?.docs[index]['Nome'];
-                    print('Nome do Produto $Nome');
-                    double Preco = snapshot.data?.docs[index]['Preco'];
-                    print('Preco do Produto $Preco');
-                    String Image = snapshot.data?.docs[index]['Imagem'];
-                    print('Foto do Produto $Image');
-                    String Descricao = snapshot.data?.docs[index]['Descricao'];
-                    print('Descrição do produto $Descricao');
-
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>
-                          ApresentaProdutos(
-                              nome: Nome,
-                              descricao: Descricao,
-                              imagem: Image,
-                              preco: Preco),
-                    ));
-                    initState();
-                  }
-                },
-                child: widget.categoriaOuItem == true ?
-                layoutElevatedCategotyGrid(
-                  LocalStorage: snapshot.data!.docs[index]['LocalStorage'],
-                  Imagem: snapshot.data!.docs[index]['Imagem'],
-                  Nome: snapshot.data!.docs[index]['Nome'],
-                )
-                  :
-                layoutElevatedGridItens(
-                  Descricao: snapshot.data!.docs[index]['Descricao'],
-                  Nome: snapshot.data!.docs[index]['Nome'],
-                  Imagem: snapshot.data?.docs[index]['Imagem'],
-                  LocalStorage: snapshot.data!.docs[index]['LocalStorage'],
-                  categoria: widget.categoria,
-                  Preco:  snapshot.data!.docs[index]['Preco'],
-                ),
-              );
-            },
-            itemCount: snapshot.data!.docs.length,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: SliverQuiltedGridDelegate(
-              crossAxisCount: widget.crossAxisCount!,
-              mainAxisSpacing: 1,
-              crossAxisSpacing: 1,
-              repeatPattern: QuiltedGridRepeatPattern.inverted,
-              pattern: snapshot.data!.docs.map((e) {
-                return QuiltedGridTile(e['y'], e['x']);
-              }).toList(),
+                  },
+                  child: widget.categoriaOuItem == true ?
+                  layoutElevatedCategotyGrid(
+                    LocalStorage: snapshot.data!.docs[index]['LocalStorage'],
+                    Imagem: snapshot.data!.docs[index]['Imagem'],
+                    Nome: snapshot.data!.docs[index]['Nome'],
+                  )
+                    :
+                  layoutElevatedGridItens(
+                    Descricao: snapshot.data!.docs[index]['Descricao'],
+                    Nome: snapshot.data!.docs[index]['Nome'],
+                    Imagem: snapshot.data?.docs[index]['Imagem'],
+                    LocalStorage: snapshot.data!.docs[index]['LocalStorage'],
+                    categoria: widget.categoria,
+                    Preco:  snapshot.data!.docs[index]['Preco'],
+                  ),
+                );
+              },
+              itemCount: snapshot.data!.docs.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: SliverQuiltedGridDelegate(
+                crossAxisCount: widget.crossAxisCount!,
+                mainAxisSpacing: 1,
+                crossAxisSpacing: 1,
+                repeatPattern: QuiltedGridRepeatPattern.inverted,
+                pattern: snapshot.data!.docs.map((e) {
+                  return QuiltedGridTile(e['y'], e['x']);
+                }).toList(),
+              ),
             ),
           );
         }

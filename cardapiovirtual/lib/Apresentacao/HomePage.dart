@@ -57,10 +57,10 @@ class AdmHomePage extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: const Color.fromARGB(255, 78, 90, 85),
             centerTitle: true,
-            title: const Text('Seu Cardapio'),
+            title: const Text('Configurações'),
           ),
           backgroundColor: const Color.fromARGB(255, 78, 90, 85),
-          body: const Configuracoes(),
+          body: TelaConfiguracoes(),
           drawer: CustomDrawer(pageController: _pageController),
         ),
       ],

@@ -1,149 +1,81 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-class Configuracoes extends StatefulWidget {
-  const Configuracoes({Key? key}) : super(key: key);
+class TelaConfiguracoes extends StatefulWidget {
+  const TelaConfiguracoes({Key? key}) : super(key: key);
 
   @override
-  State<Configuracoes> createState() => _ConfiguracoesState();
+  State<TelaConfiguracoes> createState() => _TelaConfiguracoesState();
 }
 
-class _ConfiguracoesState extends State<Configuracoes> {
+class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: CustomScrollView(
-
-        physics: NeverScrollableScrollPhysics(),
-        slivers: [
-          SliverToBoxAdapter(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: 50,
-                        width: 200,
-                        child: IconButton(
-                          onPressed: (){
-
-                          },
-                          icon:Row(
-                            children: [
-                              Icon(Icons.color_lens_outlined),
-                              Text('Cores default'),
-                            ],
-                          ),
+    return FutureBuilder<QuerySnapshot>(
+      future:
+      FirebaseFirestore
+          .instance
+          .collection('Configurações').doc('Cores').collection('Configura Cores').get(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Container(
+            alignment: Alignment.center,
+            child: const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            ),
+          );
+        } else {
+          return CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: snapshot.data?.docs.length,
+                  itemBuilder: (context, index) {
+                    return ElevatedButton(
+                      style: ButtonStyle(
+                        fixedSize: MaterialStateProperty.all(
+                          const Size(200, 100),
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        height: 50,
-                        width: 200,
-                        child: IconButton(
-                          onPressed: (){
-
-                          },
-                          icon:Row(
-                            children: [
-                              Icon(Icons.color_lens_outlined),
-                              Text('Alterar cor de fundow'),
-                            ],
-                          ),
+                        shadowColor: MaterialStateProperty.all(
+                          Colors.transparent,
                         ),
-                      ),
-                    ],
-                  ),
-
-                  Row(
-                    children: [
-                      Container(
-                        height: 50,
-                        width: 200,
-                        child: IconButton(
-                          onPressed: (){
-
-                          },
-                          icon:Row(
-                            children: [
-                              Icon(Icons.color_lens_outlined),
-                              Text('Alterar cor dos botões'),
-                            ],
-                          ),
+                        backgroundColor: MaterialStateProperty.all(
+                          Colors.transparent,
                         ),
+                        enableFeedback: true,
                       ),
-                    ],
-                  ),
-                  SizedBox(width: 10,),
-                  Row(
-                    children: [
-                      Container(
-                        height: 50,
-                        width: 200,
-                        child: IconButton(
-                          onPressed: (){
+                      onPressed: () async {
 
-                          },
-                          icon:Row(
-                            children: [
-                              Icon(Icons.color_lens_outlined),
-                              Text('Alterar cor das Boxes'),
-                            ],
+                      },
+                      child: Row(
+                        children: [
+                          Icon(Icons.format_paint),
+                          SizedBox(width: 10,),
+                          Text(snapshot.data!.docs[index]['Nome']),
+                          SizedBox(width: 20,),
+                          Icon(Icons.circle,
+                            color: Color.fromARGB(
+                                snapshot.data!.docs[index]['Opacidade'],
+                                snapshot.data!.docs[index]['Red'],
+                                snapshot.data!.docs[index]['Green'],
+                                snapshot.data!.docs[index]['Blue']),
                           ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(width: 10,),
-                  Row(
-                    children: [
-                      Container(
-                        height: 50,
-                        width: 200,
-                        child: IconButton(
-                          onPressed: (){
+                        ],
+                      ) ,
+                    );
+                  },
+                ),
+              )
+            ],
 
-                          },
-                          icon:Row(
-                            children: [
-                              Icon(Icons.color_lens_outlined),
-                              Text('Alterar cores do Drewer'),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(width: 10,),
-                  Row(
-                    children: [
-                      Container(
-                        height: 50,
-                        width: 200,
-                        child: IconButton(
-                          onPressed: (){
-
-                          },
-                          icon:Row(
-                            children: [
-                              Icon(Icons.color_lens_outlined),
-                              Text('Alterar cor dos botões'),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-          )
-        ],
-      ),
-    );
+          );
+        }
+      },
+    );;
   }
 }
+
