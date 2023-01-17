@@ -1,4 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cardapiovirtual/CamadaDeNeg%C3%B3cio/ConfiguracoesSistema/AlteraCores.dart';
+import 'package:cardapiovirtual/Repository/ConfiguracoesCores/CoresDefault.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -11,71 +12,81 @@ class TelaConfiguracoes extends StatefulWidget {
 }
 
 class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
+
+
+  CoresDefault coresDefault = CoresDefault();
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<QuerySnapshot>(
-      future:
-      FirebaseFirestore
-          .instance
-          .collection('Configurações').doc('Cores').collection('Configura Cores').get(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return Container(
-            alignment: Alignment.center,
-            child: const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            ),
-          );
-        } else {
-          return CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: snapshot.data?.docs.length,
-                  itemBuilder: (context, index) {
-                    return ElevatedButton(
-                      style: ButtonStyle(
-                        fixedSize: MaterialStateProperty.all(
-                          const Size(200, 100),
-                        ),
-                        shadowColor: MaterialStateProperty.all(
-                          Colors.transparent,
-                        ),
-                        backgroundColor: MaterialStateProperty.all(
-                          Colors.transparent,
-                        ),
-                        enableFeedback: true,
-                      ),
-                      onPressed: () async {
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
 
-                      },
-                      child: Row(
-                        children: [
-                          Icon(Icons.format_paint),
-                          SizedBox(width: 10,),
-                          Text(snapshot.data!.docs[index]['Nome']),
-                          SizedBox(width: 20,),
-                          Icon(Icons.circle,
-                            color: Color.fromARGB(
-                                snapshot.data!.docs[index]['Opacidade'],
-                                snapshot.data!.docs[index]['Red'],
-                                snapshot.data!.docs[index]['Green'],
-                                snapshot.data!.docs[index]['Blue']),
+                      TextButton(
+                          onPressed: (){
+                            Navigator
+                                .push(context, MaterialPageRoute(
+                              builder: (context) => AlteraCores(),),);
+                          }, 
+                          child: Row(
+                            children: [
+                              Text('Cores',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20
+                                ),
+                              ),
+                              SizedBox(width: 10,),
+                              Icon(Icons.color_lens,
+                                color: Colors.white,
+                              ),
+                            ],
                           ),
-                        ],
-                      ) ,
-                    );
-                  },
-                ),
-              )
-            ],
-
-          );
-        }
-      },
-    );;
+                      ),
+                      TextButton(
+                        style: ButtonStyle(
+                          fixedSize: MaterialStateProperty.all(
+                             Size(180, 70)
+                          ),
+                        ),
+                        onPressed: (){
+                          Navigator
+                              .push(context, MaterialPageRoute(
+                            builder: (context) => AlteraCores(),),);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Altera Logo',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20
+                              ),
+                            ),
+                            SizedBox(width: 10,),
+                            Icon(
+                              Icons.add_a_photo_rounded,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                )
+              ],
+            ),
+      
+    );
   }
 }
 

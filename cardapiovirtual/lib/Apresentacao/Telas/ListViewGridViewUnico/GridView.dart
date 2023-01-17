@@ -30,21 +30,15 @@ class _GridViewItensState extends State<GridViewItens> {
   ConectaFirebase conectaFirebase = ConectaFirebase();
   @override
   void initState() {
+    super.initState();
     // TODO: implement initState
     FirebaseFirestore.instance.collection('Itens Cardapio').get();
   }
 
-  var existeItens;
-
-  int? existeDados;
-
   int? resultadoConsulta;
-
-  var decisao;
 
   int? consultaCategorias;
 
-  int? QtdItens;
 
   Future<int?> ValidaExistenciaDeDados(String? Categoria) async {
     final QuerySnapshot result = await Future.value(
@@ -54,11 +48,8 @@ class _GridViewItensState extends State<GridViewItens> {
           .collection('Itens')
           .get(),
     );
-    print('ValidaExistenciaDeDados ${result.docs.length}');
 
     resultadoConsulta = result.docs.length;
-
-    print(resultadoConsulta);
 
     return resultadoConsulta;
   }

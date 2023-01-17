@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:cardapiovirtual/Apresentacao/HomePage.dart';
+import 'package:cardapiovirtual/Apresentacao/LoginPage/TextButtonMultiColor.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -97,26 +98,16 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              TextButton(
-                onPressed: (){
+              TextButtonMultiColor(
+                funcao: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => AdmHomePage()));
                 },
-                style:  ButtonStyle(
-                  shape:MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0),
-                    ),
+                altura: 50,
+                largura: 200,
+                text: Text('LOGIN',
+                  style: TextStyle(
+                      color: Colors.white
                   ),
-                  backgroundColor: const MaterialStatePropertyAll(Color.fromARGB(255, 150, 0, 0),
-                  ),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.only( top: 9, right: 60, left: 60, bottom: 9),
-                  child: Text('LOGIN',
-                              style: TextStyle(
-                              color: Colors.white
-                            ),
-                          ),
                 ),
               ),
             ]

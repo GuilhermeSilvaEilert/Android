@@ -1,3 +1,4 @@
+import 'package:cardapiovirtual/Apresentacao/LoginPage/TextButtonMultiColor.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
@@ -159,14 +160,11 @@ class _AtualizaCategoria extends State<AtualizaCategoria> {
             ),
 
             SizedBox(height: 50,),
-            TextButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
-                  Color.fromARGB(255, 150, 0, 0),
-                ),
-              ),
-              onPressed: (){
 
+            TextButtonMultiColor(
+              altura: 70,
+              largura: 400,
+              funcao: (){
                 if(nomeCategoria.text.isEmpty){
                   nomeCategoria.text = 'Vazia';
                 }
@@ -179,25 +177,22 @@ class _AtualizaCategoria extends State<AtualizaCategoria> {
                   oldNomecategoria: widget.NomeCategoria,
                 );
               },
-              child: Padding(
-                padding: const EdgeInsets.only( top: 9, right: 50, left: 50, bottom: 9),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.save,
-                      size: 30,
-                      color: Colors.white,
+              text: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.save,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                  SizedBox(width: 10,),
+                  Text('SALVAR',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
                     ),
-                    SizedBox(width: 10,),
-                    Text('SALVAR',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],

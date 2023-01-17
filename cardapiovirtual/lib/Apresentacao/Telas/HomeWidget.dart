@@ -1,3 +1,4 @@
+import 'package:cardapiovirtual/Apresentacao/LoginPage/TextButtonMultiColor.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -46,24 +47,17 @@ class HomeWidget extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: 10,),
-                          TextButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStatePropertyAll(
-                                Color.fromARGB(255, 177, 66, 78),
+                          TextButtonMultiColor(
+                            largura: 140,
+                            altura: 50,
+                            text: Text('ADD ou Editar',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold
                               ),
                             ),
-                            onPressed: () {
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 8, left: 30, right: 30, top: 8),
-                              child: Text('ADD ou Editar',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold
-                                ),
-                              ),
-                            ),
+                            funcao: (){},
                           ),
                         ],
                       ),
@@ -115,25 +109,20 @@ class HomeWidget extends StatelessWidget {
                           ),
 
                           SizedBox(height: 10,),
-                          TextButton(
-                            style:  ButtonStyle(
-                              backgroundColor: MaterialStatePropertyAll(
-                                Color.fromARGB(255, 177, 66, 78),
+
+                          TextButtonMultiColor(
+                            largura: 140,
+                            altura: 50,
+                            text: Text('ADD ou Editar',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold
                               ),
                             ),
-                            onPressed: () {
+                            funcao: (){
                               Navigator.push(context,MaterialPageRoute(builder: (context) =>  AdicionaItemCardapio(),));
                             },
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 8, left: 30, right: 30, top: 8),
-                              child: Text('ADD ou Editar',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold
-                                ),
-                              ),
-                            ),
                           ),
                         ],
                       ),

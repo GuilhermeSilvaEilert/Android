@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'dart:io';
+import 'package:cardapiovirtual/Apresentacao/LoginPage/TextButtonMultiColor.dart';
 import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -280,7 +281,6 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
                       controller: descricaoProduto,
                       cursorColor: Colors.black,
                       decoration:InputDecoration(
-                        
                         filled: true,
                         fillColor: Colors.white,
                         hoverColor: Colors.black,
@@ -298,13 +298,28 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
                     ),
                 ),
                 const SizedBox(height: 20,),
-                TextButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      const Color.fromARGB(255, 150, 0, 0),
-                    ),
+
+                TextButtonMultiColor(
+                  largura: 400,
+                  altura: 70,
+                  text: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(Icons.save,
+                        size: 30,
+                        color: Colors.white,
+                      ),
+                      SizedBox(width: 10,),
+                      Text('SALVAR',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white
+                        ),
+                      ),
+                    ],
                   ),
-                  onPressed: (){
+                  funcao: (){
                     conectaFirebase.sendDados(
                       NomeProduto: nomeProduto.text,
                       preco: double.parse(precoProduto.text),
@@ -317,26 +332,6 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
                     precoProduto.clear();
                     descricaoProduto.clear();
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.only( top: 9, right: 50, left: 50, bottom: 9),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(Icons.save,
-                          size: 30,
-                          color: Colors.white,
-                        ),
-                        SizedBox(width: 10,),
-                        Text('SALVAR',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
               ],
             ),
