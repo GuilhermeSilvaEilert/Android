@@ -2,7 +2,7 @@
 import 'package:cardapiovirtual/Apresentacao/LoginPage/LoginPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:cardapiovirtual/Apresentacao/HomePage.dart';
+import 'package:cardapiovirtual/Apresentacao/HomePage/HomePage.dart';
 
 void main() {
   runApp(const MyApp());

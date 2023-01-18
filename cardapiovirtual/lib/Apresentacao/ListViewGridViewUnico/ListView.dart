@@ -1,10 +1,10 @@
-import 'package:cardapiovirtual/Apresentacao/Telas/ApresentaProduto.dart';
-import 'package:cardapiovirtual/Apresentacao/Telas/ListViewGridViewUnico/layoutButton/layoutElevatedButtonList.dart';
-import 'package:cardapiovirtual/Apresentacao/Telas/ListViewGridViewUnico/layoutButton/layoutElevatedItens.dart';
+import 'package:cardapiovirtual/Apresentacao/ApresentaProduto/ApresentaProduto.dart';
+import 'package:cardapiovirtual/Apresentacao/ListViewGridViewUnico/layoutButton/layoutElevatedButtonList.dart';
+import 'package:cardapiovirtual/Apresentacao/ListViewGridViewUnico/layoutButton/layoutElevatedItens.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../../Repository/ConectaFirebase.dart';
-import '../ItensDoCardapio.dart';
+import 'package:cardapiovirtual/Apresentacao/ItensDoCardapio/ItensDoCardapio.dart';
 
 class ListaViewUnico extends StatelessWidget {
   ListaViewUnico({Key? key, this.categoria, this.DentroDosItens, this.categoriaOuItem}) : super(key: key);

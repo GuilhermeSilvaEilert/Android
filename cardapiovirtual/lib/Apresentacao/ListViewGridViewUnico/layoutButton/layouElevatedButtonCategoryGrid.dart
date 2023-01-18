@@ -1,4 +1,4 @@
-import 'package:cardapiovirtual/Apresentacao/Telas/TelaAtualizaCategoria.dart';
+import 'package:cardapiovirtual/Apresentacao/AtualizarCategoria/TelaAtualizaCategoria.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';

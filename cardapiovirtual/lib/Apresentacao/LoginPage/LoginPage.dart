@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
-import 'package:cardapiovirtual/Apresentacao/HomePage.dart';
-import 'package:cardapiovirtual/Apresentacao/LoginPage/TextButtonMultiColor.dart';
+import 'package:cardapiovirtual/Apresentacao/HomePage/HomePage.dart';
+import 'package:cardapiovirtual/Apresentacao/widgets/TextButtonMultiColor/TextButtonMultiColor.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {

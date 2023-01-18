@@ -1,5 +1,5 @@
-import 'package:cardapiovirtual/Apresentacao/Telas/ListViewGridViewUnico/GridView.dart';
-import 'package:cardapiovirtual/Apresentacao/Telas/ListViewGridViewUnico/ListView.dart';
+import 'package:cardapiovirtual/Apresentacao/ListViewGridViewUnico/GridView.dart';
+import 'package:cardapiovirtual/Apresentacao/ListViewGridViewUnico/ListView.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../Repository/ConectaFirebase.dart';

@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'dart:io';
-import 'package:cardapiovirtual/Apresentacao/LoginPage/TextButtonMultiColor.dart';
+import 'package:cardapiovirtual/Apresentacao/widgets/TextButtonMultiColor/TextButtonMultiColor.dart';
 import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

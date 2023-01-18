@@ -1,9 +1,9 @@
-import 'package:cardapiovirtual/Apresentacao/LoginPage/TextButtonMultiColor.dart';
+import 'package:cardapiovirtual/Apresentacao/widgets/TextButtonMultiColor/TextButtonMultiColor.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../AdicionaItemCardapio/AdicionaItemCardapio.dart';
-import 'Drawer.dart';
+import 'AdicionaItemCardapio/AdicionaItemCardapio.dart';
+import 'widgets/Drawer/Drawer.dart';
 
 
 class HomeWidget extends StatelessWidget {

@@ -1,14 +1,14 @@
 // ignore_for_file: file_names
 
 import 'package:cardapiovirtual/Apresentacao/LoginPage/LoginPage.dart';
-import 'package:cardapiovirtual/Apresentacao/Telas/CategoriasDoCardapio.dart';
-import 'package:cardapiovirtual/Apresentacao/Telas/Drawer.dart';
-import 'package:cardapiovirtual/Apresentacao/Telas/HomeWidget.dart';
+import 'package:cardapiovirtual/Apresentacao/CategoriasDoCardapio/CategoriasDoCardapio.dart';
+import 'package:cardapiovirtual/Apresentacao/widgets/Drawer/Drawer.dart';
+import 'package:cardapiovirtual/Apresentacao/HomeWidget.dart';
 import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:cardapiovirtual/CamadaDeNegócio/ConfiguracoesSistema/Configuracoes.dart';
-import 'Telas/CriandoUsuario/CriaUsuario.dart';
+import 'package:cardapiovirtual/Apresentacao/CriandoUsuario/CriaUsuario.dart';
 
 
 class AdmHomePage extends StatelessWidget {
@@ -100,7 +100,6 @@ class AdmHomePage extends StatelessWidget {
                   ),
                   Scaffold(
                     appBar: AppBar(
-
                       backgroundColor: Color.fromARGB(
                           snapshot.data!.docs[1]['Opacidade'],
                           snapshot.data!.docs[1]['Red'],

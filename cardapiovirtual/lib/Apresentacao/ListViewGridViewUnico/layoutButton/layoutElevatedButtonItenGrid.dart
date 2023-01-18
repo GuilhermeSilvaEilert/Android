@@ -1,42 +1,55 @@
-import 'package:cardapiovirtual/Apresentacao/Telas/TelaDeAtualizarItem.dart';
+import 'package:cardapiovirtual/Apresentacao/AtualizarItem/TelaDeAtualizarItem.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
-class layoutItens extends StatelessWidget {
-  layoutItens({Key? key,
-    this.Nome,
-    this.Imagem,
-    this.LocalStorage,
-    this.Preco,
-    this.Categoria}) : super(key: key);
+class layoutElevatedGridItens extends StatelessWidget {
+   layoutElevatedGridItens({
+     Key? key,
+     this.Imagem,
+     this.Descricao,
+     this.LocalStorage,
+     this.categoria,
+     this.Nome,
+     this.Preco
+   }) : super(key: key);
 
   String? Imagem;
-  String? LocalStorage;
   String? Nome;
   double? Preco;
-  String?  Categoria;
+  String? Descricao;
+  String? LocalStorage;
+  String? categoria;
+
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(
-                    Imagem!,
-                  ),
-                ),
-              ),
-              height:180,
-              width: 180,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
+        Image.network(
+          Imagem!,
+          fit: BoxFit.cover,
+          width: 300,
+          height: 300,
+        ),
+        SizedBox(height: 10,),
+        Padding(
+          padding: const EdgeInsets.only(left: 40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  Text(
+                    Nome!,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
                   PopupMenuButton(
                     itemBuilder: (context) {
                       var list = <PopupMenuEntry<Object>>[];
@@ -69,12 +82,17 @@ class layoutItens extends StatelessWidget {
                     },
                     onSelected: (value) async {
                       if (value == 1) {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                AtualizaItemCardapio(
-                                    Nome: Nome),
-                          ),
+                        Navigator
+                            .of(context)
+                            .push(MaterialPageRoute(
+                          builder: (context) => AtualizaItemCardapio(
+                            Preco: Preco.toString(),
+                            Nome: Nome,
+                            Imagem: Imagem,
+                            Descricao: Descricao,
+                            Categoria: categoria,
+                            LocalStorage:LocalStorage,
+                          ),),
                         );
                       } else {
                         await FirebaseStorage.instance
@@ -82,9 +100,7 @@ class layoutItens extends StatelessWidget {
                             .delete();
                         await FirebaseFirestore.instance
                             .collection('Itens Cardapio')
-                            .doc(Categoria)
-                            .collection('Itens')
-                            .doc(Nome)
+                            .doc(categoria).collection('Itens').doc(Nome)
                             .delete();
                       }
                     },
@@ -95,42 +111,24 @@ class layoutItens extends StatelessWidget {
                       width: 20,
                     ),
                   ),
-                  SizedBox(
-                    width: 10,
-                    height: 10,
-                  ),
 
                 ],
               ),
-            ),
-
-          ],
-        ),
-        SizedBox(width: 20,),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(width: 10,),
-            Text(
-              Nome!,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
+              SizedBox(height: 10,),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text('R\$' + Preco.toString(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              'R\$' + Preco.toString(),
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );

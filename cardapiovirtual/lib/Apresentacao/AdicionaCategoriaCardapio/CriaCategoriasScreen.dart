@@ -1,30 +1,24 @@
-import 'package:cardapiovirtual/Apresentacao/LoginPage/TextButtonMultiColor.dart';
+import 'package:cardapiovirtual/Apresentacao/widgets/TextButtonMultiColor/TextButtonMultiColor.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class AtualizaCategoria extends StatefulWidget {
-  AtualizaCategoria({Key? key,
-    this.NomeCategoria,
-    this.LocalArquivo,
-    this.NomeArquivo}) : super(key: key);
-
-  String? NomeCategoria;
-  String? NomeArquivo;
-  String? LocalArquivo;
+class CriaCategoria extends StatefulWidget {
+  const CriaCategoria({Key? key}) : super(key: key);
 
   @override
-  State<AtualizaCategoria> createState() => _AtualizaCategoria();
+  State<CriaCategoria> createState() => _CriaCategoria();
 }
 
-class _AtualizaCategoria extends State<AtualizaCategoria> {
+class _CriaCategoria extends State<CriaCategoria> {
 
   final ImagePicker _picker = ImagePicker();
   ConectaFirebase conectaFirebase = ConectaFirebase();
   File? fileSend;
   XFile? imgFile;
-  TextEditingController nomeCategoria = TextEditingController();
+  final TextEditingController nomeCategoria = TextEditingController();
   String? file;
 
   @override
@@ -32,7 +26,7 @@ class _AtualizaCategoria extends State<AtualizaCategoria> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 78, 90, 85),
-        title: Text('Atualize a Categoria ${widget.NomeCategoria}',
+        title: Text('Adicione um item',
           style: TextStyle(
               fontWeight: FontWeight.bold
           ),
@@ -158,24 +152,18 @@ class _AtualizaCategoria extends State<AtualizaCategoria> {
                 ),
               ),
             ),
-
             SizedBox(height: 50,),
 
             TextButtonMultiColor(
               altura: 70,
               largura: 400,
               funcao: (){
-                if(nomeCategoria.text.isEmpty){
-                  nomeCategoria.text = 'Vazia';
-                }
-                conectaFirebase.AtualizaCategoria(
-                  localFile: widget.LocalArquivo,
+                conectaFirebase.CriaCategoria(
                   imgFile: fileSend,
                   NomeCategoria: nomeCategoria.text,
-                  oldimgFile: widget.NomeArquivo,
-                  oldlocalFile: widget.LocalArquivo,
-                  oldNomecategoria: widget.NomeCategoria,
+                  localFile: file,
                 );
+                nomeCategoria.clear();
               },
               text: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,

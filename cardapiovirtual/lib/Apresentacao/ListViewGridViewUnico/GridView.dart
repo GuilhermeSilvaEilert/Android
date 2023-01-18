@@ -1,14 +1,13 @@
 import 'dart:io';
-
-import 'package:cardapiovirtual/Apresentacao/Telas/ItensDoCardapio.dart';
-import 'package:cardapiovirtual/Apresentacao/Telas/ListViewGridViewUnico/layoutButton/layouElevatedButtonCategoryGrid.dart';
-import 'package:cardapiovirtual/Apresentacao/Telas/ListViewGridViewUnico/layoutButton/layoutElevatedButtonItenGrid.dart';
+import 'package:cardapiovirtual/Apresentacao/ItensDoCardapio/ItensDoCardapio.dart';
+import 'package:cardapiovirtual/Apresentacao/ListViewGridViewUnico/layoutButton/layouElevatedButtonCategoryGrid.dart';
+import 'package:cardapiovirtual/Apresentacao/ListViewGridViewUnico/layoutButton/layoutElevatedButtonItenGrid.dart';
 import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import '../ApresentaProduto.dart';
+import 'package:cardapiovirtual/Apresentacao/ApresentaProduto/ApresentaProduto.dart';
 
 class GridViewItens extends StatefulWidget {
   GridViewItens({

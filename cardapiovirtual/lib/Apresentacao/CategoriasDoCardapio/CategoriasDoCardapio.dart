@@ -1,7 +1,8 @@
 import 'package:cardapiovirtual/Apresentacao/AdicionaItemCardapio/AdicionaItemCardapio.dart' show AdicionaItemCardapio;
-import 'package:cardapiovirtual/Apresentacao/Telas/CriaCategoriasScreen.dart';
-import 'package:cardapiovirtual/Apresentacao/Telas/ListViewGridViewUnico/GridView.dart';
-import 'package:cardapiovirtual/Apresentacao/Telas/ListViewGridViewUnico/ListView.dart';
+import 'package:cardapiovirtual/Apresentacao/AdicionaCategoriaCardapio/CriaCategoriasScreen.dart';
+import 'package:cardapiovirtual/Apresentacao/ListViewGridViewUnico/GridView.dart';
+import 'package:cardapiovirtual/Apresentacao/ListViewGridViewUnico/ListView.dart';
+import 'package:cardapiovirtual/Apresentacao/widgets/FloatingActionBubble/FloatingActionBubble.dart';
 import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floating_action_bubble/floating_action_bubble.dart';
@@ -128,56 +129,22 @@ class _CategoriasDoCardapioState extends State<CategoriasDoCardapio> with Single
         ),
         floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: FloatingActionBubble(
-          backGroundColor: const Color.fromARGB(255, 150, 0, 0),
-          iconData: Icons.add,
-          animation: _animation!,
-          herotag: const Text('Adicionar'),
-          onPress: () => _animationController!.isCompleted
-              ? _animationController!.reverse()
-              : _animationController!.forward(),
-          iconColor: Colors.white,
-          items: [
-             Bubble(
-                 icon: Icons.category,
-                 iconColor: Colors.white,
-                 title: ' + Categoria',
-                 titleStyle: const TextStyle(color: Colors.white),
-                 bubbleColor: const Color.fromARGB(255, 150, 0, 0),
-                 onPress: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CriaCategoria(),),);
-                },
-             ),
-            Bubble(
-              icon: Icons.restart_alt,
-              iconColor: Colors.white,
-              title: 'Recarregar',
-              titleStyle: const TextStyle(color: Colors.white),
-              bubbleColor: const Color.fromARGB(255, 150, 0, 0),
-              onPress: (){
-                setState(() {
-                  FirebaseFirestore
-                      .instance
-                      .collection('Itens Cardapio').get();
-                });
-              },
-            ),
-            Bubble(
-              icon: Icons.category,
-              iconColor: Colors.white,
-              title: ' + Itens',
-              titleStyle: const TextStyle(color: Colors.white),
-              bubbleColor: const Color.fromARGB(255, 150, 0, 0),
-              onPress: (){
-                Navigator
-                    .of(context)
-                    .push(MaterialPageRoute(
-                  builder: (context) => const AdicionaItemCardapio(),
-                ),);
-              },
-            ),
-
-          ],
+        floatingActionButton: FloatingActionBubbleMultiColor(
+          Funcao1: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CriaCategoria(),),);
+          },
+          Funcao2: (){
+            setState(() {
+              FirebaseFirestore.instance.collection('Itens Cardapio').get();
+            });
+          },
+          Funcao3: (){
+            Navigator
+                .of(context)
+                .push(MaterialPageRoute(
+              builder: (context) => const AdicionaItemCardapio(),
+            ),);
+          },
         ),
         body: Stack(
           children: [
