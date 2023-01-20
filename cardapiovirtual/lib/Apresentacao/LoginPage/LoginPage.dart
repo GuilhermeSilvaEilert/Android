@@ -2,6 +2,7 @@
 
 import 'package:cardapiovirtual/Apresentacao/HomePage/HomePage.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/TextButtonMultiColor/TextButtonMultiColor.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -27,7 +28,17 @@ class _LoginPageState extends State<LoginPage> {
         ),
           child: Column(
             children:[
-              Image.asset('Assets/LogoMarca/LogoMarcaTG.png', height: 100, width: 100,),
+              FutureBuilder(
+                future: FirebaseFirestore.instance.collection('Configurações').get(),
+                  builder: (context, snapshot) {
+                  String? imagem = snapshot.data!.docs[1]['Image'];
+                  if(imagem == null || imagem == ''){
+                    return Image.asset('Assets/LogoMarca/LogoMarcaTG.png', height: 100, width: 100,);
+                  }else{
+                    return Image.network(imagem, height: 100, width: 100,);
+                  }
+                  },
+              ),
               Container(
                 padding: const EdgeInsets.all(30),
                   child: const Text('Bem Vindo', style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),

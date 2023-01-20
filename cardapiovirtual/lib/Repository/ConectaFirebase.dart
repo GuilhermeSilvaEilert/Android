@@ -192,6 +192,63 @@ class ConectaFirebase {
     }
   }
 
+  Future? LogoInicial  (
+      File? imgFile,
+      String? LocalStorage
+      ) async {
+
+    final QuerySnapshot result = await Future.value(
+        FirebaseFirestore
+            .instance
+            .collection('Configurações').get()
+    );
+    if(result.docs[1]['Image'] == null){
+
+      UploadTask task = FirebaseStorage.instance
+          .ref()
+          .child('$imgFile')
+          .putFile(imgFile!);
+
+      TaskSnapshot taskSnapshot = await task;
+      String url = await taskSnapshot.ref.getDownloadURL();
+
+      Map<String, dynamic> data = {
+        'Image': url,
+        'LocalStorage': LocalStorage,
+      };
+
+      FirebaseFirestore.instance.collection('Configurações')
+          .doc('Logo Inicial').set(data);
+    }else{
+      UploadTask task = FirebaseStorage.instance
+          .ref()
+          .child('$imgFile')
+          .putFile(imgFile!);
+
+      TaskSnapshot taskSnapshot = await task;
+      String url = await taskSnapshot.ref.getDownloadURL();
+
+      Map<String, dynamic> data = {
+        'Image': url,
+        'LocalStorage': LocalStorage,
+      };
+
+
+
+      FirebaseFirestore
+          .instance
+          .collection('Configurações')
+          .doc('Logo Inicial').delete();
+
+      FirebaseStorage.instance.ref(result.docs[1]['LocalStorage']).delete();
+
+      FirebaseFirestore.instance.collection('Configurações')
+          .doc('Logo Inicial').set(data);
+    }
+
+
+  }
+
   Future? AtualizaItens(
       { String? NomeProduto,
         String? idProduto,

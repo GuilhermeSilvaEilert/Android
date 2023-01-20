@@ -1,3 +1,4 @@
+import 'package:cardapiovirtual/Apresentacao/AdicionalogoInicial/AdicionaLogoInicio.dart';
 import 'package:cardapiovirtual/CamadaDeNeg%C3%B3cio/ConfiguracoesSistema/AlteraCores.dart';
 import 'package:cardapiovirtual/Repository/ConfiguracoesCores/CoresDefault.dart';
 import 'package:flutter/cupertino.dart';
@@ -59,7 +60,7 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
                         onPressed: (){
                           Navigator
                               .push(context, MaterialPageRoute(
-                            builder: (context) => AlteraCores(),),);
+                            builder: (context) => AdicionaLogoInicial(),),);
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,

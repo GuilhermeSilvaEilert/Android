@@ -3,6 +3,7 @@ import 'package:cardapiovirtual/Apresentacao/AdicionaCategoriaCardapio/CriaCateg
 import 'package:cardapiovirtual/Apresentacao/ListViewGridViewUnico/GridView.dart';
 import 'package:cardapiovirtual/Apresentacao/ListViewGridViewUnico/ListView.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/FloatingActionBubble/FloatingActionBubble.dart';
+import 'package:cardapiovirtual/Apresentacao/widgets/PopMenuButton/PopMenuButton.dart';
 import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floating_action_bubble/floating_action_bubble.dart';
@@ -77,53 +78,32 @@ class _CategoriasDoCardapioState extends State<CategoriasDoCardapio> with Single
           color: const Color.fromARGB(255, 124, 112, 97),
           child: Row(
             children: [
-              PopupMenuButton(
-                    itemBuilder: (context) {
-                      var list = <PopupMenuEntry<Object>>[];
-                      list.add(
-                        PopupMenuItem(
-                          onTap: (){
-                            setState(() {
-                              gradeOuLista = false;
-                            });
-                          },
-                          value: 2,
-                          child: Row(
-                            children: const [
-                              Icon(
-                                  Icons.list,
-                                  color: Colors.black
-                              ),
-                              SizedBox(width: 5,),
-                              Text('Ver como Lista')
-                            ],
-                          ),
-                        ),
-                      );
-                      list.add(
-                        PopupMenuItem(
-                          onTap: (){
-                            setState(() {
-                              gradeOuLista = true;
-                            });
-                          },
-                          value: 1,
-                          child: Row(
-                            children: const [
-                              Icon(
-                                Icons.grid_view,
-                                color: Colors.black,
-                              ),
-                              SizedBox(width: 5,),
-                              Text('Ver como Grade')
-                            ],
-                          ),
-                        ),
-                      );
-                      return list;
-                    },
-                    icon: const Icon(Icons.filter_alt),
-                  ),
+              PopMenuButtonWidget(
+                Icon1: Row(
+                  children: [
+                    Icon(Icons.list),
+                    SizedBox(width: 10,),
+                    Text('Lista')
+                  ],
+                ),
+                Icon2: Row(
+                  children: [
+                    Icon(Icons.grid_view),
+                    SizedBox(width: 10,),
+                    Text('Grade')
+                  ],
+                ),
+                Funcao1: (){
+                  setState(() {
+                    gradeOuLista = false;
+                  });
+                },
+                Funcao2: (){
+                  setState(() {
+                    gradeOuLista = true;
+                  });
+                },
+              )
             ],
           ),
         ),

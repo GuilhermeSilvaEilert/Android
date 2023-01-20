@@ -1,3 +1,6 @@
+import 'package:cardapiovirtual/Apresentacao/AtualizarCategoria/TelaAtualizaCategoria.dart';
+import 'package:cardapiovirtual/Apresentacao/AtualizarItem/TelaDeAtualizarItem.dart';
+import 'package:cardapiovirtual/Apresentacao/widgets/PopMenuButton/PopMenuButton.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -62,15 +65,15 @@ class layoutCategoria extends StatelessWidget {
                       );
                       return list;
                     },
-                    icon: Image.asset(
-                      'Assets/Icons/quicksetting.png',
-                      fit: BoxFit.cover,
-                      height: 20,
-                      width: 20,
-                    ),
                     onSelected: (value) async {
                       if (value == 1) {
-                        print('EDITAR');
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                AtualizaItemCardapio(
+                                    Nome: Nome),
+                          ),
+                        );
                       } else {
                         await FirebaseStorage.instance
                             .ref(LocalStorage)
@@ -82,6 +85,12 @@ class layoutCategoria extends StatelessWidget {
                         FirebaseFirestore.instance.collection('Itens Cardapio').get();
                       }
                     },
+                    icon: Image.asset(
+                      'Assets/Icons/quicksetting.png',
+                      fit: BoxFit.cover,
+                      height: 20,
+                      width: 20,
+                    ),
                   ),
                 ],
               ),

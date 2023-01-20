@@ -70,174 +70,186 @@ class _AlteraCoresState extends State<AlteraCores> {
                         onPressed: () async {
 
                           String Nome = snapshot.data?.docs[index]['Nome'];
-
-                          showModalBottomSheet(
+                          if(snapshot.data!.docs[index]['Nome'] == 'Cores Default'){
+                            coresDefault.ColocaCoresDefaul();
+                          }else {
+                            showModalBottomSheet(
                               context: context,
                               builder: (context) {
                                 return BottomSheet(
-                                    builder: (context){
-                                      return Container(
-                                        width: 200,
-                                        height: 70,
-                                        color: Colors.black12,
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                IconButton(
-                                                  onPressed: (){
-                                                    setState(() {
-                                                      colocarCores.ColocarCores(
-                                                        LocalDoApp: Nome,
-                                                        Red: 158,
-                                                        Opacidade: 255,
-                                                        Green: 158,
-                                                        Blue: 158,
-                                                      );
-                                                    });
-                                                    Navigator.pop(context);
-                                                  },
-                                                  icon: const Icon(Icons.circle,
-                                                    color: Colors.grey,
-                                                    size: 60,
-                                                  ),
+                                  builder: (context) {
+                                    return Container(
+                                      width: 200,
+                                      height: 70,
+                                      color: Colors.black12,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              IconButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    colocarCores
+                                                        .ColocarCores(
+                                                      LocalDoApp: Nome,
+                                                      Red: 158,
+                                                      Opacidade: 255,
+                                                      Green: 158,
+                                                      Blue: 158,
+                                                    );
+                                                  });
+                                                  Navigator.pop(context);
+                                                },
+                                                icon: const Icon(Icons
+                                                    .circle,
+                                                  color: Colors.grey,
+                                                  size: 60,
                                                 ),
+                                              ),
 
-                                                const SizedBox(width: 7,),
+                                              const SizedBox(width: 7,),
 
-                                                IconButton(
-                                                  onPressed: (){
-                                                    setState(() {
-                                                      colocarCores.ColocarCores(
-                                                        LocalDoApp: Nome,
-                                                        Red: 244,
-                                                        Opacidade: 255,
-                                                        Green: 67,
-                                                        Blue: 54,
-                                                      );
-                                                    });
-                                                    Navigator.pop(context);
-                                                  },
-                                                  icon: const Icon(Icons.circle,
-                                                    color: Colors.red,
-                                                    size: 60,
-                                                  ),
+                                              IconButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    colocarCores
+                                                        .ColocarCores(
+                                                      LocalDoApp: Nome,
+                                                      Red: 244,
+                                                      Opacidade: 255,
+                                                      Green: 67,
+                                                      Blue: 54,
+                                                    );
+                                                  });
+                                                  Navigator.pop(context);
+                                                },
+                                                icon: const Icon(Icons
+                                                    .circle,
+                                                  color: Colors.red,
+                                                  size: 60,
                                                 ),
-                                                const SizedBox(width: 7,),
-                                                IconButton(
-                                                  onPressed: (){
-                                                    setState(() {
-                                                      colocarCores.ColocarCores(
-                                                        LocalDoApp: Nome,
-                                                        Red: 33,
-                                                        Opacidade: 255,
-                                                        Green: 150,
-                                                        Blue: 243,
-                                                      );
-                                                    });
-                                                    Navigator.pop(context);
-                                                  },
-                                                  icon: const Icon(Icons.circle,
-                                                    color: Colors.blue,
-                                                    size: 60,
-                                                  ),
+                                              ),
+                                              const SizedBox(width: 7,),
+                                              IconButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    colocarCores
+                                                        .ColocarCores(
+                                                      LocalDoApp: Nome,
+                                                      Red: 33,
+                                                      Opacidade: 255,
+                                                      Green: 150,
+                                                      Blue: 243,
+                                                    );
+                                                  });
+                                                  Navigator.pop(context);
+                                                },
+                                                icon: const Icon(Icons
+                                                    .circle,
+                                                  color: Colors.blue,
+                                                  size: 60,
                                                 ),
+                                              ),
 
-                                                const SizedBox(width: 7,),
-                                                IconButton(
-                                                  onPressed: (){
-                                                    setState(() {
-                                                      colocarCores.ColocarCores(
-                                                        LocalDoApp: Nome,
-                                                        Red: 0,
-                                                        Opacidade: 255,
-                                                        Green: 0,
-                                                        Blue: 0,
-                                                      );
-                                                    });
-                                                    Navigator.pop(context);
-                                                  },
-                                                  icon: const Icon(Icons.circle,
-                                                    color: Colors.black,
-                                                    size: 60,
-                                                  ),
+                                              const SizedBox(width: 7,),
+                                              IconButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    colocarCores
+                                                        .ColocarCores(
+                                                      LocalDoApp: Nome,
+                                                      Red: 0,
+                                                      Opacidade: 255,
+                                                      Green: 0,
+                                                      Blue: 0,
+                                                    );
+                                                  });
+                                                  Navigator.pop(context);
+                                                },
+                                                icon: const Icon(Icons
+                                                    .circle,
+                                                  color: Colors.black,
+                                                  size: 60,
                                                 ),
+                                              ),
 
-                                                const SizedBox(width: 7,),
+                                              const SizedBox(width: 7,),
 
-                                                IconButton(
-                                                  onPressed: (){
-                                                    setState(() {
-                                                      colocarCores.ColocarCores(
-                                                        LocalDoApp: Nome,
-                                                        Red: 255,
-                                                        Opacidade: 255,
-                                                        Green: 255,
-                                                        Blue: 255,
-                                                      );
-                                                    });
-                                                    Navigator.pop(context);
-                                                  },
-                                                  icon: const Icon(Icons.circle,
-                                                    color: Colors.white,
-                                                    size: 60,
-                                                  ),
+                                              IconButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    colocarCores
+                                                        .ColocarCores(
+                                                      LocalDoApp: Nome,
+                                                      Red: 255,
+                                                      Opacidade: 255,
+                                                      Green: 255,
+                                                      Blue: 255,
+                                                    );
+                                                  });
+                                                  Navigator.pop(context);
+                                                },
+                                                icon: const Icon(Icons
+                                                    .circle,
+                                                  color: Colors.white,
+                                                  size: 60,
                                                 ),
-                                                const SizedBox(width: 7,),
-                                                IconButton(
-                                                  onPressed: (){
-                                                    setState(() {
-                                                      colocarCores.ColocarCores(
-                                                        LocalDoApp: Nome,
-                                                        Red: 76,
-                                                        Opacidade: 255,
-                                                        Green: 175,
-                                                        Blue: 80,
-                                                      );
-                                                    });
-                                                    Navigator.pop(context);
-                                                  },
-                                                  icon: const Icon(Icons.circle,
-                                                    color: Colors.green,
-                                                    size: 60,
-                                                  ),
+                                              ),
+                                              const SizedBox(width: 7,),
+                                              IconButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    colocarCores
+                                                        .ColocarCores(
+                                                      LocalDoApp: Nome,
+                                                      Red: 76,
+                                                      Opacidade: 255,
+                                                      Green: 175,
+                                                      Blue: 80,
+                                                    );
+                                                  });
+                                                  Navigator.pop(context);
+                                                },
+                                                icon: const Icon(Icons
+                                                    .circle,
+                                                  color: Colors.green,
+                                                  size: 60,
                                                 ),
-                                                const SizedBox(width: 7,),
-                                                IconButton(
-                                                  onPressed: (){
-                                                    setState(() {
-                                                      colocarCores.ColocarCores(
-                                                        LocalDoApp: Nome,
-                                                        Red: 255,
-                                                        Opacidade: 255,
-                                                        Green: 235,
-                                                        Blue: 59,
-                                                      );
-                                                    });
-                                                    Navigator.pop(context);
-                                                  },
-                                                  icon: const Icon(Icons.circle,
-                                                    color: Colors.yellow,
-                                                    size: 60,
-                                                  ),
+                                              ),
+                                              const SizedBox(width: 7,),
+                                              IconButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    colocarCores
+                                                        .ColocarCores(
+                                                      LocalDoApp: Nome,
+                                                      Red: 255,
+                                                      Opacidade: 255,
+                                                      Green: 235,
+                                                      Blue: 59,
+                                                    );
+                                                  });
+                                                  Navigator.pop(context);
+                                                },
+                                                icon: const Icon(Icons
+                                                    .circle,
+                                                  color: Colors.yellow,
+                                                  size: 60,
                                                 ),
-                                                const SizedBox(width: 7,),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      );
-                                    }, onClosing: () {  },
+                                              ),
+                                              const SizedBox(width: 7,),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  }, onClosing: () {},
                                 );
                               },
-                          );
-
-                          if(snapshot.data!.docs[index]['Nome'] == 'Cores Default'){
-                            coresDefault.ColocaCoresDefaul();
+                            );
                           }
-
                         },
                         child: Row(
                           children: [

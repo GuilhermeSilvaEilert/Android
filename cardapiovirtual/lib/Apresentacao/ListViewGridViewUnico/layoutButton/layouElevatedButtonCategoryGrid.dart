@@ -15,6 +15,7 @@ class layoutElevatedCategotyGrid extends StatelessWidget {
   String? LocalStorage;
   String? Nome;
 
+
   @override
   Widget build(BuildContext context) {
     return Column(

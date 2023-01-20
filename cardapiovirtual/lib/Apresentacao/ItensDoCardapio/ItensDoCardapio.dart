@@ -1,5 +1,6 @@
 import 'package:cardapiovirtual/Apresentacao/ListViewGridViewUnico/GridView.dart';
 import 'package:cardapiovirtual/Apresentacao/ListViewGridViewUnico/ListView.dart';
+import 'package:cardapiovirtual/Apresentacao/widgets/PopMenuButton/PopMenuButton.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../Repository/ConectaFirebase.dart';
@@ -34,53 +35,18 @@ class _ItensDoCardapioState extends State<ItensDoCardapio> {
         color: Color.fromARGB(255, 124, 112, 97),
         child: Row(
           children: [
-            PopupMenuButton(
-              itemBuilder: (context) {
-                var list = <PopupMenuEntry<Object>>[];
-                list.add(
-                  PopupMenuItem(
-                    onTap: (){
-                      setState(() {
-                        gradeOuLista = false;
-                      });
-                    },
-                    value: 2,
-                    child: Row(
-                      children: [
-                        Icon(
-                            Icons.list,
-                            color: Colors.black
-                        ),
-                        SizedBox(width: 5,),
-                        Text('Ver como Lista')
-                      ],
-                    ),
-                  ),
-                );
-                list.add(
-                  PopupMenuItem(
-                    onTap: (){
-                      setState(() {
-                        gradeOuLista = true;
-                      });
-                    },
-                    value: 1,
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.grid_view,
-                          color: Colors.black,
-                        ),
-                        SizedBox(width: 5,),
-                        Text('Ver como Grade')
-                      ],
-                    ),
-                  ),
-                );
-                return list;
+            PopMenuButtonWidget(
+              Funcao1: (){
+                setState(() {
+                  gradeOuLista = false;
+                });
               },
-              icon: Icon(Icons.filter_alt),
-            ),
+              Funcao2: (){
+                setState(() {
+                  gradeOuLista = true;
+                });
+              },
+            )
           ],
         ),
       ),
