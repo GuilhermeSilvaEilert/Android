@@ -72,9 +72,9 @@ class layoutElevatedCategotyGrid extends StatelessWidget {
                         .of(context)
                         .push(MaterialPageRoute(
                       builder: (context) => AtualizaCategoria(
-                        NomeCategoria: Nome,
-                        LocalArquivo: LocalStorage,
-                        NomeArquivo: Imagem,
+                        nomeCategoria: Nome,
+                        localArquivo: LocalStorage,
+                        nomeArquivo: Imagem,
                       ),),);
                   } else {
                     print('Excluir');

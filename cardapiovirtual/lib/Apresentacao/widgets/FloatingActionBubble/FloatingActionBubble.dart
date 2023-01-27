@@ -3,7 +3,7 @@ import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
 
 class FloatingActionBubbleMultiColor extends StatefulWidget {
-  FloatingActionBubbleMultiColor({
+  FloatingActionBubbleMultiColor({super.key,
   this.Funcao1,
   this.Funcao3,
   this.Funcao2
@@ -46,7 +46,7 @@ class _FloatingActionBubbleMultiColorState extends State<FloatingActionBubbleMul
           .get(),
       builder: (context, snapshot) {
         if(!snapshot.hasData){
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }else{

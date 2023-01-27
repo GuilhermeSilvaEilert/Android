@@ -1,5 +1,6 @@
-// ignore_for_file: file_names, must_be_immutable
+// ignore_for_file: file_names, must_be_immutable, sized_box_for_whitespace
 
+import 'package:cardapiovirtual/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
 import 'package:flutter/material.dart';
 
 class ApresentaProdutos extends StatefulWidget {
@@ -20,17 +21,15 @@ class ApresentaProdutos extends StatefulWidget {
 class _ApresentaProdutosState extends State<ApresentaProdutos> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 124, 112, 97),
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 78, 90, 85),
-        title: Text(widget.nome,
-          textAlign: TextAlign.center,
-        ),
-        centerTitle: true,
+    return
+
+    ScaffoldMultiColor(
+      TextAppBar: Text(widget.nome,
+        textAlign: TextAlign.center,
       ),
-      body: widget.nome == null ? const Center(child: CircularProgressIndicator(),)
-          :Card(
+      Body: /*widget.nome == null ? const Center(child: CircularProgressIndicator(),)
+          :*/
+      Card(
         shadowColor: Colors.transparent,
         borderOnForeground: false,
         color: const Color.fromARGB(255, 124, 112, 97),

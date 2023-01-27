@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:cardapiovirtual/Repository/ConfiguracoesCores/CoresDefault.dart';
 import 'package:cardapiovirtual/Repository/SetCores/ColocaCores.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,7 +27,7 @@ class _AlteraCoresState extends State<AlteraCores> {
        title: const Text('Cores'),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Color.fromARGB(255, 124, 112, 97),
+        color: const Color.fromARGB(255, 124, 112, 97),
         child: Container(
           width: 50,
           height: 50,
@@ -69,7 +71,7 @@ class _AlteraCoresState extends State<AlteraCores> {
                         ),
                         onPressed: () async {
 
-                          String Nome = snapshot.data?.docs[index]['Nome'];
+                          String nome = snapshot.data?.docs[index]['Nome'];
                           if(snapshot.data!.docs[index]['Nome'] == 'Cores Default'){
                             coresDefault.ColocaCoresDefaul();
                           }else {
@@ -92,12 +94,12 @@ class _AlteraCoresState extends State<AlteraCores> {
                                                 onPressed: () {
                                                   setState(() {
                                                     colocarCores
-                                                        .ColocarCores(
-                                                      LocalDoApp: Nome,
-                                                      Red: 158,
-                                                      Opacidade: 255,
-                                                      Green: 158,
-                                                      Blue: 158,
+                                                        .colocarcores(
+                                                      localDoApp: nome,
+                                                      red: 158,
+                                                      opacidade: 255,
+                                                      green: 158,
+                                                      blue: 158,
                                                     );
                                                   });
                                                   Navigator.pop(context);
@@ -115,12 +117,12 @@ class _AlteraCoresState extends State<AlteraCores> {
                                                 onPressed: () {
                                                   setState(() {
                                                     colocarCores
-                                                        .ColocarCores(
-                                                      LocalDoApp: Nome,
-                                                      Red: 244,
-                                                      Opacidade: 255,
-                                                      Green: 67,
-                                                      Blue: 54,
+                                                        .colocarcores(
+                                                      localDoApp: nome,
+                                                      red: 244,
+                                                      opacidade: 255,
+                                                      green: 67,
+                                                      blue: 54,
                                                     );
                                                   });
                                                   Navigator.pop(context);
@@ -136,12 +138,12 @@ class _AlteraCoresState extends State<AlteraCores> {
                                                 onPressed: () {
                                                   setState(() {
                                                     colocarCores
-                                                        .ColocarCores(
-                                                      LocalDoApp: Nome,
-                                                      Red: 33,
-                                                      Opacidade: 255,
-                                                      Green: 150,
-                                                      Blue: 243,
+                                                        .colocarcores(
+                                                      localDoApp: nome,
+                                                      red: 33,
+                                                      opacidade: 255,
+                                                      green: 150,
+                                                      blue: 243,
                                                     );
                                                   });
                                                   Navigator.pop(context);
@@ -158,12 +160,12 @@ class _AlteraCoresState extends State<AlteraCores> {
                                                 onPressed: () {
                                                   setState(() {
                                                     colocarCores
-                                                        .ColocarCores(
-                                                      LocalDoApp: Nome,
-                                                      Red: 0,
-                                                      Opacidade: 255,
-                                                      Green: 0,
-                                                      Blue: 0,
+                                                        .colocarcores(
+                                                      localDoApp: nome,
+                                                      red: 0,
+                                                      opacidade: 255,
+                                                      green: 0,
+                                                      blue: 0,
                                                     );
                                                   });
                                                   Navigator.pop(context);
@@ -181,12 +183,12 @@ class _AlteraCoresState extends State<AlteraCores> {
                                                 onPressed: () {
                                                   setState(() {
                                                     colocarCores
-                                                        .ColocarCores(
-                                                      LocalDoApp: Nome,
-                                                      Red: 255,
-                                                      Opacidade: 255,
-                                                      Green: 255,
-                                                      Blue: 255,
+                                                        .colocarcores(
+                                                      localDoApp: nome,
+                                                      red: 255,
+                                                      opacidade: 255,
+                                                      green: 255,
+                                                      blue: 255,
                                                     );
                                                   });
                                                   Navigator.pop(context);
@@ -202,12 +204,12 @@ class _AlteraCoresState extends State<AlteraCores> {
                                                 onPressed: () {
                                                   setState(() {
                                                     colocarCores
-                                                        .ColocarCores(
-                                                      LocalDoApp: Nome,
-                                                      Red: 76,
-                                                      Opacidade: 255,
-                                                      Green: 175,
-                                                      Blue: 80,
+                                                        .colocarcores(
+                                                      localDoApp: nome,
+                                                      red: 76,
+                                                      opacidade: 255,
+                                                      green: 175,
+                                                      blue: 80,
                                                     );
                                                   });
                                                   Navigator.pop(context);
@@ -223,12 +225,12 @@ class _AlteraCoresState extends State<AlteraCores> {
                                                 onPressed: () {
                                                   setState(() {
                                                     colocarCores
-                                                        .ColocarCores(
-                                                      LocalDoApp: Nome,
-                                                      Red: 255,
-                                                      Opacidade: 255,
-                                                      Green: 235,
-                                                      Blue: 59,
+                                                        .colocarcores(
+                                                      localDoApp: nome,
+                                                      red: 255,
+                                                      opacidade: 255,
+                                                      green: 235,
+                                                      blue: 59,
                                                     );
                                                   });
                                                   Navigator.pop(context);

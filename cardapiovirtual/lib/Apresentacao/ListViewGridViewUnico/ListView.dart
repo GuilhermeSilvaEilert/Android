@@ -86,7 +86,7 @@ class ListaViewUnico extends StatelessWidget {
                     if (resultadoConsulta! > 0) {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) =>
-                              ItensDoCardapio(Itens: Itens!)
+                              ItensDoCardapio(itens: Itens!)
                       ));
                     } else {
                       showDialog(

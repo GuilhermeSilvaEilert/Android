@@ -1,9 +1,7 @@
 import 'package:cardapiovirtual/Apresentacao/AdicionalogoInicial/AdicionaLogoInicio.dart';
 import 'package:cardapiovirtual/CamadaDeNeg%C3%B3cio/ConfiguracoesSistema/AlteraCores.dart';
 import 'package:cardapiovirtual/Repository/ConfiguracoesCores/CoresDefault.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class TelaConfiguracoes extends StatefulWidget {
   const TelaConfiguracoes({Key? key}) : super(key: key);
@@ -20,7 +18,7 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: CustomScrollView(
               slivers: [
                 SliverToBoxAdapter(
@@ -33,10 +31,10 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
                           onPressed: (){
                             Navigator
                                 .push(context, MaterialPageRoute(
-                              builder: (context) => AlteraCores(),),);
+                              builder: (context) => const AlteraCores(),),);
                           }, 
                           child: Row(
-                            children: [
+                            children: const [
                               Text('Cores',
                                 style: TextStyle(
                                     color: Colors.white,
@@ -54,18 +52,18 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
                       TextButton(
                         style: ButtonStyle(
                           fixedSize: MaterialStateProperty.all(
-                             Size(180, 70)
+                             const Size(180, 70)
                           ),
                         ),
                         onPressed: (){
                           Navigator
                               .push(context, MaterialPageRoute(
-                            builder: (context) => AdicionaLogoInicial(),),);
+                            builder: (context) => const AdicionaLogoInicial(),),);
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: const [
                             Text('Altera Logo',
                               style: TextStyle(
                                 color: Colors.white,

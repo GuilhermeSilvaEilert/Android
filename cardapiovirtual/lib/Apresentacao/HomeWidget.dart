@@ -1,26 +1,25 @@
+// ignore_for_file: file_names
+
+import 'package:cardapiovirtual/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/TextButtonMultiColor/TextButtonMultiColor.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import 'AdicionaItemCardapio/AdicionaItemCardapio.dart';
-import 'widgets/Drawer/Drawer.dart';
 
 
 class HomeWidget extends StatelessWidget {
-  final _pageController = PageController();
+
+  const HomeWidget({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          color: Color.fromARGB(255, 78, 90, 85),
-        ),
-        padding: EdgeInsets.all(30),
+    return ScaffoldMultiColor(
+      Body: Container(
+        padding: const EdgeInsets.all(30),
         alignment: Alignment.center,
         child: Column(
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 124, 112, 97),
               ),
               child: Column(
@@ -29,28 +28,28 @@ class HomeWidget extends StatelessWidget {
                     children:[
                       Image.asset('Assets/qrcodemesa/QRcodeMesa.jpg',
                         height: 170, width: 170,),
-                      SizedBox(width: 10,),
+                      const SizedBox(width: 10,),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('GERAR QRCODE \nDA Mesa',
+                          const Text('GERAR QRCODE \nDA Mesa',
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 22,
                             ),
                           ),
-                          Text('10 Mesas \n Cadastradas',
+                          const Text('10 Mesas \n Cadastradas',
                             style: TextStyle(
                               color: Colors.white,
                             ),
                           ),
-                          SizedBox(height: 10,),
+                          const SizedBox(height: 10,),
                           TextButtonMultiColor(
                             largura: 140,
                             altura: 50,
-                            text: Text('ADD ou Editar',
+                            text: const Text('ADD ou Editar',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 10,
@@ -66,27 +65,27 @@ class HomeWidget extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             Container(
               width: 400,
               height: 200,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 124, 112, 97),
               ),
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   Row(
                     children:[
                       Image.asset('Assets/cardapio/menu.jpg',
                         height: 165, width: 165,),
-                      SizedBox(width: 10,),
+                      const SizedBox(width: 10,),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('MEU \nCARDAPIO',
+                          const Text('MEU \nCARDAPIO',
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -101,19 +100,19 @@ class HomeWidget extends StatelessWidget {
                                   .get(),
                               builder: (context, snapshot){
                                 return Text('${snapshot.data?.docs.length} itens \nno cardapio',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white,
                                   ),
                                 );
                               }
                           ),
 
-                          SizedBox(height: 10,),
+                          const SizedBox(height: 10,),
 
                           TextButtonMultiColor(
                             largura: 140,
                             altura: 50,
-                            text: Text('ADD ou Editar',
+                            text: const Text('ADD ou Editar',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 10,
@@ -121,7 +120,7 @@ class HomeWidget extends StatelessWidget {
                               ),
                             ),
                             funcao: (){
-                              Navigator.push(context,MaterialPageRoute(builder: (context) =>  AdicionaItemCardapio(),));
+                              Navigator.push(context,MaterialPageRoute(builder: (context) =>  const AdicionaItemCardapio(),));
                             },
                           ),
                         ],

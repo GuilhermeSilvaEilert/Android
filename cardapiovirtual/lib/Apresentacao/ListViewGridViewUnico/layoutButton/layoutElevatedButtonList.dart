@@ -71,7 +71,7 @@ class layoutCategoria extends StatelessWidget {
                           MaterialPageRoute(
                             builder: (context) =>
                                 AtualizaItemCardapio(
-                                    Nome: Nome),
+                                    nome: Nome),
                           ),
                         );
                       } else {
@@ -95,7 +95,7 @@ class layoutCategoria extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Expanded(

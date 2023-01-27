@@ -1,10 +1,10 @@
-import 'dart:io';
+// ignore_for_file: file_names, must_be_immutable
+
 import 'package:cardapiovirtual/Apresentacao/ItensDoCardapio/ItensDoCardapio.dart';
 import 'package:cardapiovirtual/Apresentacao/ListViewGridViewUnico/layoutButton/layouElevatedButtonCategoryGrid.dart';
 import 'package:cardapiovirtual/Apresentacao/ListViewGridViewUnico/layoutButton/layoutElevatedButtonItenGrid.dart';
 import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:cardapiovirtual/Apresentacao/ApresentaProduto/ApresentaProduto.dart';
@@ -39,7 +39,7 @@ class _GridViewItensState extends State<GridViewItens> {
   int? consultaCategorias;
 
 
-  Future<int?> ValidaExistenciaDeDados(String? Categoria) async {
+  Future<int?> validaExistenciaDeDados(String? Categoria) async {
     final QuerySnapshot result = await Future.value(
       FirebaseFirestore.instance
           .collection('Itens Cardapio')
@@ -53,7 +53,7 @@ class _GridViewItensState extends State<GridViewItens> {
     return resultadoConsulta;
   }
 
-  Future<int> ValidaExistenciaCategoria() async {
+  Future<int> validaExistenciaCategoria() async {
     final QuerySnapshot result = await Future.value(
       FirebaseFirestore.instance.collection('Itens Cardapio').get(),
     );
@@ -65,7 +65,7 @@ class _GridViewItensState extends State<GridViewItens> {
     return consultaCategorias!;
   }
 
-  AtualizaDados() async{
+  atualizaDados() async{
     setState(() {
       FirebaseFirestore.instance.collection('Itens Cardapio').get();
     });
@@ -80,7 +80,7 @@ class _GridViewItensState extends State<GridViewItens> {
       FirebaseFirestore.instance.collection('Itens Cardapio').get() :
       FirebaseFirestore.instance.collection('Itens Cardapio').doc(widget.categoria).collection('Itens').get(),
       builder: (context, snapshot) {
-        ValidaExistenciaCategoria();
+        validaExistenciaCategoria();
         if (!snapshot.hasData) {
           return Container(
             alignment: Alignment.center,
@@ -89,12 +89,12 @@ class _GridViewItensState extends State<GridViewItens> {
             ),
           );
         } else {
-          AtualizaDados();
+          atualizaDados();
           return Padding(
             padding: const EdgeInsets.only(top: 5, bottom: 0, left: 9, right: 9),
             child: GridView.builder(
               itemBuilder: (context, index) {
-                AtualizaDados();
+                atualizaDados();
                 return ElevatedButton(
                   style: ButtonStyle(
 
@@ -108,13 +108,13 @@ class _GridViewItensState extends State<GridViewItens> {
                       widget.categoriaOuItem == true ?
                       Colors.transparent
                           :
-                      Color.fromARGB(255, 124, 112, 97),
+                      const Color.fromARGB(255, 124, 112, 97),
                     ),
                     backgroundColor: MaterialStateProperty.all(
                       widget.categoriaOuItem == true ?
                       Colors.transparent
                           :
-                      Color.fromARGB(255, 124, 112, 97),
+                      const Color.fromARGB(255, 124, 112, 97),
                     ),
                     enableFeedback: true,
                     shape: MaterialStateProperty.all(
@@ -127,12 +127,12 @@ class _GridViewItensState extends State<GridViewItens> {
                   onPressed: () async {
                     if(widget.categoriaOuItem == true){
                       Itens = snapshot.data!.docs[index]['Nome'];
-                      await ValidaExistenciaDeDados(Itens);
+                      await validaExistenciaDeDados(Itens);
                       print(resultadoConsulta);
                       if (resultadoConsulta! > 0) {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) =>
-                                ItensDoCardapio(Itens: Itens!)
+                                ItensDoCardapio(itens: Itens!)
                         ));
                       } else {
                         showDialog(

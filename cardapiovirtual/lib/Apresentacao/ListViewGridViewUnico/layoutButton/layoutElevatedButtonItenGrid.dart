@@ -31,7 +31,7 @@ class layoutElevatedGridItens extends StatelessWidget {
           width: 300,
           height: 300,
         ),
-        SizedBox(height: 10,),
+        const SizedBox(height: 10,),
         Padding(
           padding: const EdgeInsets.only(left: 40),
           child: Column(
@@ -43,7 +43,7 @@ class layoutElevatedGridItens extends StatelessWidget {
                 children: [
                   Text(
                     Nome!,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -86,12 +86,12 @@ class layoutElevatedGridItens extends StatelessWidget {
                             .of(context)
                             .push(MaterialPageRoute(
                           builder: (context) => AtualizaItemCardapio(
-                            Preco: Preco.toString(),
-                            Nome: Nome,
-                            Imagem: Imagem,
-                            Descricao: Descricao,
-                            Categoria: categoria,
-                            LocalStorage:LocalStorage,
+                            preco: Preco.toString(),
+                            nome: Nome,
+                            imagem: Imagem,
+                            descricao: Descricao,
+                            categoria: categoria,
+                            localStorage:LocalStorage,
                           ),),
                         );
                       } else {
@@ -114,13 +114,13 @@ class layoutElevatedGridItens extends StatelessWidget {
 
                 ],
               ),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text('R\$' + Preco.toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 15,
                     ),

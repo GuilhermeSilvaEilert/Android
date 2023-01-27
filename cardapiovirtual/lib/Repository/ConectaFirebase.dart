@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -7,7 +9,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 class ConectaFirebase {
 
   Future<void> sendDados({
-    String? NomeProduto,
+    String? nomeProduto,
     double? preco,
     File? imgFile,
     String? categoria,
@@ -15,11 +17,11 @@ class ConectaFirebase {
     String? file}) async {
     await Firebase.initializeApp();
 
-    int TamanhoEixoX = 1;
-    int TamanhoEixoY = 1;
+    int tamanhoEixoX = 1;
+    int tamanhoEixoY = 1;
 
 
-    if (imgFile != null && NomeProduto != null && preco != null &&
+    if (imgFile != null && nomeProduto != null && preco != null &&
         categoria != null) {
       UploadTask task = FirebaseStorage.instance
           .ref()
@@ -30,33 +32,33 @@ class ConectaFirebase {
       String url = await taskSnapshot.ref.getDownloadURL();
 
       Map<String, dynamic> data = {
-        'Nome': NomeProduto,
+        'Nome': nomeProduto,
         'Preco': preco,
         'Imagem': url,
         'Descricao': descricao,
         'time': Timestamp.now(),
-        'x': TamanhoEixoX,
-        'y': TamanhoEixoY,
+        'x': tamanhoEixoX,
+        'y': tamanhoEixoY,
         'LocalStorage': file
       };
 
       FirebaseFirestore.instance.collection('Itens Cardapio')
           .doc(categoria)
-          .collection('Itens').doc(NomeProduto)
+          .collection('Itens').doc(nomeProduto)
           .set(data);
     } else {
       print('valores nulos');
     }
   }
 
-  Future<void> CriaCategoria(
-      {String? NomeCategoria, File? imgFile, String? localFile}) async {
+  Future<void> criaCategoria(
+      {String? nomeCategoria, File? imgFile, String? localFile}) async {
     await Firebase.initializeApp();
 
-    int TamanhoEixoX = 1;
-    int TamanhoEixoY = 1;
+    int tamanhoEixoX = 1;
+    int tamanhoEixoY = 1;
 
-    if (imgFile != null && NomeCategoria != null) {
+    if (imgFile != null && nomeCategoria != null) {
       UploadTask task = FirebaseStorage.instance
           .ref()
           .child('$imgFile')
@@ -68,40 +70,24 @@ class ConectaFirebase {
 
 
       Map<String, dynamic> data = {
-        'Nome': NomeCategoria,
+        'Nome': nomeCategoria,
         'Imagem': url,
         'time': Timestamp.now(),
-        'x': TamanhoEixoX,
-        'y': TamanhoEixoY,
+        'x': tamanhoEixoX,
+        'y': tamanhoEixoY,
         'LocalStorage': localFile,
       };
 
       FirebaseFirestore.instance.collection('Itens Cardapio')
-          .doc(NomeCategoria)
+          .doc(nomeCategoria)
           .set(data);
     } else {
       print('valores nulos');
     }
   }
 
-  RetornaLista() async {
-    final List list = [];
-    final QuerySnapshot result = await Future.value(
-        FirebaseFirestore
-            .instance
-            .collection('Itens Cardapio').get()
-    );
-    int tamanhoArray = (result.docs.length) - 1;
-    for (int i = 0; i <= tamanhoArray; i++) {
-      print(result.docs[i]['Nome']);
-      list.add(result.docs[i]['Nome']);
-      print(list);
-    }
-    return list;
-  }
-
   Future<void> AtualizaCategoria({
-    String? NomeCategoria,
+    String? nomeCategoria,
     File? imgFile,
     String? localFile,
     String? oldNomecategoria,
@@ -111,19 +97,19 @@ class ConectaFirebase {
     await Firebase.initializeApp();
     print('iniciando Atualização');
 
-    int TamanhoEixoX = 1;
-    int TamanhoEixoY = 1;
+    int tamanhoEixoX = 1;
+    int tamanhoEixoY = 1;
 
     print(
         'Velho Nome: $oldNomecategoria'
             '\n Velha Imagem: $oldimgFile'
             '\n Velho local: $oldlocalFile'
-            '\n Novo Nome: $NomeCategoria'
+            '\n Novo Nome: $nomeCategoria'
             '\n File: $imgFile'
             '\n localFile: $localFile'
     );
 
-    if (imgFile != null && NomeCategoria != 'Vazia') {
+    if (imgFile != null && nomeCategoria != 'Vazia') {
       UploadTask task = FirebaseStorage.instance
           .ref()
           .child('$imgFile')
@@ -134,37 +120,37 @@ class ConectaFirebase {
       String url = await taskSnapshot.ref.getDownloadURL();
 
       Map<String, dynamic> data = {
-        'Nome': NomeCategoria,
+        'Nome': nomeCategoria,
         'Imagem': url,
         'LocalStorage': localFile,
         'time': Timestamp.now(),
-        'x': TamanhoEixoX,
-        'y': TamanhoEixoY,
+        'x': tamanhoEixoX,
+        'y': tamanhoEixoY,
       };
 
       FirebaseFirestore.instance.collection('Itens Cardapio')
-          .doc(NomeCategoria)
+          .doc(nomeCategoria)
           .set(data);
       FirebaseFirestore.instance.collection('Itens Cardapio').doc(
           oldNomecategoria).delete();
 
-    } else if (imgFile == null && NomeCategoria != 'Vazia') {
+    } else if (imgFile == null && nomeCategoria != 'Vazia') {
 
       Map<String, dynamic> data = {
-        'Nome': NomeCategoria,
+        'Nome': nomeCategoria,
         'Imagem': oldimgFile,
         'LocalStorage': oldlocalFile,
         'time': Timestamp.now(),
-        'x': TamanhoEixoX,
-        'y': TamanhoEixoY,
+        'x': tamanhoEixoX,
+        'y': tamanhoEixoY,
       };
 
       FirebaseFirestore.instance.collection('Itens Cardapio')
-          .doc(NomeCategoria)
+          .doc(nomeCategoria)
           .set(data);
       FirebaseFirestore.instance.collection('Itens Cardapio').doc(
           oldNomecategoria).delete();
-    } else if (imgFile != null && NomeCategoria == 'Vazia') {
+    } else if (imgFile != null && nomeCategoria == 'Vazia') {
       UploadTask task = FirebaseStorage.instance
           .ref()
           .child('$imgFile')
@@ -180,8 +166,8 @@ class ConectaFirebase {
         'Imagem': url,
         'LocalStorage': localFile,
         'time': Timestamp.now(),
-        'x': TamanhoEixoX,
-        'y': TamanhoEixoY,
+        'x': tamanhoEixoX,
+        'y': tamanhoEixoY,
       };
       FirebaseFirestore.instance.collection('Itens Cardapio').doc(
           oldNomecategoria).delete();
@@ -192,9 +178,9 @@ class ConectaFirebase {
     }
   }
 
-  Future? LogoInicial  (
+  Future? logoInicial  (
       File? imgFile,
-      String? LocalStorage
+      String? localStorage
       ) async {
 
     final QuerySnapshot result = await Future.value(
@@ -214,7 +200,7 @@ class ConectaFirebase {
 
       Map<String, dynamic> data = {
         'Image': url,
-        'LocalStorage': LocalStorage,
+        'LocalStorage': localStorage,
       };
 
       FirebaseFirestore.instance.collection('Configurações')
@@ -230,7 +216,7 @@ class ConectaFirebase {
 
       Map<String, dynamic> data = {
         'Image': url,
-        'LocalStorage': LocalStorage,
+        'LocalStorage': localStorage,
       };
 
 
@@ -275,7 +261,6 @@ class ConectaFirebase {
         'y': TamanhoEixoY,
         'LocalStorage': file
       };
-      print('Subindo Imagem velha');
 
       FirebaseFirestore
           .instance
@@ -296,7 +281,6 @@ class ConectaFirebase {
       TaskSnapshot taskSnapshot = await task;
 
       String urlNew = await taskSnapshot.ref.getDownloadURL();
-      print('Subindo Imagem nova');
       Map<String, dynamic> data = {
         'Nome': NomeProduto,
         'Preco': preco,
@@ -321,6 +305,7 @@ class ConectaFirebase {
           .set(data);
 
     } else {
+      // ignore: avoid_print
       print('valores nulos');
     }
   }

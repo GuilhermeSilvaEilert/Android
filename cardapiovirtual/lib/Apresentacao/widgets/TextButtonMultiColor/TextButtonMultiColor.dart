@@ -1,9 +1,10 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class TextButtonMultiColor extends StatefulWidget {
-  TextButtonMultiColor({
+  TextButtonMultiColor({super.key,
     this.largura,
     this.text,
     this.funcao,
@@ -14,15 +15,6 @@ class TextButtonMultiColor extends StatefulWidget {
   double? largura;
   var funcao;
   var text;
-
-  Atualiza(){
-    FirebaseFirestore
-        .instance
-        .collection('Configurações')
-        .doc('Cores')
-        .collection('Configura Cores')
-        .get();
-  }
 
   @override
   State<TextButtonMultiColor> createState() => _TextButtonMultiColorState();
@@ -41,7 +33,7 @@ class _TextButtonMultiColorState extends State<TextButtonMultiColor> {
           .get(),
       builder: (context, snapshot) {
           if(!snapshot.hasData){
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }else{

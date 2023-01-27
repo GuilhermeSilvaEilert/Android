@@ -1,8 +1,9 @@
+// ignore_for_file: file_names, use_build_context_synchronously
+import 'package:cardapiovirtual/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/TextButtonMultiColor/TextButtonMultiColor.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AdicionaLogoInicial extends StatefulWidget {
@@ -23,24 +24,22 @@ class _AdicionaLogoInicial extends State<AdicionaLogoInicial> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 78, 90, 85),
-        title: Text('Adicione uma Logo',
-          style: TextStyle(
-              fontWeight: FontWeight.bold
-          ),
+    return
+    ScaffoldMultiColor(
+      TextAppBar: const Text('Adicione uma Logo',
+        style: TextStyle(
+            fontWeight: FontWeight.bold
         ),
       ),
-      body: Container(
-        padding: EdgeInsets.fromLTRB(20, 40, 20, 0),
-        decoration: BoxDecoration(
+      Body: Container(
+        padding: const EdgeInsets.fromLTRB(20, 40, 20, 0),
+        decoration: const BoxDecoration(
           color: Color.fromARGB(255, 78, 90, 85),
         ),
         child: Column(
           children: [
             ElevatedButton(
-              style: ButtonStyle(
+              style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(
                     Colors.transparent
                 ),
@@ -55,7 +54,7 @@ class _AdicionaLogoInicial extends State<AdicionaLogoInicial> {
                       return BottomSheet(
                         builder: (context){
                           return Container(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               mainAxisSize: MainAxisSize.min,
@@ -79,10 +78,10 @@ class _AdicionaLogoInicial extends State<AdicionaLogoInicial> {
                                           Navigator.pop(context);
                                         },
                                         backgroundColor: Colors.red,
-                                        child:  Icon(Icons.photo_camera, color: Colors.white),
+                                        child:  const Icon(Icons.photo_camera, color: Colors.white),
                                       ),
                                     ),
-                                    Text('Camera'),
+                                    const Text('Camera'),
                                   ],
                                 ),
                                 Column(
@@ -104,10 +103,10 @@ class _AdicionaLogoInicial extends State<AdicionaLogoInicial> {
                                           });
                                           Navigator.pop(context);
                                         },
-                                        child: Icon(Icons.photo_album, color: Colors.white),
+                                        child: const Icon(Icons.photo_album, color: Colors.white),
                                       ),
                                     ),
-                                    Text('Galeria'),
+                                    const Text('Galeria'),
                                   ],
                                 ),
                               ],
@@ -126,25 +125,25 @@ class _AdicionaLogoInicial extends State<AdicionaLogoInicial> {
                   image: DecorationImage(
                       image: imgFile != null ?
                       FileImage(File(imgFile!.path),) :
-                      AssetImage('Assets/cardapio/AddComida.png',
+                      const AssetImage('Assets/cardapio/AddComida.png',
                       ) as ImageProvider
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 40,),
+            const SizedBox(height: 40,),
 
             TextButtonMultiColor(
               altura: 70,
               largura: 400,
               funcao: (){
                 nomeCategoria.clear();
-                conectaFirebase.LogoInicial(fileSend, file);
+                conectaFirebase.logoInicial(fileSend, file);
               },
               text: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Icon(Icons.save,
                     size: 30,
                     color: Colors.white,

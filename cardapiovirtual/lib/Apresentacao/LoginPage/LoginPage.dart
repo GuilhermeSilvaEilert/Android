@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:cardapiovirtual/Apresentacao/HomePage/HomePage.dart';
+import 'package:cardapiovirtual/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/TextButtonMultiColor/TextButtonMultiColor.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -15,17 +16,15 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
 
   bool? salvaSenha = false;
+  int checkBox = 0;
 
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      body: Container(
+    return ScaffoldMultiColor(
+      Body: Container(
         padding: const EdgeInsets.all(50),
         alignment: Alignment.topCenter,
-        decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 78, 90, 85),
-        ),
           child: Column(
             children:[
               FutureBuilder(
@@ -97,12 +96,32 @@ class _LoginPageState extends State<LoginPage> {
                 child: Row(
                   children: [
                     Checkbox(
+                      focusColor: Colors.black,
+                      autofocus: true,
+                      overlayColor: MaterialStateProperty.all(
+                        Colors.grey
+                      ),
+                      fillColor: MaterialStateProperty.all(
+                        Color.fromARGB(255, 150, 0, 0)
+                      ),
+                      checkColor:  Colors.black,
+                      splashRadius: 20,
                         value: salvaSenha,
                         onChanged: (value) {
-                         setState(() {
-                           value = true;
-                           salvaSenha = true;
-                         });
+                          checkBox ++;
+                          if(checkBox == 1){
+                            return setState(() {
+                              value = true;
+                              salvaSenha = true;
+                            });
+                          }else{
+                            checkBox = 0;
+                            return setState(() {
+                              value = false;
+                              salvaSenha = false;
+                            });
+                          }
+
                         }),
                     const Text('Lembrar da senha ?'),
                   ],

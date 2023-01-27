@@ -6,12 +6,12 @@ class CorDosBtoesDefault{
 
   ColocaCorDefault(){
 
-    setcores.ColocarCores(
-        Blue: 0,
-        Green: 0,
-        Opacidade: 255,
-        Red: 150,
-        LocalDoApp: 'Cor Dos Botões'
+    setcores.colocarcores(
+        blue: 0,
+        green: 0,
+        opacidade: 255,
+        red: 150,
+        localDoApp: 'Cor Dos Botões'
     );
 
   }

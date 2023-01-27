@@ -1,21 +1,23 @@
+// ignore_for_file: file_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SetCores{
 
-  ColocarCores({
-      int? Red,
-      int? Blue,
-      int? Green,
-      int? Opacidade,
-      String? LocalDoApp}) async{
+  colocarcores({
+      int? red,
+      int? blue,
+      int? green,
+      int? opacidade,
+      String? localDoApp}) async{
 
 
     Map<String, dynamic> data = {
-      'Blue': Blue,
-      'Red': Red,
-      'Green': Green,
-      'Opacidade': Opacidade,
-      'Nome': LocalDoApp
+      'Blue': blue,
+      'Red': red,
+      'Green': green,
+      'Opacidade': opacidade,
+      'Nome': localDoApp
     };
 
     FirebaseFirestore
@@ -23,14 +25,14 @@ class SetCores{
         .collection('Configurações')
         .doc('Cores')
         .collection('Configura Cores')
-        .doc(LocalDoApp).delete();
+        .doc(localDoApp).delete();
 
     FirebaseFirestore
         .instance
         .collection('Configurações')
         .doc('Cores')
         .collection('Configura Cores')
-        .doc(LocalDoApp).set(data);
+        .doc(localDoApp).set(data);
 
   }
 

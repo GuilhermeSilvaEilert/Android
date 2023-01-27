@@ -6,12 +6,12 @@ class CorBoxesDefault{
 
   ColocaCorDefault(){
 
-    setcores.ColocarCores(
-        Blue: 97,
-        Green: 112,
-        Opacidade: 255,
-        Red: 124,
-        LocalDoApp: 'Cor Das Boxes'
+    setcores.colocarcores(
+        blue: 97,
+        green: 112,
+        opacidade: 255,
+        red: 124,
+        localDoApp: 'Cor Das Boxes'
     );
 
   }

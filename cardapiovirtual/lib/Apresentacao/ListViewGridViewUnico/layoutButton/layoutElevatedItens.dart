@@ -73,7 +73,7 @@ class layoutItens extends StatelessWidget {
                           MaterialPageRoute(
                             builder: (context) =>
                                 AtualizaItemCardapio(
-                                    Nome: Nome),
+                                    nome: Nome),
                           ),
                         );
                       } else {
@@ -95,7 +95,7 @@ class layoutItens extends StatelessWidget {
                       width: 20,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                     height: 10,
                   ),
@@ -106,26 +106,26 @@ class layoutItens extends StatelessWidget {
 
           ],
         ),
-        SizedBox(width: 20,),
+        const SizedBox(width: 20,),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(width: 10,),
+            const SizedBox(width: 10,),
             Text(
               Nome!,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
               'R\$' + Preco.toString(),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 15,
               ),

@@ -6,12 +6,12 @@ class CorDoDrawerDefault{
 
   ColocaCorDefault(){
 
-    setcores.ColocarCores(
-        Blue: 85,
-        Green: 90,
-        Opacidade: 255,
-        Red: 78,
-        LocalDoApp: 'Cor Do Drawer'
+    setcores.colocarcores(
+        blue: 158,
+        green: 158,
+        opacidade: 255,
+        red: 158,
+        localDoApp: 'Cor Do Drawer'
     );
 
   }

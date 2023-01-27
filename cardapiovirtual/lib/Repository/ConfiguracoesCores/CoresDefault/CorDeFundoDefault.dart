@@ -6,12 +6,12 @@ class CorDeFundoDefault{
 
   ColocaCorDefault(){
 
-    setcores.ColocarCores(
-      Blue: 85,
-      Green: 90,
-      Opacidade: 255,
-      Red: 78,
-      LocalDoApp: 'Cor De Fundo'
+    setcores.colocarcores(
+      blue: 85,
+      green: 90,
+      opacidade: 255,
+      red: 78,
+      localDoApp: 'Cor De Fundo'
     );
 
   }

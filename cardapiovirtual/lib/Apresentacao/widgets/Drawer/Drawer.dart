@@ -10,36 +10,54 @@ class CustomDrawer extends StatelessWidget {
 
   final PageController  pageController;
 
+
+
   @override
   Widget build(BuildContext context) {
-    Widget _buildDrawerBack()=> Container(
-      decoration:  BoxDecoration(
-       color: Colors.grey
-      ),
-    );
 
-    return FutureBuilder(
-      future: FirebaseFirestore
-          .instance
-          .collection('Configurações')
-          .doc('Cores')
-          .collection('Configura Cores')
-          .get(),
-      builder: (snapshot, context) {
+    Widget buildDrawerBack() {
+      return FutureBuilder(
+          future: FirebaseFirestore
+              .instance
+              .collection('Configurações')
+              .doc('Cores')
+              .collection('Configura Cores')
+              .get(),
+        builder: (context, snapshot) {
+            if(!snapshot.hasData){
+              return Container(
+                decoration: const BoxDecoration(
+                  color: Colors.grey
+                ),
+              );
+            }else {
+              return Container(
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(
+                    snapshot.data!.docs[2]['Opacidade'],
+                    snapshot.data!.docs[2]['Red'],
+                    snapshot.data!.docs[2]['Green'],
+                    snapshot.data!.docs[2]['Blue'],),
+                ),
+              );
+            }
+        }
+      );
+    }
         return Drawer(
           child: Stack(
             children: [
-              _buildDrawerBack(),
+              buildDrawerBack(),
               ListView(
-                padding: EdgeInsets.only(left: 32, top: 16),
+                padding: const EdgeInsets.only(left: 32, top: 16),
                 children: [
                   Container(
-                    margin: EdgeInsets.only(bottom: 8),
-                    padding: EdgeInsets.fromLTRB(0.0, 16, 16, 8),
+                    margin: const EdgeInsets.only(bottom: 8),
+                    padding: const EdgeInsets.fromLTRB(0.0, 16, 16, 8),
                     height: 170,
                     child: Stack(
                       children: [
-                        Positioned(
+                        const Positioned(
                           top:8,
                           left: 8,
                           child: Text('Gerenciamento',
@@ -54,7 +72,7 @@ class CustomDrawer extends StatelessWidget {
                           bottom: 0.0,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children:[
+                            children:const [
                               Text('Ola, seja bem vindo',
                                 style:TextStyle(
                                     fontSize: 18,
@@ -67,7 +85,7 @@ class CustomDrawer extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Divider(),
+                  const Divider(),
                   DrawerTile(icon: Icons.home,text: 'Home', pageController: pageController, page: 0),
                   DrawerTile( icon: Icons.list, text: 'Ver Cardapio', pageController: pageController, page: 1),
                   DrawerTile(icon: Icons.create_rounded,text: 'Criar usuario', pageController: pageController, page: 2),
@@ -77,7 +95,5 @@ class CustomDrawer extends StatelessWidget {
             ],
           ),
         );
-      }
-    );
   }
 }

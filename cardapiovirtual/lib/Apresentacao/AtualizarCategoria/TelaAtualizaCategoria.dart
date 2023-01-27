@@ -1,3 +1,6 @@
+//ignore_for_file: must_be_immutable, file_names
+
+import 'package:cardapiovirtual/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/TextButtonMultiColor/TextButtonMultiColor.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -6,13 +9,13 @@ import 'package:image_picker/image_picker.dart';
 
 class AtualizaCategoria extends StatefulWidget {
   AtualizaCategoria({Key? key,
-    this.NomeCategoria,
-    this.LocalArquivo,
-    this.NomeArquivo}) : super(key: key);
+    this.nomeCategoria,
+    this.localArquivo,
+    this.nomeArquivo}) : super(key: key);
 
-  String? NomeCategoria;
-  String? NomeArquivo;
-  String? LocalArquivo;
+  String? nomeCategoria;
+  String? nomeArquivo;
+  String? localArquivo;
 
   @override
   State<AtualizaCategoria> createState() => _AtualizaCategoria();
@@ -29,24 +32,23 @@ class _AtualizaCategoria extends State<AtualizaCategoria> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 78, 90, 85),
-        title: Text('Atualize a Categoria ${widget.NomeCategoria}',
-          style: TextStyle(
-              fontWeight: FontWeight.bold
-          ),
+    return
+
+    ScaffoldMultiColor(
+      TextAppBar: Text('Atualize a Categoria ${widget.nomeCategoria}',
+        style: const TextStyle(
+            fontWeight: FontWeight.bold
         ),
       ),
-      body: Container(
-        padding: EdgeInsets.fromLTRB(20, 40, 20, 0),
-        decoration: BoxDecoration(
+      Body: Container(
+        padding: const EdgeInsets.fromLTRB(20, 40, 20, 0),
+        decoration: const BoxDecoration(
           color: Color.fromARGB(255, 78, 90, 85),
         ),
         child: Column(
           children: [
             ElevatedButton(
-              style: ButtonStyle(
+              style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(
                     Colors.transparent
                 ),
@@ -61,7 +63,7 @@ class _AtualizaCategoria extends State<AtualizaCategoria> {
                       return BottomSheet(
                         builder: (context){
                           return Container(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               mainAxisSize: MainAxisSize.min,
@@ -85,10 +87,10 @@ class _AtualizaCategoria extends State<AtualizaCategoria> {
                                           Navigator.pop(context);
                                         },
                                         backgroundColor: Colors.red,
-                                        child:  Icon(Icons.photo_camera, color: Colors.white),
+                                        child:  const Icon(Icons.photo_camera, color: Colors.white),
                                       ),
                                     ),
-                                    Text('Camera'),
+                                    const Text('Camera'),
                                   ],
                                 ),
                                 Column(
@@ -110,10 +112,10 @@ class _AtualizaCategoria extends State<AtualizaCategoria> {
                                           });
                                           Navigator.pop(context);
                                         },
-                                        child: Icon(Icons.photo_album, color: Colors.white),
+                                        child: const Icon(Icons.photo_album, color: Colors.white),
                                       ),
                                     ),
-                                    Text('Galeria'),
+                                    const Text('Galeria'),
                                   ],
                                 ),
                               ],
@@ -132,13 +134,13 @@ class _AtualizaCategoria extends State<AtualizaCategoria> {
                   image: DecorationImage(
                       image: imgFile != null ?
                       FileImage(File(imgFile!.path),) :
-                      AssetImage('Assets/cardapio/AddComida.png',
+                      const AssetImage('Assets/cardapio/AddComida.png',
                       ) as ImageProvider
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 40,),
+            const SizedBox(height: 40,),
             TextField(
               controller: nomeCategoria,
               cursorColor: Colors.black,
@@ -148,18 +150,18 @@ class _AtualizaCategoria extends State<AtualizaCategoria> {
                 hoverColor: Colors.black,
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15),
-                  borderSide:BorderSide(color: Colors.black),
+                  borderSide:const BorderSide(color: Colors.black),
                 ),
                 hintText: 'Nome da Categoria',
-                counterStyle: TextStyle(color: Colors.black),
-                labelStyle: TextStyle(color: Colors.black,),
+                counterStyle: const TextStyle(color: Colors.black),
+                labelStyle: const TextStyle(color: Colors.black,),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),
               ),
             ),
 
-            SizedBox(height: 50,),
+            const SizedBox(height: 50,),
 
             TextButtonMultiColor(
               altura: 70,
@@ -169,24 +171,24 @@ class _AtualizaCategoria extends State<AtualizaCategoria> {
                   nomeCategoria.text = 'Vazia';
                 }
                 conectaFirebase.AtualizaCategoria(
-                  localFile: widget.LocalArquivo,
+                  localFile: widget.localArquivo,
                   imgFile: fileSend,
-                  NomeCategoria: nomeCategoria.text,
-                  oldimgFile: widget.NomeArquivo,
-                  oldlocalFile: widget.LocalArquivo,
-                  oldNomecategoria: widget.NomeCategoria,
+                  nomeCategoria: nomeCategoria.text,
+                  oldimgFile: widget.nomeArquivo,
+                  oldlocalFile: widget.localArquivo,
+                  oldNomecategoria: widget.nomeCategoria,
                 );
               },
               text: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.save,
+                  const Icon(Icons.save,
                     size: 30,
                     color: Colors.white,
                   ),
-                  SizedBox(width: 10,),
-                  Text('SALVAR',
+                  const SizedBox(width: 10,),
+                  const Text('SALVAR',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white
