@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
-class layoutItens extends StatelessWidget {
+class layoutItens extends StatefulWidget {
   layoutItens({Key? key,
     this.Nome,
     this.Imagem,
@@ -16,8 +16,17 @@ class layoutItens extends StatelessWidget {
   String? Nome;
   double? Preco;
   String?  Categoria;
+
+  @override
+  State<layoutItens> createState() => _layoutItensState();
+}
+
+class _layoutItensState extends State<layoutItens> {
   @override
   Widget build(BuildContext context) {
+
+    var NomeProduto = widget.Nome!.toString().split('\n');
+
     return Row(
       children: [
         Column(
@@ -27,7 +36,7 @@ class layoutItens extends StatelessWidget {
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(
-                    Imagem!,
+                    widget.Imagem!,
                   ),
                 ),
               ),
@@ -73,18 +82,18 @@ class layoutItens extends StatelessWidget {
                           MaterialPageRoute(
                             builder: (context) =>
                                 AtualizaItemCardapio(
-                                    nome: Nome),
+                                    nome: widget.Nome),
                           ),
                         );
                       } else {
                         await FirebaseStorage.instance
-                            .ref(LocalStorage)
+                            .ref(widget.LocalStorage)
                             .delete();
                         await FirebaseFirestore.instance
                             .collection('Itens Cardapio')
-                            .doc(Categoria)
+                            .doc(widget.Categoria)
                             .collection('Itens')
-                            .doc(Nome)
+                            .doc(widget.Nome)
                             .delete();
                       }
                     },
@@ -113,18 +122,19 @@ class layoutItens extends StatelessWidget {
           children: [
             const SizedBox(width: 10,),
             Text(
-              Nome!,
+              widget.Nome!,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
               ),
+
             ),
             const SizedBox(
               height: 10,
             ),
             Text(
-              'R\$' + Preco.toString(),
+              'R\$' + widget.Preco.toString(),
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 15,

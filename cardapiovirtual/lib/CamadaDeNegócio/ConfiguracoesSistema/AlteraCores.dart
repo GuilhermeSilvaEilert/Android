@@ -1,5 +1,6 @@
 // ignore_for_file: sized_box_for_whitespace
 
+import 'package:cardapiovirtual/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
 import 'package:cardapiovirtual/Repository/ConfiguracoesCores/CoresDefault.dart';
 import 'package:cardapiovirtual/Repository/SetCores/ColocaCores.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,21 +21,16 @@ class _AlteraCoresState extends State<AlteraCores> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 78, 90, 85),
-       centerTitle: true,
-       title: const Text('Cores'),
-      ),
-      bottomNavigationBar: BottomAppBar(
+    return ScaffoldMultiColor(
+      TextAppBar: const Text('Cores'),
+      BottomNavigationBar: BottomAppBar(
         color: const Color.fromARGB(255, 124, 112, 97),
         child: Container(
           width: 50,
           height: 50,
         ),
       ),
-      backgroundColor: const Color.fromARGB(255, 78, 90, 85),
-      body: FutureBuilder<QuerySnapshot>(
+      Body: FutureBuilder<QuerySnapshot>(
         future:
         FirebaseFirestore
             .instance

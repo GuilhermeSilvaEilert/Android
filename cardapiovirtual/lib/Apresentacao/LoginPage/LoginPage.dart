@@ -5,6 +5,8 @@ import 'package:cardapiovirtual/Apresentacao/widgets/ScaffoldMulticolor/Scaffold
 import 'package:cardapiovirtual/Apresentacao/widgets/TextButtonMultiColor/TextButtonMultiColor.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -19,6 +21,12 @@ class _LoginPageState extends State<LoginPage> {
   int checkBox = 0;
 
   @override
+  initState(){
+    super.initState();
+    Firebase.initializeApp();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     return ScaffoldMultiColor(
@@ -30,13 +38,13 @@ class _LoginPageState extends State<LoginPage> {
               FutureBuilder(
                 future: FirebaseFirestore.instance.collection('Configurações').get(),
                   builder: (context, snapshot) {
+
                   String? imagem = snapshot.data!.docs[1]['Image'];
                   if(imagem == null || imagem == ''){
                     return Image.asset('Assets/LogoMarca/LogoMarcaTG.png', height: 100, width: 100,);
                   }else{
                     return Image.network(imagem, height: 100, width: 100,);
-                  }
-                  },
+                  }},
               ),
               Container(
                 padding: const EdgeInsets.all(30),
@@ -102,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                         Colors.grey
                       ),
                       fillColor: MaterialStateProperty.all(
-                        Color.fromARGB(255, 150, 0, 0)
+                        const Color.fromARGB(255, 150, 0, 0)
                       ),
                       checkColor:  Colors.black,
                       splashRadius: 20,
@@ -134,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                 },
                 altura: 50,
                 largura: 200,
-                text: Text('LOGIN',
+                text: const Text('LOGIN',
                   style: TextStyle(
                       color: Colors.white
                   ),

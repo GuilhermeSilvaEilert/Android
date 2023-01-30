@@ -57,7 +57,9 @@ class AdmHomePage extends StatelessWidget {
                             Navigator
                                 .of(context)
                                 .push(MaterialPageRoute(
-                                builder: (context) => const LoginPage()));
+                                builder: (context) => const LoginPage(),
+                              ),
+                            );
                           },
                           icon: const Icon(Icons.keyboard_return_outlined)
                       ),

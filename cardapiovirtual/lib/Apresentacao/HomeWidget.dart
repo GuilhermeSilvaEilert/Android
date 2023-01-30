@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:cardapiovirtual/Apresentacao/widgets/Boxes/Boxes.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/TextButtonMultiColor/TextButtonMultiColor.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,10 +19,7 @@ class HomeWidget extends StatelessWidget {
         alignment: Alignment.center,
         child: Column(
           children: [
-            Container(
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 124, 112, 97),
-              ),
+            Boxes(
               child: Column(
                 children: [
                   Row(
@@ -66,12 +64,9 @@ class HomeWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10,),
-            Container(
-              width: 400,
-              height: 200,
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 124, 112, 97),
-              ),
+            Boxes(
+              largura: 400.0,
+              altura: 200.0,
               padding: const EdgeInsets.all(10),
               child: Column(
                 children: [

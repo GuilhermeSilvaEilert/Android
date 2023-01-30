@@ -1,4 +1,4 @@
-//ignore_for_file: must_be_immutable, file_names
+//ignore_for_file: must_be_immutable, file_names, use_build_context_synchronously
 
 import 'package:cardapiovirtual/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/TextButtonMultiColor/TextButtonMultiColor.dart';
@@ -182,13 +182,13 @@ class _AtualizaCategoria extends State<AtualizaCategoria> {
               text: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.save,
+                children: const [
+                  Icon(Icons.save,
                     size: 30,
                     color: Colors.white,
                   ),
-                  const SizedBox(width: 10,),
-                  const Text('SALVAR',
+                  SizedBox(width: 10,),
+                  Text('SALVAR',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white

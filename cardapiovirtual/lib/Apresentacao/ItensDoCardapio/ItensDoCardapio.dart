@@ -3,6 +3,7 @@
 
 import 'package:cardapiovirtual/Apresentacao/ListViewGridViewUnico/GridView.dart';
 import 'package:cardapiovirtual/Apresentacao/ListViewGridViewUnico/ListView.dart';
+import 'package:cardapiovirtual/Apresentacao/widgets/BottonAppBar/BottonAppBarMultiColor.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/PopMenuButton/PopMenuButton.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -72,12 +73,26 @@ class _ItensDoCardapioState extends State<ItensDoCardapio> {
             ),
           ],
         ),
-          BottomNavigationBar: BottomAppBar(
-            shape:  const CircularNotchedRectangle(),
-            color: const Color.fromARGB(255, 124, 112, 97),
+          BottomNavigationBar: BottonAppBarMultiColor(
             child: Row(
               children: [
                 PopMenuButtonWidget(
+                  Icon1: Row(
+                    children: [
+                      Icon(Icons.list),
+                      SizedBox(width: 5,),
+                      Text('Lista')
+                    ],
+                  ),
+                  
+                  Icon2: Row(
+                    children: [
+                      Icon(Icons.grid_view),
+                      SizedBox(width: 5,),
+                      Text('Grade')
+                    ],
+                  ),
+                  
                   Funcao1: (){
                     setState(() {
                       gradeOuLista = false;
