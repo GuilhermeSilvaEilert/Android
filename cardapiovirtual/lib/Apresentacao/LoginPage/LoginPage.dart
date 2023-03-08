@@ -38,13 +38,13 @@ class _LoginPageState extends State<LoginPage> {
               FutureBuilder(
                 future: FirebaseFirestore.instance.collection('Configurações').get(),
                   builder: (context, snapshot) {
-
-                  String? imagem = snapshot.data!.docs[1]['Image'];
-                  if(imagem == null || imagem == ''){
-                    return Image.asset('Assets/LogoMarca/LogoMarcaTG.png', height: 100, width: 100,);
+                  if(!snapshot.hasData){
+                    String? imagem = snapshot.data!.docs[1]['Image'];
+                    return Image.network(imagem!, height: 100, width: 100,);
                   }else{
-                    return Image.network(imagem, height: 100, width: 100,);
-                  }},
+                    return Image.asset('Assets/LogoMarca/LogoMarcaTG.png', height: 100, width: 100,);
+                  }
+                  },
               ),
               Container(
                 padding: const EdgeInsets.all(30),

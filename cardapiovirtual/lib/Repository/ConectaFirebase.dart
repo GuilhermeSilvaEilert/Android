@@ -235,6 +235,13 @@ class ConectaFirebase {
 
   }
 
+  Future? RemovaLogoInicial(){
+    FirebaseFirestore
+        .instance
+        .collection('Configurações')
+        .doc('Logo Inicial').delete();
+  }
+
   Future? AtualizaItens(
       { String? NomeProduto,
         String? idProduto,

@@ -158,6 +158,32 @@ class _AdicionaLogoInicial extends State<AdicionaLogoInicial> {
                 ],
               ),
             ),
+            const SizedBox(height: 40,),
+            TextButtonMultiColor(
+              altura: 70,
+              largura: 400,
+              funcao: (){
+                nomeCategoria.clear();
+                conectaFirebase.RemovaLogoInicial();
+              },
+              text: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.save,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                  SizedBox(width: 10,),
+                  Text('REMOVER ICONE',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
