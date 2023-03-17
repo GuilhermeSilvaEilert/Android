@@ -51,6 +51,43 @@ class ConectaFirebase {
     }
   }
 
+  CriaUsuarioGarcom({
+    String? NomeUsuario,
+    File? imgFile,
+    String? Senha,
+    String? file,
+    String? Email
+    }) async {
+
+    int tamanhoEixoX = 1;
+    int tamanhoEixoY = 1;
+
+    if (imgFile != null && NomeUsuario != null && Senha != null) {
+      UploadTask task = FirebaseStorage.instance
+          .ref()
+          .child('$imgFile')
+          .putFile(imgFile);
+
+      TaskSnapshot taskSnapshot = await task;
+      String url = await taskSnapshot.ref.getDownloadURL();
+
+      Map<String, dynamic> data = {
+        'NomeUsuario': NomeUsuario,
+        'Email': Email,
+        'Senha': Senha,
+        'Imagem': url,
+        'x': tamanhoEixoX,
+        'y': tamanhoEixoY,
+        'LocalStorage': file
+      };
+
+      FirebaseFirestore.instance.collection('Logins Garçons').add(data);
+    } else {
+      print('valores nulos');
+    }
+
+  }
+
   Future<void> criaCategoria(
       {String? nomeCategoria, File? imgFile, String? localFile}) async {
     await Firebase.initializeApp();

@@ -1,40 +1,223 @@
 
-// ignore_for_file: file_names
-
+import 'dart:convert';
+import 'dart:io';
+import 'package:crypto/crypto.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
-
+import 'package:cardapiovirtual/Apresentacao/widgets/TextButtonMultiColor/TextButtonMultiColor.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
-class CriaUsuarioGarsom extends StatelessWidget {
-  const CriaUsuarioGarsom({Key? key}) : super(key: key);
+import '../../Repository/ConectaFirebase.dart';
+
+class CriaUsuarioGarcom extends StatefulWidget {
+  const CriaUsuarioGarcom({Key? key}) : super(key: key);
+
+  @override
+  State<CriaUsuarioGarcom> createState() => _CriaUsuarioGarcomState();
+}
+
+class _CriaUsuarioGarcomState extends State<CriaUsuarioGarcom> {
+
+  final ImagePicker _picker = ImagePicker();
+  ConectaFirebase conectaFirebase = ConectaFirebase();
+  File? fileSend;
+  XFile? imgFile;
+  String? file;
+
+  TextEditingController usuarioController = TextEditingController();
+  TextEditingController senhaController = TextEditingController();
+  TextEditingController EmailController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
-    return
+    return ScaffoldMultiColor(
+      Body: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.fromLTRB(20, 40, 20, 40),
+            child: ElevatedButton(
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(
+                    Colors.transparent
+                ),
+                shadowColor: MaterialStatePropertyAll(
+                    Colors.transparent
+                ),
+              ),
+              onPressed:() async {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context){
+                      return BottomSheet(
+                        builder: (context){
+                          return Container(
+                            padding: const EdgeInsets.all(10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: FloatingActionButton(
+                                        onPressed: () async {
+                                          imgFile = await _picker.pickImage(source: ImageSource.camera);
+                                          setState(() {
+                                            if(imgFile == null){
+                                              return;
+                                            }else{
+                                              fileSend = File(imgFile!.path);
+                                              file = fileSend.toString();
+                                            }
+                                          });
+                                          Navigator.pop(context);
+                                        },
+                                        backgroundColor: Colors.red,
+                                        child:  const Icon(Icons.photo_camera, color: Colors.white),
+                                      ),
+                                    ),
+                                    const Text('Camera'),
+                                  ],
+                                ),
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: FloatingActionButton(
+                                        backgroundColor: Colors.red,
+                                        onPressed: () async{
+                                          imgFile = await _picker.pickImage(source: ImageSource.gallery);
+                                          setState(() {
+                                            if(imgFile == null){
+                                              return;
+                                            }else{
+                                              fileSend = File(imgFile!.path);
+                                              file = fileSend.toString();
+                                            }
+                                          });
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Icon(Icons.photo_album, color: Colors.white),
+                                      ),
+                                    ),
+                                    const Text('Galeria'),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          );
+                        }, onClosing: () {
 
-      ScaffoldMultiColor(
-        Body: Center(
-          child: Column(
-            children: [
-              Container(
-                width: 200,
-                height: 200,
-                decoration: const BoxDecoration(
+                      },
+                      );
+                    });
+              },
+              child: Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage('https://cdn-icons-png.flaticon.com/512/6360/6360061.png'),
+                      image: imgFile != null ?
+                      FileImage(File(imgFile!.path),) :
+                      const AssetImage('Assets/cardapio/AddComida.png',
+                      ) as ImageProvider
                   ),
                 ),
               ),
-              const Text('Pagina em desenvolvimento, \nvolte mais tarde obrigado',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 50,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
-      );
+          TextField(
+            controller: usuarioController,
+            cursorColor: Colors.black,
+            decoration:InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+              hoverColor: Colors.black,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide:const BorderSide(color: Colors.black),
+              ),
+              hintText: 'Nome de Usuario',
+              counterStyle: const TextStyle(color: Colors.black),
+              labelStyle: const TextStyle(color: Colors.black,),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+          ),
+          SizedBox(height: 20,),
+          TextField(
+            controller: EmailController,
+            cursorColor: Colors.black,
+            keyboardType: TextInputType.emailAddress,
+            decoration:InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+              hoverColor: Colors.black,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide:const BorderSide(color: Colors.black),
+              ),
+              hintText: 'Email',
+              counterStyle: const TextStyle(color: Colors.black),
+              labelStyle: const TextStyle(color: Colors.black,),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+          ),
+          SizedBox(height: 20,),
+          TextField(
+            controller: senhaController,
+            cursorColor: Colors.black,
+            obscureText: true,
+            keyboardType: TextInputType.visiblePassword,
+            decoration:InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+              hoverColor: Colors.black,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide:const BorderSide(color: Colors.black),
+              ),
+              hintText: 'Senha',
+              counterStyle: const TextStyle(color: Colors.black),
+              labelStyle: const TextStyle(color: Colors.black,),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+          ),
+          SizedBox(height: 50,),
+          Container(
+            child: Expanded(
+              child: TextButtonMultiColor(
+              funcao: (){
+                conectaFirebase.CriaUsuarioGarcom(
+                  file: file,
+                  imgFile: fileSend,
+                  Senha: senhaController.text,
+                  NomeUsuario: usuarioController.text,
+                  Email: EmailController.text,
+                );
+              },
+              text: Text(
+                'Criar Usuario',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold
+                ),),
+              largura: 400,
+              altura: 70,
+            ),),
+          ),
+        ],
+      ),
+    );
   }
 }
+

@@ -39,7 +39,7 @@ class AdmHomePage extends StatelessWidget {
 
                   ScaffoldMultiColor(
                     TextAppBar: const Text('Seu Cardapio'),
-                    Body: const CriaUsuarioGarsom(),
+                    Body: const CriaUsuarioGarcom(),
                     drawer: CustomDrawer(pageController: _pageController),
                   ),
 
