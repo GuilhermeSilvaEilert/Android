@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:cardapiovirtual/Apresentacao/EditaUsuario/EditaUsuarioGarcom.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/Boxes/Boxes.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/TextButtonMultiColor/TextButtonMultiColor.dart';
@@ -161,7 +162,7 @@ class HomeWidget extends StatelessWidget {
                                             child: Image.network(
                                               snapshot.data!.docs[index]['Imagem'],
                                               height: 115,
-                                              width: 115,
+                                              width: 110,
                                               fit: BoxFit.cover,
                                             ),
                                           ),
@@ -196,7 +197,9 @@ class HomeWidget extends StatelessWidget {
                                               return list;
                                             },
                                             onSelected: (value) async {
-
+                                              if(value == 1){
+                                                Navigator.push(context, MaterialPageRoute(builder: (context) => EditaUsuarioGarcom(),));
+                                              }
                                             },
                                             icon: Image.asset(
                                               'Assets/Icons/quicksetting.png',
@@ -214,8 +217,8 @@ class HomeWidget extends StatelessWidget {
                                               snapshot.data!.docs[index]['NomeUsuario'],
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 20,
-                                              color: Colors.white
+                                              fontSize: 14,
+                                              color: Colors.white,
                                             ),
                                           ),
                                            SizedBox(width: 50,),

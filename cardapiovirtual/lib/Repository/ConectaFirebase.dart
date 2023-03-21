@@ -51,6 +51,49 @@ class ConectaFirebase {
     }
   }
 
+  EditaUsuarioGarcom({
+    String? NomeUsuario,
+    File? imgFile,
+    String? Senha,
+    String? file,
+    String? Email,
+    String? EmailRef
+    }) async {
+
+    int tamanhoEixoX = 1;
+    int tamanhoEixoY = 1;
+
+    if (imgFile != null && NomeUsuario != null && Senha != null) {
+      UploadTask task = FirebaseStorage.instance
+          .ref()
+          .child('$imgFile')
+          .putFile(imgFile);
+
+      TaskSnapshot taskSnapshot = await task;
+      String url = await taskSnapshot.ref.getDownloadURL();
+
+      Map<String, dynamic> data = {
+        'NomeUsuario': NomeUsuario,
+        'Email': Email,
+        'EmailRef': Email,
+        'Senha': Senha,
+        'Imagem': url,
+        'x': tamanhoEixoX,
+        'y': tamanhoEixoY,
+        'LocalStorage': file
+      };
+
+      FirebaseFirestore.instance.collection('Logins Garçons').doc(EmailRef).delete();
+      FirebaseStorage.instance.ref(file).delete();
+      FirebaseFirestore.instance.collection('Logins Garçons').doc(EmailRef).set(data);
+
+
+    } else {
+      print('valores nulos');
+    }
+
+    }
+
   CriaUsuarioGarcom({
     String? NomeUsuario,
     File? imgFile,
@@ -73,6 +116,7 @@ class ConectaFirebase {
 
       Map<String, dynamic> data = {
         'NomeUsuario': NomeUsuario,
+        'EmailRef':Email,
         'Email': Email,
         'Senha': Senha,
         'Imagem': url,
@@ -81,7 +125,7 @@ class ConectaFirebase {
         'LocalStorage': file
       };
 
-      FirebaseFirestore.instance.collection('Logins Garçons').add(data);
+      FirebaseFirestore.instance.collection('Logins Garçons').doc('EmailRef').set(data);
     } else {
       print('valores nulos');
     }
