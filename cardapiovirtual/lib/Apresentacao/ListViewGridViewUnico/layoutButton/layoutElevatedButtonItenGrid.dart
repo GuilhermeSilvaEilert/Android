@@ -11,7 +11,8 @@ class layoutElevatedGridItens extends StatelessWidget {
      this.LocalStorage,
      this.categoria,
      this.Nome,
-     this.Preco
+     this.Preco,
+     this.id
    }) : super(key: key);
 
   String? Imagem;
@@ -20,6 +21,7 @@ class layoutElevatedGridItens extends StatelessWidget {
   String? Descricao;
   String? LocalStorage;
   String? categoria;
+  String? id;
 
   @override
   Widget build(BuildContext context) {

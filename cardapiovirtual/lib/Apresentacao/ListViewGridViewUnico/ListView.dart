@@ -13,7 +13,7 @@ class ListaViewUnico extends StatelessWidget {
   String? DentroDosItens;
   ConectaFirebase conectaFirebase = ConectaFirebase();
   bool? categoriaOuItem;
-  String? Itens;
+  UniqueKey? Itens;
   var existeItens;
   int? existeDados;
   int? resultadoConsulta;
@@ -81,7 +81,7 @@ class ListaViewUnico extends StatelessWidget {
                 onPressed: () async {
                   if(categoriaOuItem == true){
                     Itens = snapshot.data!.docs[index]['Nome'];
-                    await ValidaExistenciaDeDados(Itens);
+                    await ValidaExistenciaDeDados(Itens.toString());
                     print(resultadoConsulta);
                     if (resultadoConsulta! > 0) {
                       Navigator.of(context).push(MaterialPageRoute(

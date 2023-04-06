@@ -4,14 +4,15 @@ class CorDeFundoDefault{
 
   SetCores setcores = SetCores();
 
-  ColocaCorDefault(){
+  ColocaCorDefault({String? UserRoot}){
 
     setcores.colocarcores(
       blue: 85,
       green: 90,
       opacidade: 255,
       red: 78,
-      localDoApp: 'Cor De Fundo'
+      localDoApp: 'Cor De Fundo',
+      UserRoot: UserRoot,
     );
 
   }

@@ -8,13 +8,16 @@ class layoutElevatedCategotyGrid extends StatelessWidget {
     Key? key,
     this.Nome,
     this.Imagem,
-    this.LocalStorage
+    this.LocalStorage,
+    this.id,
+    this.UserRoot
   }) : super(key: key);
 
   String? Imagem;
   String? LocalStorage;
   String? Nome;
-
+  String? id;
+  String? UserRoot;
 
   @override
   Widget build(BuildContext context) {
@@ -75,16 +78,19 @@ class layoutElevatedCategotyGrid extends StatelessWidget {
                         nomeCategoria: Nome,
                         localArquivo: LocalStorage,
                         nomeArquivo: Imagem,
+                        id: id,
                       ),),);
                   } else {
+                    print(LocalStorage);
                     print('Excluir');
                     await FirebaseStorage.instance
                         .ref(LocalStorage)
                         .delete();
                     await FirebaseFirestore.instance
+                        .collection('Usuario raiz')
+                        .doc(UserRoot)
                         .collection('Itens Cardapio')
-                        .doc(Nome)
-                        .delete();
+                        .doc(id).delete();
                   }
                 },
                 icon: Image.asset(

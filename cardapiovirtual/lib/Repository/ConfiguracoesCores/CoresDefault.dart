@@ -10,11 +10,11 @@ class CoresDefault{
   CorDeFundoDefault corDeFundoDefault = CorDeFundoDefault();
   CorDoDrawerDefault corDoDrawerDefault = CorDoDrawerDefault();
 
-  ColocaCoresDefaul()async{
-    await corDosBtoesDefault.ColocaCorDefault();
-    await corBoxesDefault.ColocaCorDefault();
-    await corDeFundoDefault.ColocaCorDefault();
-    await corDoDrawerDefault.ColocaCorDefault();
+  ColocaCoresDefaul({String? UserRoot})async{
+    await corDosBtoesDefault.ColocaCorDefault(UserRoot: UserRoot);
+    await corBoxesDefault.ColocaCorDefault(UserRoot: UserRoot);
+    await corDeFundoDefault.ColocaCorDefault(UserRoot: UserRoot);
+    await corDoDrawerDefault.ColocaCorDefault(UserRoot: UserRoot);
   }
 
 }

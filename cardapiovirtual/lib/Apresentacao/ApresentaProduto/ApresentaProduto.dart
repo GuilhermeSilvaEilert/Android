@@ -27,9 +27,7 @@ class _ApresentaProdutosState extends State<ApresentaProdutos> {
       TextAppBar: Text(widget.nome,
         textAlign: TextAlign.center,
       ),
-      Body: /*widget.nome == null ? const Center(child: CircularProgressIndicator(),)
-          :*/
-      Card(
+      Body: Card(
         shadowColor: Colors.transparent,
         borderOnForeground: false,
         color: const Color.fromARGB(255, 124, 112, 97),

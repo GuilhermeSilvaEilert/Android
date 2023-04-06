@@ -1,7 +1,9 @@
+import 'package:cardapiovirtual/Model/itemModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 import'DrawerTile/DrawerTile.dart';
 
@@ -10,38 +12,50 @@ class CustomDrawer extends StatelessWidget {
 
   final PageController  pageController;
 
-
-
   @override
   Widget build(BuildContext context) {
 
     Widget buildDrawerBack() {
-      return FutureBuilder(
-          future: FirebaseFirestore
-              .instance
-              .collection('Configurações')
-              .doc('Cores')
-              .collection('Configura Cores')
-              .get(),
-        builder: (context, snapshot) {
-            if(!snapshot.hasData){
-              return Container(
-                decoration: const BoxDecoration(
-                  color: Colors.grey
-                ),
-              );
-            }else {
-              return Container(
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(
-                    snapshot.data!.docs[2]['Opacidade'],
-                    snapshot.data!.docs[2]['Red'],
-                    snapshot.data!.docs[2]['Green'],
-                    snapshot.data!.docs[2]['Blue'],),
-                ),
-              );
-            }
-        }
+      return ScopedModel<CardapioModel>(
+        model: CardapioModel(),
+        child: ScopedModelDescendant<CardapioModel>(
+          builder: (context, child, model){
+            return FutureBuilder(
+                future: model.firebaseUser!.email!.isEmpty  ?
+                FirebaseFirestore
+                    .instance
+                    .collection('Configurações')
+                    .doc('Cores')
+                    .collection('Configura Cores')
+                    .get()
+                    :
+                FirebaseFirestore
+                    .instance
+                    .collection('Usuario raiz')
+                    .doc(model.firebaseUser!.email)
+                    .collection('Configuracoes').get(),
+              builder: (context, snapshot) {
+                  if(!snapshot.hasData){
+                    return Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.grey
+                      ),
+                    );
+                  }else {
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(
+                          snapshot.data!.docs[2]['Opacidade'],
+                          snapshot.data!.docs[2]['Red'],
+                          snapshot.data!.docs[2]['Green'],
+                          snapshot.data!.docs[2]['Blue'],),
+                      ),
+                    );
+                  }
+              }
+            );
+          }
+        ),
       );
     }
         return Drawer(

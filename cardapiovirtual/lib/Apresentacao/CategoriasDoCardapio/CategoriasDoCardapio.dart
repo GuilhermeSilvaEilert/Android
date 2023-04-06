@@ -7,9 +7,10 @@ import 'package:cardapiovirtual/Apresentacao/ListViewGridViewUnico/ListView.dart
 import 'package:cardapiovirtual/Apresentacao/widgets/FloatingActionBubble/FloatingActionBubble.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/PopMenuButton/PopMenuButton.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
-import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
+import 'package:cardapiovirtual/Model/itemModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class CategoriasDoCardapio extends StatefulWidget {
   const CategoriasDoCardapio({Key? key}) : super(key: key);
@@ -23,20 +24,20 @@ class _CategoriasDoCardapioState extends State<CategoriasDoCardapio> with Single
   Animation<double>? _animation;
   AnimationController? _animationController;
 
-  ConectaFirebase conectaFirebase = ConectaFirebase();
-
   var existeItens;
   int? existeDados;
   int? resultadoConsulta;
   var decisao;
   int? consultaCategorias;
 
-  Future<int> validaExistenciaCategoria() async {
+  Future<int> validaExistenciaCategoria(String? UserRoot) async {
 
     final QuerySnapshot result = await Future.value(
-      FirebaseFirestore
-          .instance
-          .collection('Itens Cardapio').get(),
+      FirebaseFirestore.instance
+          .collection('Usuario raiz')
+          .doc(UserRoot)
+          .collection('Itens Cardapio')
+          .get()
     );
 
     consultaCategorias = result.docs.length;
@@ -59,7 +60,6 @@ class _CategoriasDoCardapioState extends State<CategoriasDoCardapio> with Single
 
   bool? gradeOuLista;
 
-  String? itens;
 
   @override
   Widget build(BuildContext context) {
@@ -68,69 +68,79 @@ class _CategoriasDoCardapioState extends State<CategoriasDoCardapio> with Single
     ScaffoldMultiColor(
       Body: Stack(
         children: [
-          CustomScrollView(
-            slivers: [
-              FutureBuilder<QuerySnapshot>(
-                future: FirebaseFirestore.instance
-                    .collection('Itens Cardapio').get(),
-                builder: (context, snapshot){
-                  validaExistenciaCategoria();
-                  if(!snapshot.hasData) {
-                    return SliverToBoxAdapter(
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: const CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                        ),
-                      ),
-                    );
-                  } else {
-                    return
-                      SliverToBoxAdapter(
-                        child: gradeOuLista == false ?
-                        consultaCategorias == 0 || consultaCategorias == null ?
-                        const Center(
-                          heightFactor: 20,
-                          child: Text(
-                            'Adicione Categorias',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+          ScopedModel<CardapioModel>(
+            model: CardapioModel(),
+            child: ScopedModelDescendant<CardapioModel>(
+              builder: (context, child, model) {
+                return CustomScrollView(
+                  slivers: [
+                    FutureBuilder<QuerySnapshot>(
+                      future: FirebaseFirestore.instance
+                          .collection('Usuario raiz')
+                          .doc(model.firebaseUser!.email)
+                          .collection('Itens Cardapio')
+                          .get(),
+                      builder: (context, snapshot){
+                        validaExistenciaCategoria(model.firebaseUser!.email);
+                        if(!snapshot.hasData) {
+                          return SliverToBoxAdapter(
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: const CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                              ),
                             ),
-                          ),
-                        )
-                            :
-                        ListaViewUnico(
-                          categoriaOuItem: true,
-                        )
-                        //ListaItens()
-                            : consultaCategorias == 0 || consultaCategorias == null ?
-                        const Center(
-                          heightFactor: 20,
-                          child: Text(
-                            'Adicione Categorias',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )
-                            :
-                        Container(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: GridViewItens(
-                              categoriaOuItem: true,
-                              crossAxisCount: 2,
-                            )
-                          // GridItens()
-                        ),
-                      );
-                  }
-                },
-              ),
-            ],
+                          );
+                        } else {
+                          return
+                            SliverToBoxAdapter(
+                              child: gradeOuLista == false ?
+                              snapshot.data!.docs.length == null ?
+                              const Center(
+                                heightFactor: 20,
+                                child: Text(
+                                  'Adicione Categorias',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              )
+                                  :
+                              ListaViewUnico(
+                                categoriaOuItem: true,
+                              )
+                              //ListaItens()
+                                  : consultaCategorias == 0 || consultaCategorias == null ?
+                              const Center(
+                                heightFactor: 20,
+                                child: Text(
+                                  'Adicione Categorias',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              )
+                                  :
+                              Container(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  child: GridViewItens(
+                                    categoriaOuItem: true,
+                                    crossAxisCount: 2,
+                                  )
+                                // GridItens()
+                              ),
+                            );
+                        }
+                      },
+                    ),
+                  ],
+                );
+              }
+            ),
           ),
         ],
       ),
@@ -172,7 +182,8 @@ class _CategoriasDoCardapioState extends State<CategoriasDoCardapio> with Single
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionBubbleMultiColor(
         Funcao1: (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CriaCategoria(),),);
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const CriaCategoria(),),);
         },
         Funcao2: (){
           setState(() {

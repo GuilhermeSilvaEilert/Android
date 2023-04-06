@@ -1,6 +1,6 @@
 import 'package:cardapiovirtual/Apresentacao/AdicionalogoInicial/AdicionaLogoInicio.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
-import 'package:cardapiovirtual/CamadaDeNeg%C3%B3cio/ConfiguracoesSistema/AlteraCores.dart';
+import 'package:cardapiovirtual/CamadaDeNegocio/ConfiguracoesSistema/AlteraCores.dart';
 import 'package:cardapiovirtual/Repository/ConfiguracoesCores/CoresDefault.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +28,6 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
                         TextButton(
                             onPressed: (){
                               Navigator

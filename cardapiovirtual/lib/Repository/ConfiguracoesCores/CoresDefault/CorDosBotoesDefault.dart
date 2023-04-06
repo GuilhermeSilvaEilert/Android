@@ -4,14 +4,15 @@ class CorDosBtoesDefault{
 
   SetCores setcores = SetCores();
 
-  ColocaCorDefault(){
+  ColocaCorDefault({String? UserRoot}){
 
     setcores.colocarcores(
         blue: 0,
         green: 0,
         opacidade: 255,
         red: 150,
-        localDoApp: 'Cor Dos Botões'
+        localDoApp: 'Cor Dos Botoes',
+        UserRoot: UserRoot,
     );
 
   }

@@ -6,22 +6,20 @@ import 'package:cardapiovirtual/Apresentacao/ListViewGridViewUnico/ListView.dart
 import 'package:cardapiovirtual/Apresentacao/widgets/BottonAppBar/BottonAppBarMultiColor.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/PopMenuButton/PopMenuButton.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
+import 'package:cardapiovirtual/Model/itemModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 import '../../Repository/ConectaFirebase.dart';
 
 class ItensDoCardapio extends StatefulWidget {
   ItensDoCardapio({super.key, required this.itens});
-  String itens;
+  UniqueKey? itens;
   @override
-  State<ItensDoCardapio> createState() => _ItensDoCardapioState(itens: itens);
+  State<ItensDoCardapio> createState() => _ItensDoCardapioState();
 }
 
 class _ItensDoCardapioState extends State<ItensDoCardapio> {
-
-  _ItensDoCardapioState({required this.itens});
-
-  String itens;
 
   ConectaFirebase conectaFirebase = ConectaFirebase();
 
@@ -34,42 +32,49 @@ class _ItensDoCardapioState extends State<ItensDoCardapio> {
         TextAppBar: const Text('Seu Cardapio'),
         Body:  Stack(
           children: [
-            CustomScrollView(
-              physics: const AlwaysScrollableScrollPhysics().parent,
-              slivers: [
-                FutureBuilder<QuerySnapshot>(
-                  future: FirebaseFirestore.instance
-                      .collection('Itens Cardapio')
-                      .doc(itens)
-                      .collection('Itens').orderBy('Nome')
-                      .get(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return const SliverToBoxAdapter(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else {
-                      return  SliverToBoxAdapter(
-                        child: gradeOuLista == false ?
-                        //ListviewCardapio( Itens: Itens)
-                        ListaViewUnico(
-                          categoriaOuItem: false,
-                          categoria: itens,
-                        )
-                            :
-                        Container(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: GridViewItens(
-                            categoriaOuItem: false,
-                            crossAxisCount: 1,
-                            categoria: itens,
-                          ),
-                        ),
-                      );
-                    }
-                  },
-                ),
-              ],
+            ScopedModel<CardapioModel>(
+              model: CardapioModel(),
+              child: ScopedModelDescendant<CardapioModel>(
+                builder: (context, child, model) {
+                  return CustomScrollView(
+                    physics: const AlwaysScrollableScrollPhysics().parent,
+                    slivers: [
+                      FutureBuilder<QuerySnapshot>(
+                        future: FirebaseFirestore.instance
+                            .collection('Usuario raiz')
+                            .doc(widget.itens.toString())
+                            .collection('Itens').orderBy('Nome')
+                            .get(),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return const SliverToBoxAdapter(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else {
+                            return  SliverToBoxAdapter(
+                              child: gradeOuLista == false ?
+                              //ListviewCardapio( Itens: Itens)
+                              ListaViewUnico(
+                                categoriaOuItem: false,
+                                categoria: widget.itens.toString(),
+                              )
+                                  :
+                              Container(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: GridViewItens(
+                                  categoriaOuItem: false,
+                                  crossAxisCount: 1,
+                                  categoria: widget.itens,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ],
+                  );
+                }
+              ),
             ),
           ],
         ),

@@ -68,7 +68,6 @@ class AtualizaItemCardapioState extends State<AtualizaItemCardapio> {
   String? file;
   @override
   void initState() {
-
     file = localStorage;
     nomeProduto.text = nome!;
     precoProduto.text = preco!;

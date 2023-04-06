@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:lojadevelas/Models/User_model.dart';
+import 'package:lojadevelas/screens/login_screen.dart';
 import 'package:lojadevelas/tiles/drawer_tile.dart';
+import 'package:scoped_model/scoped_model.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
    CustomDrawer({Key? key,  required this.pageController}) : super(key: key);
 
   final PageController  pageController;
 
+  @override
+  State<CustomDrawer> createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
 
@@ -48,38 +56,49 @@ class CustomDrawer extends StatelessWidget {
                     Positioned(
                       left: 0.0,
                       bottom: 0.0,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children:[
-                          Text('Ola, ',
-                          style:TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold
-                          ),
-                          ),
-                          GestureDetector(
-                            child: Text('Entre ou Cadastre-se >',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16
+                      child: ScopedModelDescendant<UserModel>(
+                        builder: (context, child, model) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children:[
+                              Text('Ola,${!model.isLoggedIn() ? ' ' : model!.userData!['name']} ',
+                                style:TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold
                                 ),
                               ),
-                            onTap: (){
-
-                            },
-                          ),
-                        ],
+                              GestureDetector(
+                                child: Text(
+                                  !model.isLoggedIn() ?
+                                  'Entre ou Cadastre-se >'
+                                  :'Sair',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16
+                                  ),
+                                ),
+                                onTap: (){
+                                  if(!model.isLoggedIn())
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) => LoginScreen(),));
+                                  else
+                                    model.signOut();
+                                },
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ),
                   ],
                 ),
               ),
               Divider(),
-              DrawerTile(icon: Icons.home,text: 'Inicio', pageController: pageController, page: 0),
-              DrawerTile(icon: Icons.list,text: 'Produtos',pageController: pageController, page: 1),
-              DrawerTile(icon: Icons.location_on,text: 'Lojas', pageController: pageController,page: 2,),
-              DrawerTile(icon: Icons.playlist_add_check,text: 'Meus Pedidos',pageController:  pageController, page: 3,),
+              DrawerTile(icon: Icons.home,text: 'Inicio', pageController: widget.pageController, page: 0),
+              DrawerTile(icon: Icons.list,text: 'Produtos',pageController: widget.pageController, page: 1),
+              DrawerTile(icon: Icons.location_on,text: 'Lojas', pageController: widget.pageController,page: 2,),
+              DrawerTile(icon: Icons.playlist_add_check,text: 'Meus Pedidos',pageController:  widget.pageController, page: 3,),
             ],
           ),
         ],
