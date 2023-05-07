@@ -21,8 +21,11 @@ class ApresentaProdutos extends StatefulWidget {
 class _ApresentaProdutosState extends State<ApresentaProdutos> {
   @override
   Widget build(BuildContext context) {
+    print(widget.preco);
+    print(widget.imagem);
+    print(widget.descricao);
+    print(widget.nome);
     return
-
     ScaffoldMultiColor(
       TextAppBar: Text(widget.nome,
         textAlign: TextAlign.center,

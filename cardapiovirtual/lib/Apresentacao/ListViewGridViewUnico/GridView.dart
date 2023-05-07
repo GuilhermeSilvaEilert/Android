@@ -20,7 +20,7 @@ class GridViewItens extends StatefulWidget {
   }) : super(key: key);
 
   bool? categoriaOuItem;
-  UniqueKey? categoria;
+  String? categoria;
   int? crossAxisCount;
 
   @override
@@ -41,7 +41,7 @@ class _GridViewItensState extends State<GridViewItens> {
   int? consultaCategorias;
 
 
-  Future<int?> validaExistenciaDeDados(UniqueKey? Categoria, String? UserRoot) async {
+  Future<int?> validaExistenciaDeDados(String? Categoria, String? UserRoot) async {
     final QuerySnapshot result = await Future.value(
       FirebaseFirestore
           .instance
@@ -79,7 +79,7 @@ class _GridViewItensState extends State<GridViewItens> {
     });
   }
 
-  UniqueKey? Itens;
+  String? Itens;
 
   @override
   Widget build(BuildContext context) {
@@ -192,6 +192,8 @@ class _GridViewItensState extends State<GridViewItens> {
                             print('Foto do Produto $Image');
                             String Descricao = snapshot.data?.docs[index]['Descricao'];
                             print('Descrição do produto $Descricao');
+                            String id = snapshot.data?.docs[index]['id'];
+                            print('id: $id');
 
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
@@ -218,7 +220,7 @@ class _GridViewItensState extends State<GridViewItens> {
                           Nome: snapshot.data!.docs[index]['Nome'],
                           Imagem: snapshot.data?.docs[index]['Imagem'],
                           LocalStorage: snapshot.data!.docs[index]['LocalStorage'],
-                          categoria: widget.categoria.toString(),
+                          categoria: widget.categoria,
                           Preco:  snapshot.data!.docs[index]['Preco'],
                           id: snapshot.data!.docs[index]['id'],
                         ),
@@ -245,9 +247,4 @@ class _GridViewItensState extends State<GridViewItens> {
       ),
     );
   }
-
-  Future _onBackPressed() {
-    return FirebaseFirestore.instance.collection('Itens Cardapio').get();
-  }
-
 }

@@ -1,6 +1,7 @@
 
 // ignore_for_file: file_names, must_be_immutable, no_logic_in_create_state
 
+import 'package:cardapiovirtual/Apresentacao/ItensDoCardapio/Layouts/GridView.dart';
 import 'package:cardapiovirtual/Apresentacao/ListViewGridViewUnico/GridView.dart';
 import 'package:cardapiovirtual/Apresentacao/ListViewGridViewUnico/ListView.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/BottonAppBar/BottonAppBarMultiColor.dart';
@@ -14,7 +15,7 @@ import '../../Repository/ConectaFirebase.dart';
 
 class ItensDoCardapio extends StatefulWidget {
   ItensDoCardapio({super.key, required this.itens});
-  UniqueKey? itens;
+  String? itens;
   @override
   State<ItensDoCardapio> createState() => _ItensDoCardapioState();
 }
@@ -27,7 +28,9 @@ class _ItensDoCardapioState extends State<ItensDoCardapio> {
 
   @override
   Widget build(BuildContext context) {
+    print('Iniciando Itens do Cardapio');
     return
+
       ScaffoldMultiColor(
         TextAppBar: const Text('Seu Cardapio'),
         Body:  Stack(
@@ -61,8 +64,7 @@ class _ItensDoCardapioState extends State<ItensDoCardapio> {
                                   :
                               Container(
                                 padding: const EdgeInsets.only(top: 10),
-                                child: GridViewItens(
-                                  categoriaOuItem: false,
+                                child: GridViewItensCorrigido(
                                   crossAxisCount: 1,
                                   categoria: widget.itens,
                                 ),
