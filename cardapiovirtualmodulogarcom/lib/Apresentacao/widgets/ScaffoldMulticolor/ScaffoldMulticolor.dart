@@ -77,7 +77,7 @@ class _ScaffoldMultiColorState extends State<ScaffoldMultiColor> {
                 floatingActionButtonAnimator: widget.floatingActionButtonAnimator,
                 floatingActionButtonLocation: widget.floatingActionButtonLocation,
                 floatingActionButton: widget.floatingActionButton,
-                drawer: widget.drawer,
+                endDrawer: widget.drawer,
               );
             }
         },

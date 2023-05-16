@@ -39,8 +39,13 @@ class CardapioModel extends Model{
     VoidCallback? onSucess,
     VoidCallback? onFail,
   })  async {
+    signOut();
+
     isLoading = true;
     notifyListeners();
+
+    print(email);
+    print(pass);
 
     _auth!.signInWithEmailAndPassword (
       email: email!,
@@ -50,10 +55,6 @@ class CardapioModel extends Model{
       firebaseUser = auth!.user;
 
       await _loadCurrentUser();
-
-      liteDB.initDb();
-      endereco.EmailEndereco = caminhoFB;
-      liteDB.SaveEndereco(endereco);
 
       onSucess!();
       isLoading = false;

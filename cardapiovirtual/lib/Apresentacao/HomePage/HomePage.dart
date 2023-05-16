@@ -1,12 +1,10 @@
 // ignore_for_file: file_names
-
 import 'package:cardapiovirtual/Apresentacao/LoginPage/LoginPage.dart';
 import 'package:cardapiovirtual/Apresentacao/CategoriasDoCardapio/CategoriasDoCardapio.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/Drawer/Drawer.dart';
 import 'package:cardapiovirtual/Apresentacao/HomeWidget.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
 import 'package:cardapiovirtual/Model/itemModel.dart';
-import 'package:cardapiovirtual/Repository/ConectaFirebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:cardapiovirtual/CamadaDeNegocio/ConfiguracoesSistema/Configuracoes.dart';
@@ -18,7 +16,6 @@ class AdmHomePage extends StatelessWidget {
    AdmHomePage({Key? key,}) : super(key: key);
 
   final _pageController = PageController();
-  final ConectaFirebase conectaFirebase = ConectaFirebase();
 
   @override
   Widget build(BuildContext context) {

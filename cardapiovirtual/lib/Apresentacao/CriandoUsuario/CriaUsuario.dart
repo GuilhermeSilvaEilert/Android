@@ -207,6 +207,7 @@ class _CriaUsuarioGarcomState extends State<CriaUsuarioGarcom> {
                         child: TextButtonMultiColor(
                           funcao: (){
                             model.signUpGarcom(
+                              Raiz: model.firebaseUser!.email,
                               Senha: senhaController.text,
                               Email: EmailController.text,
                               imgFile: fileSend,
@@ -243,8 +244,9 @@ class _CriaUsuarioGarcomState extends State<CriaUsuarioGarcom> {
 
   _onSuccess(){
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content:
-        Text(
+      SnackBar(
+        backgroundColor: Colors.green,
+          content: Text(
           'Usuario Garçom Criado',
         )
       ),
@@ -253,7 +255,9 @@ class _CriaUsuarioGarcomState extends State<CriaUsuarioGarcom> {
 
   _onFail(){
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content:
+      SnackBar(
+          backgroundColor: Colors.red,
+          content:
       Text(
         'Falha ao criar usuario',
       )

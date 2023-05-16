@@ -33,6 +33,7 @@ class CardapioModel extends Model{
     String? LocalStorage,
     String? Email,
     String? NomeUsuario,
+    String? Raiz,
   }) async{
     isLoading = true;
     notifyListeners();
@@ -56,6 +57,7 @@ class CardapioModel extends Model{
       Map<String, dynamic> userData = {
         'NomeUsuario': NomeUsuario,
         'Email': Email,
+        'EmailRaiz': Raiz,
         'Imagem': url,
         'x': tamanhoEixoX,
         'y': tamanhoEixoY,
@@ -64,9 +66,7 @@ class CardapioModel extends Model{
 
       FirebaseFirestore
           .instance
-          .collection('Usuario raiz')
-          .doc(_auth!.currentUser!.email)
-          .collection('Usuario Garçom')
+          .collection('Usuario Garcom')
           .doc(Email).set(userData);
 
       _auth!.createUserWithEmailAndPassword(

@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:cardapiovirtualmodulogarcom/Apresentacao/HomeGarcom.dart';
+import 'package:cardapiovirtualmodulogarcom/Apresentacao/widgets/HomePage.dart';
 import 'package:cardapiovirtualmodulogarcom/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
 import 'package:cardapiovirtualmodulogarcom/Apresentacao/widgets/TextButtonMultiColor/TextButtonMultiColor.dart';
 import 'package:cardapiovirtualmodulogarcom/Negocio/Models/CardapioModel.dart';
@@ -191,66 +192,6 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     ),
                                   ),
-
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: FutureBuilder(
-                                      future: retornaLista(),
-                                      builder: (context, snapshot){
-                                        return Container(
-                                          padding: const EdgeInsets.all(10.0),
-                                          width: 400,
-                                          height: 60,
-                                          decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              border: Border.all(),
-                                              borderRadius: BorderRadius.circular(15)
-                                          ),
-                                          child: DropdownButtonHideUnderline(
-                                            child: DropdownButton(
-                                              borderRadius: BorderRadius.circular(15),
-                                              hint: Row(
-                                                children: const [
-                                                  SizedBox(
-                                                    width: 4,
-                                                  ),
-                                                  Expanded(
-                                                    child: Text(
-                                                      'Categoria',
-                                                      overflow: TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              value: firstItem,
-                                              isExpanded: true,
-                                              onChanged: (value){
-
-                                                setState(() {
-                                                  firstItem = value;
-                                                });
-
-                                                empresaController.text = firstItem;
-                                              },
-
-                                              items: list.map((Item) => DropdownMenuItem(
-                                                value: Item,
-                                                child: Text(
-                                                  Item.Empresa.toString(),
-                                                  style: const TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black,
-                                                  ),
-                                                  overflow: TextOverflow.ellipsis,
-                                                ),
-                                              ),).toList(),
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                    ),
-                                  ),
                                   Padding(
                                     padding: const EdgeInsets.all(8),
                                     child: Row(
@@ -290,23 +231,14 @@ class _LoginPageState extends State<LoginPage> {
 
                                   TextButtonMultiColor(
                                     funcao: () async {
-                                      //print(empresaController);
-                                      //await liteDBCaminho.initDb();
-                                      await liteDBCaminho.getAllEmail().then((list){
-                                        print(list);
-                                      });
-                                     // await liteDBCaminho.close();
-                                      //print(list[1].Empresa);
-
-                                      /*if(_formValidateKey.currentState!.validate()){
+                                      if(_formValidateKey.currentState!.validate()){
                                         model.signIn(
                                           email: emailController.text,
                                           pass: passController.text,
-                                          caminhoFB: ,
                                           onSucess: onSucess,
                                           onFail: onFail,
                                         );
-                                      }*/
+                                      }
                                     },
                                     altura: 50,
                                     largura: 200,
@@ -344,7 +276,7 @@ class _LoginPageState extends State<LoginPage> {
     await Future.delayed(Duration(seconds: 2));
 
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => HomeGarcom(),
+      MaterialPageRoute(builder: (context) => GarcomHomePage(),
       ),
     );
   }

@@ -1,14 +1,12 @@
 import 'dart:io';
-import 'package:cardapiovirtual/Model/itemModel.dart';
-import 'package:cardapiovirtual/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
-import 'package:cardapiovirtual/Apresentacao/widgets/TextButtonMultiColor/TextButtonMultiColor.dart';
+import 'package:cardapiovirtualmodulogarcom/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
+import 'package:cardapiovirtualmodulogarcom/Apresentacao/widgets/TextButtonMultiColor/TextButtonMultiColor.dart';
+import 'package:cardapiovirtualmodulogarcom/Negocio/Models/CardapioModel.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-import '../../Repository/ConectaFirebase.dart';
-
-class EditaUsuarioGarcom extends StatefulWidget {
+class EditaUsuario extends StatefulWidget {
 
   String? Nome;
   String? Image;
@@ -16,7 +14,7 @@ class EditaUsuarioGarcom extends StatefulWidget {
   String? EmailRef;
   String? oldStorage;
 
-   EditaUsuarioGarcom({
+  EditaUsuario({
     Key? key,
     this.Nome,
     this.Image,
@@ -26,13 +24,12 @@ class EditaUsuarioGarcom extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<EditaUsuarioGarcom> createState() => _EditaUsuarioGarcomState();
+  State<EditaUsuario> createState() => _EditaUsuarioState();
 }
 
-class _EditaUsuarioGarcomState extends State<EditaUsuarioGarcom> {
+class _EditaUsuarioState extends State<EditaUsuario> {
 
   final ImagePicker _picker = ImagePicker();
-  ConectaFirebase conectaFirebase = ConectaFirebase();
   File? fileSend;
   XFile? imgFile;
   String? file;
@@ -229,17 +226,6 @@ class _EditaUsuarioGarcomState extends State<EditaUsuarioGarcom> {
                           Container(
                             child: TextButtonMultiColor(
                               funcao: (){
-                                model.EditaUsuarioGarcom(
-                                  NomeUsuario: usuarioController.text,
-                                  imgFile: fileSend,
-                                  url: widget.Image,
-                                  NewEmail: EmailController.text,
-                                  OldEmail: widget.EmailRef,
-                                  NewLocalStorage: file,
-                                  OldLocalStorage: widget.oldStorage,
-                                  Falha: Falha,
-                                  Sucesso: Sucesso,
-                                );
                               },
                               text: Text(
                                 'Salvar',
@@ -275,10 +261,11 @@ class _EditaUsuarioGarcomState extends State<EditaUsuarioGarcom> {
   Falha(){
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-          content: Text('Falha ao Criar Usuario'),
-          backgroundColor: Color.fromARGB(255, 150, 0 ,0),
+        content: Text('Falha ao Criar Usuario'),
+        backgroundColor: Color.fromARGB(255, 150, 0 ,0),
       ),
     );
   }
 }
+
 
