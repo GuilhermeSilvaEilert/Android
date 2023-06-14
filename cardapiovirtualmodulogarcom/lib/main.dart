@@ -1,9 +1,27 @@
 import 'package:cardapiovirtualmodulogarcom/Apresentacao/teladeLogin.dart';
+import 'package:cardapiovirtualmodulogarcom/Negocio/FirebaseNotification/FirebaseMessagins.dart';
+import 'package:cardapiovirtualmodulogarcom/Negocio/FirebaseNotification/notification.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
+
+  runApp(
+      MultiProvider(
+        providers: [
+          Provider<NotificationService>(create: (context) => NotificationService()),
+          Provider<FirebaseMessagins>(
+            create: (context) => FirebaseMessagins(context.read<NotificationService>()),
+          )
+        ],
+          child: MyApp(),
+      ),
+  );
 }
 
 class MyApp extends StatelessWidget {

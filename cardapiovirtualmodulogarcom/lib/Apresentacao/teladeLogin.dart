@@ -105,7 +105,13 @@ class _LoginPageState extends State<LoginPage> {
             child: ScopedModelDescendant<CardapioModel>(
               builder: (context, child, model) {
                 if(model!.isLoading!){
-                  return Center(child: CircularProgressIndicator(),);
+                  return Center(
+                    child: Column(
+                      children: [
+                        CircularProgressIndicator(),
+                      ],
+                    ),
+                  );
                 }else{
                   return CustomScrollView(
                     slivers: [

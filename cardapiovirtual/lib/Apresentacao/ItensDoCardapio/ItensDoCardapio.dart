@@ -30,7 +30,6 @@ class _ItensDoCardapioState extends State<ItensDoCardapio> {
   Widget build(BuildContext context) {
     print('Iniciando Itens do Cardapio');
     return
-
       ScaffoldMultiColor(
         TextAppBar: const Text('Seu Cardapio'),
         Body:  Stack(

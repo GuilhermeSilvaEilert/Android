@@ -59,12 +59,17 @@ class _CategoriasDoCardapioState extends State<CategoriasDoCardapio> with Single
   }
 
   bool? gradeOuLista;
-
+  BuscaDados(String? UserRoot){
+    FirebaseFirestore.instance
+        .collection('Usuario raiz')
+        .doc(UserRoot)
+        .collection('Itens Cardapio')
+        .get();
+  }
 
   @override
   Widget build(BuildContext context) {
     return
-
     ScaffoldMultiColor(
       Body: Stack(
         children: [
@@ -182,8 +187,10 @@ class _CategoriasDoCardapioState extends State<CategoriasDoCardapio> with Single
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionBubbleMultiColor(
         Funcao1: (){
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const CriaCategoria(),),);
+          setState(() {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const CriaCategoria(),),);
+          });
         },
         Funcao2: (){
           setState(() {
@@ -191,11 +198,13 @@ class _CategoriasDoCardapioState extends State<CategoriasDoCardapio> with Single
           });
         },
         Funcao3: (){
-          Navigator
-              .of(context)
-              .push(MaterialPageRoute(
-            builder: (context) => const AdicionaItemCardapio(),
-          ),);
+          setState(() {
+            Navigator
+                .of(context)
+                .push(MaterialPageRoute(
+              builder: (context) => const AdicionaItemCardapio(),
+            ),);
+          });
         },
       ),
     );

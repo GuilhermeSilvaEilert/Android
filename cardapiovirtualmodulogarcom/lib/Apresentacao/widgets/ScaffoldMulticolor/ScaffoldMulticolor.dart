@@ -53,7 +53,8 @@ class _ScaffoldMultiColorState extends State<ScaffoldMultiColor> {
               return const CircularProgressIndicator();
             }else{
               return Scaffold(
-                appBar: widget.TextAppBar == null ? null
+                appBar: widget.TextAppBar == null ?
+                widget.AppBar
                 :
                 AppBar(
                   backgroundColor: Color.fromARGB(

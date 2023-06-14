@@ -1,0 +1,135 @@
+{
+  "project_info": {
+    "project_number": "147183865053",
+    "firebase_url": "https://cardapiovirtual-d082b-default-rtdb.firebaseio.com",
+    "project_id": "cardapiovirtual-d082b",
+    "storage_bucket": "cardapiovirtual-d082b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:147183865053:android:9ae730717cd40e712f5f34",
+        "android_client_info": {
+          "package_name": "com.example.acessocardapio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "147183865053-49u4143v4onqdskplur5v91758gb42nj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.acessocardapio",
+            "certificate_hash": "e91600ad535910cb947b4cd577ab714a791861e5"
+          }
+        },
+        {
+          "client_id": "147183865053-2hfm8vmqhophpmcoapq53835pppqdq95.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-J2yi6d7jq_w5c9gRMOxZQjcBAADoihI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "147183865053-2hfm8vmqhophpmcoapq53835pppqdq95.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:147183865053:android:7c5d17c97cdb04a02f5f34",
+        "android_client_info": {
+          "package_name": "com.example.cardapiovirtual"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "147183865053-2hfm8vmqhophpmcoapq53835pppqdq95.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-J2yi6d7jq_w5c9gRMOxZQjcBAADoihI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "147183865053-2hfm8vmqhophpmcoapq53835pppqdq95.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:147183865053:android:621b5f1fd88834472f5f34",
+        "android_client_info": {
+          "package_name": "com.example.cardapiovirtualmodulogarcom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "147183865053-2hfm8vmqhophpmcoapq53835pppqdq95.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-J2yi6d7jq_w5c9gRMOxZQjcBAADoihI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "147183865053-2hfm8vmqhophpmcoapq53835pppqdq95.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:147183865053:android:e3d858c5422ee9b32f5f34",
+        "android_client_info": {
+          "package_name": "com.example.superadm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "147183865053-2hfm8vmqhophpmcoapq53835pppqdq95.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-J2yi6d7jq_w5c9gRMOxZQjcBAADoihI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "147183865053-2hfm8vmqhophpmcoapq53835pppqdq95.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -84,21 +84,6 @@ class _GridViewItensCorrigidoState extends State<GridViewItensCorrigido> {
                   ),
                 );
               } else {
-              /* print('Abrindo grid');
-               String Nome = snapshot.data?.docs[1]['Nome'];
-               print('Nome do Produto $Nome');
-               double Preco = snapshot.data?.docs[1]['Preco'];
-               print('Preco do Produto $Preco');
-               String Image = snapshot.data?.docs[1]['Imagem'];
-               print('Foto do Produto $Image');
-               String Descricao = snapshot.data?.docs[1]['Descricao'];
-               print('Descrição do produto $Descricao');
-               String id = snapshot.data?.docs[1]['id'];
-               print('id: $id');
-               String x = snapshot.data?.docs[1]['x'];
-               print('x: $x');
-               String y = snapshot.data?.docs[1]['y'];
-               print('y: $y');*/
                return Padding(
                   padding: const EdgeInsets.only(top: 5, bottom: 0, left: 9, right: 9),
                   child: GridView.builder(

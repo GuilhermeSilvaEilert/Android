@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cardapiovirtualmodulogarcom/Repository/SQLiteDB.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,7 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/material.dart';
-import 'package:sqlite3/sqlite3.dart';
+
 
 class CardapioModel extends Model{
 
@@ -35,7 +34,7 @@ class CardapioModel extends Model{
   void signIn({
     String? email,
     String? pass,
-    String? caminhoFB,
+    String? UserRoot,
     VoidCallback? onSucess,
     VoidCallback? onFail,
   })  async {

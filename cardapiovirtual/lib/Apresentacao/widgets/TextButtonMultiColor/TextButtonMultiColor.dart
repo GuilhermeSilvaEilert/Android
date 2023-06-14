@@ -31,7 +31,7 @@ class _TextButtonMultiColorState extends State<TextButtonMultiColor> {
       child: ScopedModelDescendant<CardapioModel>(
         builder: (context, child, model) {
           return FutureBuilder(
-            future: model.firebaseUser!.email == null ?
+            /*future: !model.firebaseUser!.email!.isEmpty ?
             FirebaseFirestore
                 .instance
                 .collection('Configurações')
@@ -43,23 +43,21 @@ class _TextButtonMultiColorState extends State<TextButtonMultiColor> {
               .instance
               .collection('Usuario raiz')
               .doc(model.firebaseUser!.email)
-              .collection('Configuracoes').get(),
+              .collection('Configuracoes').get(),*/
             builder: (context, snapshot) {
-                if(!snapshot.hasData){
+               /* if(!snapshot.hasData){
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                }else{
+                }else{*/
                   return Container(
                     child: TextButton(
                       onPressed: widget.funcao,
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
                           Color.fromARGB(
-                              snapshot.data!.docs[3]['Opacidade'],
-                              snapshot.data!.docs[3]['Red'],
-                              snapshot.data!.docs[3]['Green'],
-                              snapshot.data!.docs[3]['Blue']),
+                              255, 150, 0, 0
+                          ),
                         ),
                         fixedSize: MaterialStateProperty.all(
                             Size(widget.largura!,widget.altura!, )
@@ -68,7 +66,7 @@ class _TextButtonMultiColorState extends State<TextButtonMultiColor> {
                       child: widget.text!,
                     ),
                   );
-                }
+               // }
             }
           );
         }

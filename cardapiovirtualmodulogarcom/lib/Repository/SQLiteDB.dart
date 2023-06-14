@@ -1,6 +1,5 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'dart:io';
 
 final String EnderecoTable = 'Endreco';
 final String idColum = 'idColum';
@@ -29,7 +28,7 @@ class SQLiteDB {
 
   Future<Database> initDb({String? endereco}) async {
     final databasesPath = await getDatabasesPath();
-    final path = await join(databasesPath, 'enderecoTeste.db');
+    final path = await join(databasesPath, 'UserRootTeste.db');
     return await openDatabase(path, version: 1,
         onCreate: (Database? db, int newerVersion) async {
       print('Cria table');

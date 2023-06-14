@@ -3,6 +3,7 @@ import 'package:testetaa/Apresentacao/HomeScreen.dart';
 
 void main() {
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     home: HomeScreen(),
     )
   );

@@ -1,9 +1,7 @@
 import 'package:applista/Models/todo.dart';
-import 'package:applista/widgets/todo_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
-import 'package:applista/pages/listametal.dart';
 
 class TodoListItem extends StatelessWidget {
    TodoListItem({Key? key, required this.todo, required this.onDelete, }) : super(key: key);
@@ -62,8 +60,3 @@ class TodoListItem extends StatelessWidget {
     );
   }
 }
-
-/*implementar
-
-
- */

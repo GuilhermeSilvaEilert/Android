@@ -43,7 +43,7 @@ class _ScaffoldMultiColorState extends State<ScaffoldMultiColor> {
         builder: (context, child, model) {
           print(model.firebaseUser!.email);
           return FutureBuilder(
-            future: model.firebaseUser!.email!.isEmpty  ?
+            future: !model.firebaseUser!.email!.isEmpty  ?
             FirebaseFirestore
                 .instance
                 .collection('Configurações')

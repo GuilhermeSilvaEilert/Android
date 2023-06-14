@@ -1,7 +1,5 @@
-import 'dart:convert';
 import 'package:applista/Models/todo.dart';
 import 'package:applista/Repositorys/todo_repository.dart';
-import 'package:applista/pages/listametal.dart';
 import 'package:applista/widgets/todo_list_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -147,7 +145,8 @@ class _ListaMetalState extends State<ListaMetal> {
                             TotalCompras();
                           },
                           style: ElevatedButton.styleFrom(
-                              primary: Colors.black, padding: EdgeInsets.symmetric(
+                              backgroundColor: Colors.black,
+                              padding: EdgeInsets.symmetric(
                                 horizontal: 125
                               , vertical: 20)),
                           child: Icon(Icons.add, size: 20, color: Colors.white),
@@ -162,7 +161,7 @@ class _ListaMetalState extends State<ListaMetal> {
                                   }
                                 );},
                               style: ElevatedButton.styleFrom(
-                                  primary: Colors.black, padding: EdgeInsets.symmetric(
+                                  backgroundColor: Colors.black, padding: EdgeInsets.symmetric(
                                   horizontal: 37
                                   , vertical: 20)),
                               child: Icon(Icons.refresh, size: 20, color: Colors.white)),
@@ -201,7 +200,7 @@ class _ListaMetalState extends State<ListaMetal> {
                     ElevatedButton(
                       onPressed: showDeleteTodosConfirmationDialog,
                       style: ElevatedButton.styleFrom(
-                          primary: Colors.black, padding: EdgeInsets.all(16)),
+                          backgroundColor: Colors.black, padding: EdgeInsets.all(16)),
                       child: Text(
                         'limpa tudo',
                         style: TextStyle(
@@ -265,7 +264,9 @@ class _ListaMetalState extends State<ListaMetal> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                style: TextButton.styleFrom(primary: Colors.black),
+                style: TextButton.styleFrom(
+                    backgroundColor: Colors.black
+                ),
                 child: Text('Cancelar'),
               ),
               TextButton(

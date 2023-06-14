@@ -306,8 +306,10 @@ class _TesteDeCameraState extends State<TesteDeCamera> {
     }).toList();
 
     return Scaffold(
+      backgroundColor: Colors.black,
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Teste de Webcam', style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.black,
         ),
         body: ListView(
           children: <Widget>[
@@ -320,8 +322,13 @@ class _TesteDeCameraState extends State<TesteDeCamera> {
             ),
             if (_cameras.isEmpty)
               ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        Colors.white
+                    )
+                ),
                 onPressed: _fetchCameras,
-                child: const Text('Re-check available cameras'),
+                child: const Text('Re-check available cameras', style: TextStyle(color:Colors.black),),
               ),
             if (_cameras.isNotEmpty)
               Row(
@@ -329,24 +336,41 @@ class _TesteDeCameraState extends State<TesteDeCamera> {
                 children: <Widget>[
                   const SizedBox(width: 20),
                   ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            Colors.white
+                        )
+                    ),
                     onPressed: _initialized
                         ? _disposeCurrentCamera
                         : _initializeCamera,
                     child:
-                    Text(_initialized ? 'Dispose camera' : 'Create camera'),
+                    Text(_initialized ? 'Dispose camera' : 'Create camera', style: TextStyle(color:Colors.black),),
                   ),
                   const SizedBox(width: 5),
                   const SizedBox(width: 5),
                   ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            Colors.white
+                        )
+                    ),
                     onPressed: _initialized ? _togglePreview : null,
                     child: Text(
+                      style: TextStyle(color:Colors.black),
                       _previewPaused ? 'Resume preview' : 'Pause preview',
                     ),
                   ),
                   const SizedBox(width: 5),
                   ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            Colors.white
+                        )
+                    ),
                     onPressed: _initialized ? _toggleRecord : null,
                     child: Text(
+                      style: TextStyle(color:Colors.black),
                       (_recording || _recordingTimed)
                           ? 'Stop recording'
                           : 'Record Video',
@@ -356,8 +380,14 @@ class _TesteDeCameraState extends State<TesteDeCamera> {
                   if (_cameras.length > 1) ...<Widget>[
                     const SizedBox(width: 5),
                     ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          Colors.white
+                        )
+                      ),
                       onPressed: _switchCamera,
                       child: const Text(
+                        style: TextStyle(color:Colors.black),
                         'Switch camera',
                       ),
                     ),
@@ -385,6 +415,7 @@ class _TesteDeCameraState extends State<TesteDeCamera> {
             if (_previewSize != null)
               Center(
                 child: Text(
+                  style: TextStyle(color:Colors.black),
                   'Preview size: ${_previewSize!.width.toStringAsFixed(0)}x${_previewSize!.height.toStringAsFixed(0)}',
                 ),
               ),

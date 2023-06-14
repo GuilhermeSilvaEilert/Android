@@ -174,18 +174,6 @@ class TesteDeImpressoraState extends State<TesteDeImpressora> {
             model: UsbPrinterInput(name: bluetoothPrinter.deviceName, productId: bluetoothPrinter.productId, vendorId: bluetoothPrinter.vendorId));
         pendingTask = null;
         break;
-      case PrinterType.bluetooth:
-        bytes += generator.cut();
-        await printerManager.connect(
-            type: bluetoothPrinter.typePrinter,
-            model: BluetoothPrinterInput(
-                name: bluetoothPrinter.deviceName,
-                address: bluetoothPrinter.address!,
-                isBle: bluetoothPrinter.isBle ?? false,
-                autoConnect: _reconnect));
-        pendingTask = null;
-        if (Platform.isAndroid) pendingTask = bytes;
-        break;
       case PrinterType.network:
         bytes += generator.feed(2);
         bytes += generator.cut();
@@ -236,8 +224,10 @@ class TesteDeImpressoraState extends State<TesteDeImpressora> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
         appBar: AppBar(
-          title: const Text('Flutter Pos Plugin Platform example app'),
+          backgroundColor: Colors.black,
+          title: const Text('Teste de impressão', style: TextStyle(color: Colors.white),),
         ),
         body: Center(
           child: Container(
@@ -253,17 +243,23 @@ class TesteDeImpressoraState extends State<TesteDeImpressora> {
                       children: [
                         Expanded(
                           child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(Colors.white)
+                            ),
                             onPressed: selectedPrinter == null || _isConnected
                                 ? null
                                 : () {
                               _connectDevice();
                             },
-                            child: const Text("Connect", textAlign: TextAlign.center),
+                            child: const Text("Connect", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
                           ),
                         ),
                         const SizedBox(width: 8),
                         Expanded(
                           child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(Colors.white)
+                            ),
                             onPressed: selectedPrinter == null || !_isConnected
                                 ? null
                                 : () {
@@ -272,53 +268,58 @@ class TesteDeImpressoraState extends State<TesteDeImpressora> {
                                 _isConnected = false;
                               });
                             },
-                            child: const Text("Disconnect", textAlign: TextAlign.center),
+                            child: const Text("Disconnect", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  DropdownButtonFormField<PrinterType>(
-                    value: defaultPrinterType,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.print,
-                        size: 24,
+                  Container(
+                    color: Colors.white,
+                    child: DropdownButtonFormField<PrinterType>(
+                      value: defaultPrinterType,
+                      decoration: const InputDecoration(
+
+                        prefixIcon: Icon(
+                          color: Colors.black,
+                          Icons.print,
+                          size: 24,
+                        ),
+                        labelText: "Type Printer Device",
+                        labelStyle: TextStyle(fontSize: 18.0, color: Colors.black),
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
                       ),
-                      labelText: "Type Printer Device",
-                      labelStyle: TextStyle(fontSize: 18.0),
-                      focusedBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
+                      items: <DropdownMenuItem<PrinterType>>[
+                        if (Platform.isAndroid || Platform.isIOS)
+                          const DropdownMenuItem(
+                            value: PrinterType.bluetooth,
+                            child: Text("bluetooth", style: TextStyle(color: Colors.black)),
+                          ),
+                        if (Platform.isAndroid || Platform.isWindows)
+                          const DropdownMenuItem(
+                            value: PrinterType.usb,
+                            child: Text("usb"),
+                          ),
+                        const DropdownMenuItem(
+                          value: PrinterType.network,
+                          child: Text("Wifi"),
+                        ),
+                      ],
+                      onChanged: (PrinterType? value) {
+                        setState(() {
+                          if (value != null) {
+                            setState(() {
+                              defaultPrinterType = value;
+                              selectedPrinter = null;
+                              _isBle = false;
+                              _isConnected = false;
+                              _scan();
+                            });
+                          }
+                        });
+                      },
                     ),
-                    items: <DropdownMenuItem<PrinterType>>[
-                      if (Platform.isAndroid || Platform.isIOS)
-                        const DropdownMenuItem(
-                          value: PrinterType.bluetooth,
-                          child: Text("bluetooth"),
-                        ),
-                      if (Platform.isAndroid || Platform.isWindows)
-                        const DropdownMenuItem(
-                          value: PrinterType.usb,
-                          child: Text("usb"),
-                        ),
-                      const DropdownMenuItem(
-                        value: PrinterType.network,
-                        child: Text("Wifi"),
-                      ),
-                    ],
-                    onChanged: (PrinterType? value) {
-                      setState(() {
-                        if (value != null) {
-                          setState(() {
-                            defaultPrinterType = value;
-                            selectedPrinter = null;
-                            _isBle = false;
-                            _isConnected = false;
-                            _scan();
-                          });
-                        }
-                      });
-                    },
                   ),
                   Visibility(
                     visible: defaultPrinterType == PrinterType.bluetooth && Platform.isAndroid,
@@ -343,6 +344,7 @@ class TesteDeImpressoraState extends State<TesteDeImpressora> {
                   Visibility(
                     visible: defaultPrinterType == PrinterType.bluetooth && Platform.isAndroid,
                     child: SwitchListTile.adaptive(
+                      activeColor: Colors.white,
                       contentPadding: const EdgeInsets.only(bottom: 20.0, left: 20),
                       title: const Text(
                         "reconnect",
@@ -361,7 +363,7 @@ class TesteDeImpressoraState extends State<TesteDeImpressora> {
                       children: devices
                           .map(
                             (device) => ListTile(
-                          title: Text('${device.deviceName}'),
+                          title: Text('${device.deviceName}', style: TextStyle(color: Colors.white)),
                           subtitle: Platform.isAndroid && defaultPrinterType == PrinterType.usb
                               ? null
                               : Visibility(visible: !Platform.isWindows, child: Text("${device.address}")),
@@ -380,6 +382,11 @@ class TesteDeImpressoraState extends State<TesteDeImpressora> {
                           )
                               : null,
                           trailing: OutlinedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                Colors.white
+                              )
+                            ),
                             onPressed: selectedPrinter == null || device.deviceName != selectedPrinter?.deviceName
                                 ? null
                                 : () async {
@@ -387,7 +394,7 @@ class TesteDeImpressoraState extends State<TesteDeImpressora> {
                             },
                             child: const Padding(
                               padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
-                              child: Text("Print test ticket", textAlign: TextAlign.center),
+                              child: Text("Print test ticket", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
                             ),
                           ),
                         ),

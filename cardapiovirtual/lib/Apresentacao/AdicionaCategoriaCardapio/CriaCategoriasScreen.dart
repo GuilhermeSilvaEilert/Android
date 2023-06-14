@@ -169,13 +169,15 @@ class _CriaCategoria extends State<CriaCategoria> {
                             altura: 70,
                             largura: 400,
                             funcao: (){
-                              addCategoria.criaCategoria(
-                                UserRoot: model.firebaseUser!.email,
-                                imgFile: fileSend,
-                                localFile: file,
-                                nomeCategoria: nomeCategoria.text,
-                                id: UniqueKey(),
-                              );
+                              setState(() {
+                                addCategoria.criaCategoria(
+                                  UserRoot: model.firebaseUser!.email,
+                                  imgFile: fileSend,
+                                  localFile: file,
+                                  nomeCategoria: nomeCategoria.text,
+                                  id: UniqueKey(),
+                                );
+                              });
                               nomeCategoria.clear();
                             },
                             text: Row(
