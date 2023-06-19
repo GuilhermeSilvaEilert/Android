@@ -201,34 +201,38 @@ class _LoginPageState extends State<LoginPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(8),
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
-                                      Checkbox(
-                                          focusColor: Colors.black,
-                                          autofocus: true,
-                                          overlayColor: MaterialStateProperty.all(
-                                              Colors.grey
-                                          ),
-                                          fillColor: MaterialStateProperty.all(
-                                              const Color.fromARGB(255, 150, 0, 0)
-                                          ),
-                                          checkColor:  Colors.black,
-                                          splashRadius: 20,
-                                          value: salvaSenha,
-                                          onChanged: (value) {
-                                            checkBox ++;
-                                            if(checkBox == 1){
-                                              return setState(() {
-                                                value = true;
-                                                salvaSenha = true;
-                                              });
-                                            }else{
-                                              checkBox = 0;
-                                              return setState(() {
-                                                value = false;
-                                                salvaSenha = false;
-                                              });
-                                            }
-                                          }),
+                                      Center(
+                                        child: Checkbox(
+                                            focusColor: Colors.black,
+                                            autofocus: true,
+                                            overlayColor: MaterialStateProperty.all(
+                                                Colors.grey
+                                            ),
+                                            fillColor: MaterialStateProperty.all(
+                                                const Color.fromARGB(255, 150, 0, 0)
+                                            ),
+                                            checkColor:  Colors.black,
+                                            splashRadius: 20,
+                                            value: salvaSenha,
+                                            onChanged: (value) {
+                                              checkBox ++;
+                                              if(checkBox == 1){
+                                                return setState(() {
+                                                  value = true;
+                                                  salvaSenha = true;
+                                                });
+                                              }else{
+                                                checkBox = 0;
+                                                return setState(() {
+                                                  value = false;
+                                                  salvaSenha = false;
+                                                });
+                                              }
+                                            }),
+                                      ),
                                       const Text('Lembrar da senha ?'),
                                     ],
                                   ),

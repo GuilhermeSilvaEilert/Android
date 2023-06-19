@@ -18,12 +18,12 @@ class ApresentaItensComanda extends StatefulWidget {
 }
 
 class _ApresentaItensComandaState extends State<ApresentaItensComanda> {
+  double? Preco = 0;
   @override
   Widget build(BuildContext context) {
     print('UserRoot: ${widget.UserRoot}');
     print('NumeroComanda: ${widget.NumeroComanda}');
     return Scaffold(
-
       body: Container(
         color: Color.fromARGB(255, 124, 112, 97),
         child: FutureBuilder(
@@ -63,6 +63,8 @@ class _ApresentaItensComandaState extends State<ApresentaItensComanda> {
                     itemCount: snapshot.data!.docs.length,
                     physics: AlwaysScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
+
+                    Preco = Preco! + double.parse(snapshot.data!.docs[index]['Preco']) * double.parse(snapshot.data!.docs[index]['QuantidadeItens']);
                       return Row(
                         children: [
                           Padding(

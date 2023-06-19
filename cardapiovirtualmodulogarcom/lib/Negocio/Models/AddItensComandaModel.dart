@@ -23,6 +23,7 @@ class CriaComandaModel extends Model{
     String? NumeroComanda,
     String? UserRoot,
     String? Categoria,
+    String? Preco,
     String? Item,
     String? QuantidadeItem,
     String? ImagemItem,
@@ -36,9 +37,10 @@ class CriaComandaModel extends Model{
       'Categoria' : Categoria,
       'QuantidadeItens': QuantidadeItem,
       'Imagem': ImagemItem,
+      'Preco': Preco
     };
 
-    if(UserRoot != null && NumeroComanda != null && QuantidadeItem != '0'){
+    if(UserRoot != null && NumeroComanda != null && QuantidadeItem != '0' && QuantidadeItem != null){
       FirebaseFirestore
           .instance
           .collection('Usuario raiz')

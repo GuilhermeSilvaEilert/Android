@@ -22,17 +22,18 @@ class CriaComandaModel extends Model{
 
   void AdicionaComanda({
     String? UserRoot,
-    int? ComandasExistentes,
+    String? ComandasExistentes,
+    String? Time,
     VoidCallback? onSucess,
     VoidCallback? onFail,
   }) async {
 
     print(ComandasExistentes);
     print(UserRoot);
-    ComandasExistentes = ComandasExistentes! + 1;
+
     Map<String, dynamic> DataComanda = {
       'NumeroComanda' : ComandasExistentes.toString(),
-      'Ordenador' : ComandasExistentes,
+      'Ordenador': Time,
     };
 
     FirebaseFirestore

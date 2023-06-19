@@ -54,6 +54,8 @@ dependencies:
   sqlite3: ^1.11.1
   image_network: ^2.5.2
   scaffold_responsive: ^1.1.1
+  stop_watch_timer: ^2.0.0
+  customizable_counter: ^1.0.4
 
 dev_dependencies:
   flutter_test:

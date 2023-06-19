@@ -5,7 +5,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/material.dart';
 
 
-class AtualizaComandaModel extends Model{
+class CriaComandaModel extends Model{
 
   bool? isLoading = false;
 
@@ -19,44 +19,39 @@ class AtualizaComandaModel extends Model{
   Map<String?, dynamic>? userData = Map();
 
 
-  void AtualizaComanda({
-    String? NumeroComanda,
+  void AdicionaComanda({
     String? UserRoot,
-    String? Categoria,
-    String? Item,
-    String? Preco,
-    String? QuantidadeItem,
-    String? ImagemItem,
+    int? ComandasExistentes,
     VoidCallback? onSucess,
     VoidCallback? onFail,
   }) async {
 
-    isLoading = true;
-    notifyListeners();
-
+    print(ComandasExistentes);
     print(UserRoot);
+    ComandasExistentes = ComandasExistentes! + 1;
     Map<String, dynamic> DataComanda = {
-      'ItemComanda' : Item,
-      'Categoria' : Categoria,
-      'QuantidadeItens': QuantidadeItem.toString(),
-      'Imagem': ImagemItem,
-      'Preco':Preco,
+      'NumeroComanda' : ComandasExistentes.toString(),
+      'Ordenador' : ComandasExistentes,
     };
 
-    if(UserRoot != null && NumeroComanda != null && QuantidadeItem != '0'){
-      FirebaseFirestore
+    FirebaseFirestore
+        .instance
+        .collection('Usuario raiz')
+        .doc(UserRoot)
+        .collection('comandas')
+        .doc(ComandasExistentes.toString()).get();
+
+
+
+    if(UserRoot != null && ComandasExistentes != null){
+       FirebaseFirestore
           .instance
           .collection('Usuario raiz')
           .doc(UserRoot)
           .collection('comandas')
-          .doc(NumeroComanda.toString())
-          .collection('Itens').doc(Item).update(DataComanda);
-      isLoading = false;
-      notifyListeners();
+          .doc(ComandasExistentes.toString()).set(DataComanda);
       onSucess!();
     }else{
-      isLoading = false;
-      notifyListeners();
       onFail!();
     }
 

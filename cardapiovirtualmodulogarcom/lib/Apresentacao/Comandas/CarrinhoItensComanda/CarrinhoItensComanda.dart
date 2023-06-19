@@ -1,9 +1,7 @@
-import 'package:cardapiovirtualmodulogarcom/Apresentacao/widgets/ContadorDeItens/ContadorItens.dart';
 import 'package:cardapiovirtualmodulogarcom/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
 import 'package:cardapiovirtualmodulogarcom/Negocio/Models/AtualizaItensCarrinho.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:counter_button/counter_button.dart';
 import 'package:customizable_counter/customizable_counter.dart';
 
 class CarrinhoItensComanda extends StatefulWidget {
@@ -55,6 +53,7 @@ class _CarrinhoItensComandaState extends State<CarrinhoItensComanda> {
                       physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                         int? Counter;
+                        double? valor = double.parse(snapshot.data!.docs[index]['QuantidadeItens']);
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
@@ -85,6 +84,7 @@ class _CarrinhoItensComandaState extends State<CarrinhoItensComanda> {
                                         ),
                                       ),
                               CustomizableCounter(
+                                showButtonText: false,
                                 borderColor: Colors.transparent,
                                 borderWidth: 5,
                                 borderRadius: 100,
@@ -94,7 +94,7 @@ class _CarrinhoItensComandaState extends State<CarrinhoItensComanda> {
                                 textSize: 22,
                                 count: double.parse(snapshot.data!.docs[index]['QuantidadeItens']),
                                 step: 1,
-                                minCount: 0,
+                                minCount: 1,
                                 maxCount: 100,
                                 incrementIcon: const Icon(
                                   Icons.add,
@@ -120,17 +120,20 @@ class _CarrinhoItensComandaState extends State<CarrinhoItensComanda> {
                                     children: [
                                       TextButton(
                                           onPressed: (){
-                                            String Item = snapshot.data!.docs[index]['ItemComanda'];
-                                            print(Counter);
                                             setState(() {
-                                              FirebaseFirestore
-                                                  .instance
-                                                  .collection('Usuario raiz')
-                                                  .doc(widget.UserRoot)
-                                                  .collection('comandas')
-                                                  .doc(widget.NumeroComanda)
-                                                  .collection('Itens').doc(Item).delete();
+                                              String Item = snapshot.data!.docs[index]['ItemComanda'];
+                                              print(Counter);
+                                              setState(() {
+                                                FirebaseFirestore
+                                                    .instance
+                                                    .collection('Usuario raiz')
+                                                    .doc(widget.UserRoot)
+                                                    .collection('comandas')
+                                                    .doc(widget.NumeroComanda)
+                                                    .collection('Itens').doc(Item).delete();
+                                              });
                                             });
+
                                           },
                                           child: Row(
                                             children: [
@@ -154,7 +157,8 @@ class _CarrinhoItensComandaState extends State<CarrinhoItensComanda> {
                                             atualizaComandaModel.AtualizaComanda(
                                               ImagemItem: snapshot.data!.docs[index]['Imagem'],
                                               NumeroComanda: widget.NumeroComanda,
-                                              QuantidadeItem: Counter,
+                                              QuantidadeItem: Counter.toString(),
+                                              Preco: snapshot.data!.docs[index]['Preco'],
                                               Item: snapshot.data!.docs[index]['ItemComanda'],
                                               Categoria: snapshot.data!.docs[index]['Categoria'],
                                               onSucess: onSucess,

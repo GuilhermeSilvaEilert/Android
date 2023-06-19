@@ -5,7 +5,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/material.dart';
 
 
-class AtualizaComandaModel extends Model{
+class CriaComandaModel extends Model{
 
   bool? isLoading = false;
 
@@ -19,28 +19,25 @@ class AtualizaComandaModel extends Model{
   Map<String?, dynamic>? userData = Map();
 
 
-  void AtualizaComanda({
+  void AdicionaComanda({
     String? NumeroComanda,
     String? UserRoot,
     String? Categoria,
     String? Item,
-    String? Preco,
     String? QuantidadeItem,
     String? ImagemItem,
+    String? Preco,
     VoidCallback? onSucess,
     VoidCallback? onFail,
   }) async {
-
-    isLoading = true;
-    notifyListeners();
 
     print(UserRoot);
     Map<String, dynamic> DataComanda = {
       'ItemComanda' : Item,
       'Categoria' : Categoria,
-      'QuantidadeItens': QuantidadeItem.toString(),
+      'QuantidadeItens': QuantidadeItem,
       'Imagem': ImagemItem,
-      'Preco':Preco,
+      'Preco': Preco
     };
 
     if(UserRoot != null && NumeroComanda != null && QuantidadeItem != '0'){
@@ -50,13 +47,17 @@ class AtualizaComandaModel extends Model{
           .doc(UserRoot)
           .collection('comandas')
           .doc(NumeroComanda.toString())
+          .collection('Itens').doc(Item).set(DataComanda);
+
+      FirebaseFirestore
+          .instance
+          .collection('Usuario raiz')
+          .doc(UserRoot)
+          .collection('comandas')
+          .doc(NumeroComanda.toString())
           .collection('Itens').doc(Item).update(DataComanda);
-      isLoading = false;
-      notifyListeners();
       onSucess!();
     }else{
-      isLoading = false;
-      notifyListeners();
       onFail!();
     }
 

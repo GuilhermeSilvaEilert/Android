@@ -78,10 +78,10 @@ class CardapioModel extends Model{
   }
 
   EditaUsuarioGarcom ({
-    String? OldEmail,
+    String? Email,
+    String? EmailRaiz,
     String? NomeUsuario,
     File? imgFile,
-    String? NewEmail,
     String? url,
     String? OldLocalStorage,
     String? NewLocalStorage,
@@ -89,22 +89,28 @@ class CardapioModel extends Model{
     VoidCallback? Falha,
   }) async {
 
-    print(
-        '\n $OldEmail' +
-            '\n $NomeUsuario' +
-            '\n $imgFile'
-    );
+
+    print('''
+        1Email: $Email
+        2EmailRaiz: $EmailRaiz
+        3NomeUsuario: $NomeUsuario
+        4Imagem: $imgFile
+        5url: $url
+        6OldLocalStorage: $OldLocalStorage
+        7NewLocalStorage: $NewLocalStorage'
+        ''');
     isLoading = true;
     notifyListeners();
 
     int tamanhoEixoX = 1;
     int tamanhoEixoY = 1;
 
-    if(url != null && OldEmail != null && OldEmail == NewEmail && imgFile == null){
+    if(url != null && imgFile == null){
       print('Edita Nome');
       Map<String, dynamic> data = {
-        'NomeUsuario': NomeUsuario,
-        'Email': OldEmail,
+        'Nome': NomeUsuario,
+        'EmailRaiz': EmailRaiz,
+        'Email': Email,
         'Imagem': url,
         'x': tamanhoEixoX,
         'y': tamanhoEixoY,
@@ -113,17 +119,11 @@ class CardapioModel extends Model{
 
       await FirebaseFirestore
           .instance
-          .collection('Usuario raiz')
-          .doc(_auth!.currentUser!.email)
-          .collection('Usuario Garçom')
-          .doc(OldEmail).delete();
+          .collection('Usuario Garcom')
+          .doc('Usuarios')
+          .collection(Email!)
+          .doc('Dados').update(data);
 
-      await FirebaseFirestore
-          .instance
-          .collection('Usuario raiz')
-          .doc(_auth!.currentUser!.email)
-          .collection('Usuario Garçom')
-          .doc(OldEmail).set(data);
 
       Sucesso!();
       isLoading = false;
@@ -141,29 +141,23 @@ class CardapioModel extends Model{
       String url = await taskSnapshot.ref.getDownloadURL();
 
       Map<String, dynamic> data = {
-        'NomeUsuario': NomeUsuario,
-        'Email': OldEmail,
+        'Nome': NomeUsuario,
+        'EmailRaiz': EmailRaiz,
+        'Email': Email,
         'Imagem': url,
         'x': tamanhoEixoX,
         'y': tamanhoEixoY,
-        'LocalStorage': NewLocalStorage
+        'LocalStorage': NewLocalStorage,
       };
 
       await FirebaseFirestore
           .instance
-          .collection('Usuario raiz')
-          .doc(_auth!.currentUser!.email)
-          .collection('Usuario Garçom')
-          .doc(OldEmail).delete();
+          .collection('Usuario Garcom')
+          .doc('Usuarios')
+          .collection(Email!)
+          .doc('Dados').update(data);
 
       await FirebaseStorage.instance.ref(OldLocalStorage).delete();
-
-      await FirebaseFirestore
-          .instance
-          .collection('Usuario raiz')
-          .doc(_auth!.currentUser!.email)
-          .collection('Usuario Garçom')
-          .doc(OldEmail).set(data);
 
       Sucesso!();
       isLoading = false;

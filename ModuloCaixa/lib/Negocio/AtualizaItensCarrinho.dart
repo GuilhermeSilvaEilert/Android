@@ -24,8 +24,7 @@ class AtualizaComandaModel extends Model{
     String? UserRoot,
     String? Categoria,
     String? Item,
-    String? Preco,
-    String? QuantidadeItem,
+    int? QuantidadeItem,
     String? ImagemItem,
     VoidCallback? onSucess,
     VoidCallback? onFail,
@@ -40,7 +39,6 @@ class AtualizaComandaModel extends Model{
       'Categoria' : Categoria,
       'QuantidadeItens': QuantidadeItem.toString(),
       'Imagem': ImagemItem,
-      'Preco':Preco,
     };
 
     if(UserRoot != null && NumeroComanda != null && QuantidadeItem != '0'){

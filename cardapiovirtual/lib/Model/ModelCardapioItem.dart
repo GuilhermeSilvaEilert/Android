@@ -35,6 +35,7 @@ Future<void> sendDados({
       'Nome': nomeProduto,
       'Preco': preco,
       'Imagem': url,
+      'id': id,
       'Descricao': descricao,
       'x': tamanhoEixoX,
       'y': tamanhoEixoY,

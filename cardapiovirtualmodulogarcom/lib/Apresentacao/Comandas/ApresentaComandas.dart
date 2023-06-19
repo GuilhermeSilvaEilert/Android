@@ -87,9 +87,12 @@ class _ApresentaComandasState extends State<ApresentaComandas> {
                     backgroundColor: Color.fromARGB(255, 150, 0, 0),
                     onPressed: (){
                       setState(() {
+                        String? now = DateTime.timestamp().hashCode.toString();
+                        String time = DateTime.timestamp().toString();
                         criaComandaModel.AdicionaComanda(
                           UserRoot: widget.UserRoot,
-                          ComandasExistentes: snapshot.data!.docs.length,
+                          ComandasExistentes: now.substring(5,),
+                          Time: time,
                           onSucess: onSucess,
                           onFail: onFail,
                         );

@@ -48,13 +48,12 @@ class _ScaffoldMultiColorState extends State<ScaffoldMultiColor> {
             .doc('Cores')
             .collection('Configura Cores').get(),
         builder: (context, snapshot) {
-
             if(!snapshot.hasData){
               return const CircularProgressIndicator();
             }else{
               return Scaffold(
                 appBar: widget.TextAppBar == null ?
-                widget.AppBar
+                null
                 :
                 AppBar(
                   backgroundColor: Color.fromARGB(

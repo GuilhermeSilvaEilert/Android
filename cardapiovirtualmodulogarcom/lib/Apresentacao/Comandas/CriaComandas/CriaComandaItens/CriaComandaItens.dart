@@ -1,6 +1,7 @@
 import 'package:cardapiovirtualmodulogarcom/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
 import 'package:cardapiovirtualmodulogarcom/Negocio/Models/AddItensComandaModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:customizable_counter/customizable_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -56,6 +57,7 @@ class _CriaComandasItensState extends State<CriaComandasItens> {
                             itemCount: snapshot.data?.docs.length,
                             physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
+                              int? Counter;
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
@@ -86,38 +88,40 @@ class _CriaComandasItensState extends State<CriaComandasItens> {
                                             ),
                                           ),
                                           Container(
-                                              padding: EdgeInsets.only(left:70),
+                                              padding: EdgeInsets.only(left:10),
                                               child: Row(
                                                 children: [
-                                                  IconButton(
-                                                      onPressed: (){
-                                                        setState(() {
-                                                          contador =  contador! + 1;
-                                                        });
-                                                      },
-                                                      icon: Icon(
-                                                        Icons.add,
-                                                        color: Colors.white,
-                                                      )
-                                                  ),
-                                                  Text('$contador',
-                                                    style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
+                                                  CustomizableCounter(
+                                                    showButtonText: false,
+                                                    borderColor: Colors.transparent,
+                                                    borderWidth: 5,
+                                                    borderRadius: 100,
+                                                    backgroundColor: Colors.transparent,
+                                                    buttonText: "Add Item",
+                                                    textColor: Colors.white,
+                                                    textSize: 22,
+                                                    count: 0,
+                                                    step: 1,
+                                                    minCount: 1,
+                                                    maxCount: 100,
+                                                    incrementIcon: const Icon(
+                                                      Icons.add,
                                                       color: Colors.white,
                                                     ),
-                                                  ),
-                                                  IconButton(
-                                                    onPressed: (){
-                                                      setState(() {
-                                                        if(contador != 0){
-                                                          contador = contador! - 1;
-                                                        }
-                                                      });
-                                                    },
-                                                    icon: Icon(
-                                                      color: Colors.white,
+
+                                                    decrementIcon: const Icon(
                                                       Icons.remove,
+                                                      color: Colors.white,
                                                     ),
+                                                    onCountChange: (count) {
+                                                        Counter = count.toInt();
+                                                    },
+                                                    onIncrement: (count) {
+
+                                                    },
+                                                    onDecrement: (count) {
+
+                                                    },
                                                   ),
                                                 ],
                                               )
@@ -131,9 +135,10 @@ class _CriaComandasItensState extends State<CriaComandasItens> {
                                               onFail: onFail,
                                               UserRoot: widget.UserRoot,
                                               onSucess: onSucess,
+                                              Preco: snapshot.data!.docs[index]['Preco'].toString(),
                                               Categoria: widget.Categoria,
                                               Item: snapshot.data!.docs[index]['Nome'],
-                                              QuantidadeItem: contador.toString(),
+                                              QuantidadeItem: Counter.toString(),
                                               NumeroComanda: widget.NumeroComanda,
                                               ImagemItem: snapshot.data!.docs[index]['Imagem']
                                             );

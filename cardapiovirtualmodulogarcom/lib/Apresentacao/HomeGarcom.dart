@@ -108,8 +108,23 @@ class _HomeGarcomState extends State<HomeGarcom> {
                 } else {
                   ProcuraChamados(UserRoot: UserRoot, iniciaBusca: true);
                   return ScaffoldMultiColor(
+                    floatingActionButton: FloatingActionButton(
+                      child: Icon(Icons.refresh,
+                      color: Colors.white,
+                      ),
+                      backgroundColor: Color.fromARGB(255, 150, 0, 0),
+                      onPressed: (){
+                        setState(() {
+                          FirebaseFirestore.instance
+                              .collection('Usuario raiz')
+                              .doc(UserRoot)
+                              .collection('comandas').get();
+                        });
+                      },
+                    ),
                       Body: CustomScrollView(
                     physics: AlwaysScrollableScrollPhysics(),
+
                     shrinkWrap: true,
                     slivers: [
                       SliverToBoxAdapter(
@@ -171,7 +186,7 @@ class _HomeGarcomState extends State<HomeGarcom> {
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(
-                                                  left: 40),
+                                                  left:1),
                                               child: Column(
                                                 children: [
                                                   SizedBox(

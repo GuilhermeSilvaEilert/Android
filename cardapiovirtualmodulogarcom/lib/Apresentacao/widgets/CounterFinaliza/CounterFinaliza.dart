@@ -152,17 +152,19 @@ class _CounterFinalizaState extends State<CounterFinaliza> {
                       )
                   ),
                   onPressed: (){
-                    if(playepause == true){
-                      print('Tempo Atendimento: $tempoAtendendo');
-                      FirebaseFirestore
-                          .instance
-                          .collection('Usuario raiz')
-                          .doc(widget.UserRoot)
-                          .collection('MesasAguardandoAtendimento')
-                          .doc(widget.NumeroSenha).delete();
-                    }else{
-                      print('Pare o timer Antes');
-                    }
+                    setState(() {
+                      if(playepause == true){
+                        print('Tempo Atendimento: $tempoAtendendo');
+                        FirebaseFirestore
+                            .instance
+                            .collection('Usuario raiz')
+                            .doc(widget.UserRoot)
+                            .collection('MesasAguardandoAtendimento')
+                            .doc(widget.NumeroSenha).delete();
+                      }else{
+                        print('Pare o timer Antes');
+                      }
+                    });
                   },
                   child: Text(
                     'Finalizar',

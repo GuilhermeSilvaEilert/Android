@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:modulocaixa/Apresentacao/ApresentaItensComanda/ApresentaItensComanda.dart';
+import 'package:modulocaixa/Apresentacao/EditaComanda/EditaComanda.dart';
 import 'package:modulocaixa/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
 import 'package:modulocaixa/Apresentacao/widgets/TextButtonMultiColor/TextButtonMultiColor.dart';
 import 'package:scaffold_responsive/scaffold_responsive.dart';
@@ -21,6 +22,8 @@ class _HomeCaixaState extends State<HomeCaixa> {
 
   bool? mostraItensComanda = false;
   String? NumeroComanda;
+
+
   @override
   Widget build(BuildContext context) {
     print('Email UserRoot: ${widget.UserRoot}');
@@ -53,6 +56,13 @@ class _HomeCaixaState extends State<HomeCaixa> {
                       .doc(NumeroComanda)
                       .collection('Itens').get(),
                   builder: (context, snapshot) {
+                    int tamanhoComanda = snapshot.data!.docs.length - 1;
+                    double? Preco = 0.00;
+                    for(int i = 0; i<= tamanhoComanda;i++){
+                      snapshot.data!.docs[i]['Preco'];
+                      snapshot.data!.docs[i]['QuantidadeItens'];
+                      Preco = Preco! + double.parse(snapshot.data!.docs[i]['Preco']) * double.parse( snapshot.data!.docs[i]['QuantidadeItens']);
+                    }
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -67,7 +77,16 @@ class _HomeCaixaState extends State<HomeCaixa> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          funcao: (){},
+                          funcao: (){
+                            Navigator
+                                .of(context)
+                                .push(
+                                  MaterialPageRoute(
+                                    builder: (context) => EditaComanda(
+                                      NumeroComanda: NumeroComanda,
+                                      UserRoot: widget.UserRoot,
+                                    ),));
+                          },
                         ),
                         SizedBox(width: 550,),
                         TextButtonMultiColor(
@@ -80,7 +99,18 @@ class _HomeCaixaState extends State<HomeCaixa> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          funcao: (){},
+                          funcao: (){
+                            setState(() {
+                              FirebaseFirestore
+                                  .instance
+                                  .collection('Usuario raiz')
+                                  .doc(widget.UserRoot)
+                                  .collection('comandas')
+                                  .doc(NumeroComanda).delete();
+                              mostraItensComanda = false;
+                            });
+                            onDeleteSucess();
+                          },
                         ),
                         SizedBox(width: 20,),
                         Column(
@@ -88,7 +118,7 @@ class _HomeCaixaState extends State<HomeCaixa> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
-                                'R\$ ${snapshot.data!.docs[0]['Preco']}',
+                                'R\$ ${Preco!.toStringAsFixed(2)}',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 40,
@@ -163,6 +193,29 @@ class _HomeCaixaState extends State<HomeCaixa> {
             );
           },
         ),
+      ),
+    );
+  }
+
+  onDeleteSucess() async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+            'Login bem sucedido'
+        ),
+        backgroundColor: Colors.green,
+      ),
+    );
+    await Future.delayed(Duration(seconds: 2));
+  }
+
+  onFail(){
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+            'Senha ou Email Incorretos'
+        ),
+        backgroundColor: Colors.red,
       ),
     );
   }
