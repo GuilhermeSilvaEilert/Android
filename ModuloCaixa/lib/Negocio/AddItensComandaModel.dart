@@ -39,8 +39,12 @@ class CriaComandaModel extends Model{
       'Imagem': ImagemItem,
       'Preco': Preco
     };
-
-    if(UserRoot != null && NumeroComanda != null && QuantidadeItem != '0'){
+    print(QuantidadeItem);
+    if(UserRoot != null &&
+       NumeroComanda != null &&
+       QuantidadeItem != '0' &&
+       QuantidadeItem != null &&
+       QuantidadeItem != 'null'){
       FirebaseFirestore
           .instance
           .collection('Usuario raiz')

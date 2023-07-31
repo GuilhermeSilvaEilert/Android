@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,10 @@ class CardapioModel extends Model{
 
   FirebaseAuth? _auth = FirebaseAuth.instance;
 
+  final GoogleSignIn? googleSignIn = GoogleSignIn();
+
   User? firebaseUser;
+
 
   User? usuarioGarcom;
   @override
@@ -21,6 +25,31 @@ class CardapioModel extends Model{
   }
 
   Map<String?, dynamic>? userData = Map();
+
+  getUser() async {
+
+    if(firebaseUser != null) {
+      return firebaseUser;
+    }
+
+    try{
+      final GoogleSignInAccount? googleSignInAccount = await googleSignIn!.signIn();
+      final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount!.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleSignInAuthentication.idToken,
+        accessToken: googleSignInAuthentication.accessToken,
+      );
+      final UserCredential authResult =
+      await FirebaseAuth.instance.signInWithCredential(credential);
+
+      final User? user = authResult.user;
+
+      return user;
+    }catch (error){
+      return null;
+    }
+  }
+
 
   void signIn({
     String? email,

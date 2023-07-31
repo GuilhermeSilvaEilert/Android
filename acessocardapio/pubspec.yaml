@@ -53,6 +53,7 @@ dependencies:
   sqflite_common_ffi_web: ^0.3.5+1
   sqlite3: ^1.11.1
   image_network: ^2.5.2
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -126,3 +127,12 @@ flutter:
     - Assets/qrcodemesa/QRcodeMesa.jpg
     - Assets/cardapio/AddComida.png
     - Assets/Icons/quicksetting.png
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "Assets/LogoMarca/LogoMarcaTG.png"
+  web:
+    generate: true
+    image_path: "Assets/LogoMarca/LogoMarcaTG.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"

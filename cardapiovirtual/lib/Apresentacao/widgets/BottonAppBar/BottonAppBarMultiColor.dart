@@ -30,7 +30,6 @@ class _BottonAppBarMultiColorState extends State<BottonAppBarMultiColor> {
       model: CardapioModel(),
       child: ScopedModelDescendant<CardapioModel>(
         builder: (context, child, model) {
-
           return FutureBuilder(
               future:
               FirebaseFirestore

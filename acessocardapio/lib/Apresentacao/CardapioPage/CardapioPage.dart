@@ -139,6 +139,20 @@ class _CardapioPageState extends State<CardapioPage> {
                                   child: Column(
                                     children: [
                                       ImageNetwork(
+                                        onTap: (){
+                                          Navigator
+                                              .of(context)
+                                              .push(MaterialPageRoute(
+                                            builder: (context) => ItensCardapioPage(
+                                              UserRoot: widget.Email,
+                                              Categoria: snapshot.data!.docs[index]['id'],
+                                              QuantidadePessoas: widget.QuantidadePessoas,
+                                              QuantidadeComandas: widget.QuantidadeComandas,
+                                              NumeroDaMesa: widget.NumeroDaMesa,
+                                            ),
+                                          ),
+                                          );
+                                        },
                                         image: snapshot.data!.docs[index]['Imagem'],
                                         height: 170,
                                         width: 170,

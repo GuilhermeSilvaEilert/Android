@@ -43,11 +43,12 @@ dependencies:
   esc_pos_utils: ^1.1.0
   combined_barcode_scanner: ^0.0.1-dev.1
   fast_barcode_scanner: ^1.1.0
-  honeywell_scanner: ^3.1.4+12
   read_barcode: ^1.0.1
   url_launcher_windows: ^3.0.6
   url_launcher: ^6.1.11
   browser_launcher: ^1.1.1
+  platform_detector: ^0.1.1
+
 
 
 

@@ -5,6 +5,7 @@ import 'package:camera_platform_interface/camera_platform_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:platform_detector/widgets/platform_type_widget.dart';
 
 class TesteDeCamera extends StatefulWidget {
   /// Default Constructor
@@ -311,116 +312,200 @@ class _TesteDeCameraState extends State<TesteDeCamera> {
           title: const Text('Teste de Webcam', style: TextStyle(color: Colors.white)),
           backgroundColor: Colors.black,
         ),
-        body: ListView(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 5,
-                horizontal: 10,
-              ),
-              child: Text(_cameraInfo),
-            ),
-            if (_cameras.isEmpty)
-              ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                        Colors.white
-                    )
+        body: PlatformDetectByType(
+          ifDesktop: ListView(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 5,
+                  horizontal: 10,
                 ),
-                onPressed: _fetchCameras,
-                child: const Text('Re-check available cameras', style: TextStyle(color:Colors.black),),
+                child: Text(_cameraInfo),
               ),
-            if (_cameras.isNotEmpty)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const SizedBox(width: 20),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            Colors.white
-                        )
-                    ),
-                    onPressed: _initialized
-                        ? _disposeCurrentCamera
-                        : _initializeCamera,
-                    child:
-                    Text(_initialized ? 'Dispose camera' : 'Create camera', style: TextStyle(color:Colors.black),),
+              if (_cameras.isEmpty)
+                ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          Colors.white
+                      )
                   ),
-                  const SizedBox(width: 5),
-                  const SizedBox(width: 5),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            Colors.white
-                        )
-                    ),
-                    onPressed: _initialized ? _togglePreview : null,
-                    child: Text(
-                      style: TextStyle(color:Colors.black),
-                      _previewPaused ? 'Resume preview' : 'Pause preview',
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            Colors.white
-                        )
-                    ),
-                    onPressed: _initialized ? _toggleRecord : null,
-                    child: Text(
-                      style: TextStyle(color:Colors.black),
-                      (_recording || _recordingTimed)
-                          ? 'Stop recording'
-                          : 'Record Video',
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                  if (_cameras.length > 1) ...<Widget>[
+                  onPressed: _fetchCameras,
+                  child: const Text('Procurar Novamente cameras', style: TextStyle(color:Colors.black),),
+                ),
+              if (_cameras.isNotEmpty)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
                     const SizedBox(width: 5),
                     ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                          Colors.white
-                        )
+                          backgroundColor: MaterialStateProperty.all(
+                              Colors.white
+                          )
                       ),
-                      onPressed: _switchCamera,
-                      child: const Text(
+                      onPressed: _initialized
+                          ? _disposeCurrentCamera
+                          : _initializeCamera,
+                      child:
+                      Text(_initialized ? 'Dispose camera' : 'Create camera', style: TextStyle(color:Colors.black),),
+                    ),
+                    const SizedBox(width: 5),
+                    ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Colors.white
+                          )
+                      ),
+                      onPressed: _initialized ? _toggleRecord : null,
+                      child: Text(
                         style: TextStyle(color:Colors.black),
-                        'Switch camera',
+                        (_recording || _recordingTimed)
+                            ? 'Stop recording'
+                            : 'Record Video',
                       ),
                     ),
-                  ]
-                ],
-              ),
-            const SizedBox(height: 5),
-            if (_cameraId > 0)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 10,
+                    const SizedBox(width: 5),
+                    if (_cameras.length > 1) ...<Widget>[
+                      const SizedBox(width: 5),
+                      ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                Colors.white
+                            )
+                        ),
+                        onPressed: _switchCamera,
+                        child: const Text(
+                          style: TextStyle(color:Colors.black),
+                          'Trocar Camera',
+                        ),
+                      ),
+                    ]
+                  ],
                 ),
-                child: Align(
-                  child: Container(
-                    constraints: const BoxConstraints(
-                      maxHeight: 500,
-                    ),
-                    child: AspectRatio(
-                      aspectRatio: _previewSize!.width / _previewSize!.height,
-                      child: _buildPreview(),
+              const SizedBox(height: 5),
+              if (_cameraId > 0)
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 10,
+                  ),
+                  child: Align(
+                    child: Container(
+                      constraints: const BoxConstraints(
+                        maxHeight: 500,
+                      ),
+                      child: AspectRatio(
+                        aspectRatio: _previewSize!.width / _previewSize!.height,
+                        child: _buildPreview(),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            if (_previewSize != null)
-              Center(
-                child: Text(
-                  style: TextStyle(color:Colors.black),
-                  'Preview size: ${_previewSize!.width.toStringAsFixed(0)}x${_previewSize!.height.toStringAsFixed(0)}',
+              if (_previewSize != null)
+                Center(
+                  child: Text(
+                    style: TextStyle(color:Colors.black),
+                    'Preview size: ${_previewSize!.width.toStringAsFixed(0)}x${_previewSize!.height.toStringAsFixed(0)}',
+                  ),
                 ),
+            ],
+          ),
+          ifMobile: ListView(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 5,
+                  horizontal: 10,
+                ),
+                child: Text(_cameraInfo),
               ),
-          ],
-        ),
+              if (_cameras.isEmpty)
+                ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          Colors.white
+                      )
+                  ),
+                  onPressed: _fetchCameras,
+                  child: const Text('Procurar Novamente cameras', style: TextStyle(color:Colors.black),),
+                ),
+              if (_cameras.isNotEmpty)
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const SizedBox(width: 5),
+                    ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Colors.white
+                          )
+                      ),
+                      onPressed: _initialized
+                          ? _disposeCurrentCamera
+                          : _initializeCamera,
+                      child:
+                      Text(_initialized ? 'Desconectar' : 'Criar', style: TextStyle(color:Colors.black),),
+                    ),
+                    const SizedBox(width: 5),
+                    ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Colors.white
+                          )
+                      ),
+                      onPressed: _initialized ? _toggleRecord : null,
+                      child: Text(
+                        style: TextStyle(color:Colors.black),
+                        (_recording || _recordingTimed)
+                            ? 'Parar'
+                            : 'Gravar',
+                      ),
+                    ),
+                    const SizedBox(width: 5),
+                    if (_cameras.length > 1) ...<Widget>[
+                      const SizedBox(width: 5),
+                      ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                Colors.white
+                            )
+                        ),
+                        onPressed: _switchCamera,
+                        child: const Text(
+                          style: TextStyle(color:Colors.black),
+                          'Switch camera',
+                        ),
+                      ),
+                    ]
+                  ],
+                ),
+              const SizedBox(height: 5),
+              if (_cameraId > 0)
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 10,
+                  ),
+                  child: Align(
+                    child: Container(
+                      constraints: const BoxConstraints(
+                        maxHeight: 500,
+                      ),
+                      child: AspectRatio(
+                        aspectRatio: _previewSize!.width / _previewSize!.height,
+                        child: _buildPreview(),
+                      ),
+                    ),
+                  ),
+                ),
+              if (_previewSize != null)
+                Center(
+                  child: Text(
+                    style: TextStyle(color:Colors.black),
+                    'Preview size: ${_previewSize!.width.toStringAsFixed(0)}x${_previewSize!.height.toStringAsFixed(0)}',
+                  ),
+                ),
+            ],
+          ),
+        )
       );
   }
 }

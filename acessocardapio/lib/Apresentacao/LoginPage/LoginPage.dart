@@ -8,8 +8,10 @@ import 'package:acessocardapio/Apresentacao/widgets/TextButtonMultiColor/TextBut
 import 'package:acessocardapio/Negocio/Model/DataBase/DataBase.dart';
 import 'package:acessocardapio/Negocio/Model/itemModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class LoginPage extends StatefulWidget {
@@ -31,18 +33,51 @@ class _LoginPageState extends State<LoginPage> {
   List lists = [];
   int? i;
 
+  final GoogleSignIn? googleSignIn = GoogleSignIn();
+
+  User? _currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    Firebase.initializeApp();
+    FirebaseAuth.instance.authStateChanges().listen((user) {
+      _currentUser = user;
+    });
+
+    checkBox = 0;
+    super.initState();
+  }
+
+   _getUser() async {
+
+     if(_currentUser != null) {
+       return _currentUser;
+     }
+
+    try{
+      final GoogleSignInAccount? googleSignInAccount = await googleSignIn!.signIn();
+      final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount!.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleSignInAuthentication.idToken,
+        accessToken: googleSignInAuthentication.accessToken,
+      );
+      final UserCredential authResult =
+      await FirebaseAuth.instance.signInWithCredential(credential);
+
+      final User? user = authResult.user;
+
+      return user;
+    }catch (error){
+      return null;
+    }
+  }
+
   final _formValidateKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController  =  TextEditingController();
   final TextEditingController categoriaProduto = TextEditingController();
   dynamic firstItem;
-
-  @override
-  initState(){
-    checkBox = 0;
-    super.initState();
-    Firebase.initializeApp();
-  }
 
   CaminhoDB() async {
     print('iniciando db');
@@ -269,6 +304,37 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                   ),
                                 ),
+                                SizedBox(height: 10,),
+                                /*ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                      Colors.white
+                                    ),
+                                    fixedSize: MaterialStateProperty.all(
+                                      Size(200, 50)
+                                    ),
+                                  ),
+                                    onPressed: () async {
+                                      final User? user = await _getUser();
+                                      if( categoriaProduto.text.isEmpty){
+                                        RestauranteNulo;
+                                      }else if(user == null){
+                                        UsuarioNulo;
+                                      }else{
+                                        onSucess;
+                                      }
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.g_mobiledata, color: Colors.black,),
+                                        Text('Login com Google',
+                                            style: TextStyle(
+                                              color: Colors.black
+                                            )
+                                        ),
+                                      ],
+                                    )
+                                )*/
                               ]
                           ),
                         ),
@@ -280,6 +346,32 @@ class _LoginPageState extends State<LoginPage> {
           }
         )
     );
+  }
+
+  RestauranteNulo() async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+            'Selecione um restaurante'
+        ),
+        backgroundColor: Colors.red,
+      ),
+    );
+    print(categoriaProduto.text);
+    await Future.delayed(Duration(seconds: 2));
+  }
+
+  UsuarioNulo() async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+            'Selecione um restaurante'
+        ),
+        backgroundColor: Colors.red,
+      ),
+    );
+    print(categoriaProduto.text);
+    await Future.delayed(Duration(seconds: 2));
   }
 
   onSucess() async {

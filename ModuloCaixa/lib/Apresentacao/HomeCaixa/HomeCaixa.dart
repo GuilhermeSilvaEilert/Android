@@ -1,8 +1,11 @@
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:modulocaixa/Apresentacao/ApresentaItensComanda/ApresentaItensComanda.dart';
 import 'package:modulocaixa/Apresentacao/EditaComanda/EditaComanda.dart';
+import 'package:modulocaixa/Apresentacao/FechaComanda/FechaComanda.dart';
 import 'package:modulocaixa/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
 import 'package:modulocaixa/Apresentacao/widgets/TextButtonMultiColor/TextButtonMultiColor.dart';
 import 'package:scaffold_responsive/scaffold_responsive.dart';
@@ -22,12 +25,30 @@ class _HomeCaixaState extends State<HomeCaixa> {
 
   bool? mostraItensComanda = false;
   String? NumeroComanda;
+  String? Imagem;
 
 
   @override
   Widget build(BuildContext context) {
     print('Email UserRoot: ${widget.UserRoot}');
     return ScaffoldMultiColor(
+      actions:  TextButtonMultiColor(
+        altura: 100,
+        largura: 100,
+        text: Icon(
+            Icons.refresh,
+          color: Colors.white,
+        ),
+        funcao: (){
+          setState(() {
+            if(mostraItensComanda == true){
+              mostraItensComanda = false;
+            }else{
+              mostraItensComanda = true;
+            }
+          });
+        },
+      ),
       BottomNavigationBar: BottomAppBar(
         height: 50,
         color: Color.fromARGB(255, 124, 112, 97),
@@ -100,16 +121,16 @@ class _HomeCaixaState extends State<HomeCaixa> {
                             ),
                           ),
                           funcao: (){
-                            setState(() {
-                              FirebaseFirestore
-                                  .instance
-                                  .collection('Usuario raiz')
-                                  .doc(widget.UserRoot)
-                                  .collection('comandas')
-                                  .doc(NumeroComanda).delete();
-                              mostraItensComanda = false;
-                            });
-                            onDeleteSucess();
+                            Navigator
+                                .of(context)
+                                .push(
+                                MaterialPageRoute(
+                                  builder: (context) => FechaComanda(
+                                      UserRoot: widget.UserRoot,
+                                      ValorComanda: NumeroComanda,
+                                      ValorFinal: Preco,
+                                  ),
+                                ));
                           },
                         ),
                         SizedBox(width: 20,),
@@ -162,8 +183,12 @@ class _HomeCaixaState extends State<HomeCaixa> {
                               altura: 50,
                               funcao: (){
                                 setState(() {
-                                  NumeroComanda = snapshot.data!.docs[index]['NumeroComanda'];
-                                  mostraItensComanda = true;
+                                  if(mostraItensComanda == true){
+                                    mostraItensComanda = false;
+                                  }else{
+                                    mostraItensComanda = true;
+                                    NumeroComanda = snapshot.data!.docs[index]['NumeroComanda'];
+                                  }
                                 });
                               },
                               text: Text('${

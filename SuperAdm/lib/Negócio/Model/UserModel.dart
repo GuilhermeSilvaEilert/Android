@@ -26,6 +26,13 @@ class UserModel extends Model{
 
   Map<String?, dynamic>? userData = Map();
 
+  void signOut() async{
+    await _auth!.signOut();
+    userData = Map();
+    firebaseUser = null;
+    notifyListeners();
+  }
+
   void signUp({
      String? Senha,
      VoidCallback? onSuccess,

@@ -13,6 +13,7 @@ class ApresentaItensComanda extends StatefulWidget {
   }) : super(key: key);
   String? UserRoot;
   String? NumeroComanda;
+
   @override
   State<ApresentaItensComanda> createState() => _ApresentaItensComandaState();
 }
@@ -63,7 +64,6 @@ class _ApresentaItensComandaState extends State<ApresentaItensComanda> {
                     itemCount: snapshot.data!.docs.length,
                     physics: AlwaysScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-
                     Preco = Preco! + double.parse(snapshot.data!.docs[index]['Preco']) * double.parse(snapshot.data!.docs[index]['QuantidadeItens']);
                       return Row(
                         children: [

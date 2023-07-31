@@ -48,6 +48,9 @@ dependencies:
   floating_action_bubble: ^1.1.4
   sqflite: ^2.2.2
   scoped_model: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
+  qr_flutter: ^4.1.0
+
 
 
 dev_dependencies:
@@ -103,9 +106,15 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
+
   assets:
     - Assets/LogoMarca/LogoMarcaTG.png
     - Assets/cardapio/menu.jpg
     - Assets/qrcodemesa/QRcodeMesa.jpg
     - Assets/cardapio/AddComida.png
     - Assets/Icons/quicksetting.png
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "Assets/IconeApp/Gestor.jpg"
+

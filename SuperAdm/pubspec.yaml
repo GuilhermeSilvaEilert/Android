@@ -47,6 +47,9 @@ dependencies:
   floating_action_bubble: ^1.1.4
   sqflite: ^2.2.2
   scoped_model: ^2.0.0
+  geolocator: ^9.0.2
+
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:

@@ -53,9 +53,26 @@ class CriaComandaModel extends Model{
           .instance
           .collection('Usuario raiz')
           .doc(UserRoot)
+          .collection('HistóricoComandas')
+          .doc(NumeroComanda.toString())
+          .collection('Itens').doc(Item).set(DataComanda);
+
+      FirebaseFirestore
+          .instance
+          .collection('Usuario raiz')
+          .doc(UserRoot)
           .collection('comandas')
           .doc(NumeroComanda.toString())
           .collection('Itens').doc(Item).update(DataComanda);
+
+      FirebaseFirestore
+          .instance
+          .collection('Usuario raiz')
+          .doc(UserRoot)
+          .collection('HistóricoComandas')
+          .doc(NumeroComanda.toString())
+          .collection('Itens').doc(Item).update(DataComanda);
+
       onSucess!();
     }else{
       onFail!();

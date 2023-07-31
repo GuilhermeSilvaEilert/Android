@@ -129,7 +129,7 @@ class _GridViewItensState extends State<GridViewItens> {
                           ),
                           shadowColor: MaterialStateProperty.all(
                             widget.categoriaOuItem == true ?
-                            Colors.transparent
+                            Color.fromARGB(255, 124, 112, 97)
                                 :
                             const Color.fromARGB(255, 124, 112, 97),
                           ),

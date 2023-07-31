@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:cardapiovirtual/Apresentacao/EditaUsuario/EditaUsuarioGarcom.dart';
+import 'package:cardapiovirtual/Apresentacao/QRPage/QRPage.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/Boxes/Boxes.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
 import 'package:cardapiovirtual/Apresentacao/widgets/TextButtonMultiColor/TextButtonMultiColor.dart';
@@ -22,7 +23,7 @@ class HomeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScopedModelDescendant<CardapioModel>(
       builder: (context, child, model) {
-        if(model!.isLoading!){
+        if(model!.isLoading! == true){
           return Center(child: CircularProgressIndicator(),);
         }else{
           return FutureBuilder(
@@ -33,6 +34,7 @@ class HomeWidget extends StatelessWidget {
                   .collection('Usuario Garçom').get(),
               builder: (context, snapshot) {
             return ScaffoldMultiColor(
+
               Body: CustomScrollView(
                 slivers: [
                   SliverToBoxAdapter(
@@ -41,110 +43,116 @@ class HomeWidget extends StatelessWidget {
                       alignment: Alignment.center,
                       child: Column(
                         children: [
-                          Boxes(
-                            child: Column(
-                              children: [
-                                Row(
-                                  children:[
-                                    Image.asset('Assets/qrcodemesa/QRcodeMesa.jpg',
-                                      height: 170, width: 170,),
-                                    const SizedBox(width: 10,),
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        const Text('GERAR QRCODE \nDA Mesa',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 22,
-                                          ),
-                                        ),
-                                        const Text('10 Mesas \n Cadastradas',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 10,),
-                                        TextButtonMultiColor(
-                                          largura: 140,
-                                          altura: 50,
-                                          text: const Text('ADD ou Editar',
+                          Container(
+                            child: Boxes(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children:[
+                                      Image.asset('Assets/qrcodemesa/QRcodeMesa.jpg',
+                                        height: 170, width: 170,),
+                                      const SizedBox(width: 10,),
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          const Text('GERAR QRCODE',
                                             style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 22,
                                             ),
                                           ),
-                                          funcao: (){},
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                          const SizedBox(height: 10,),
+                                          TextButtonMultiColor(
+                                            largura: 140,
+                                            altura: 50,
+                                            text: const Text('ADD ou Editar',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.bold
+                                              ),
+                                            ),
+                                            funcao: (){
+                                              Navigator
+                                                  .of(context)
+                                                  .push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) => QRPage(),)
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           const SizedBox(height: 10,),
-                          Boxes(
-                            largura: 400.0,
-                            altura: 200.0,
-                            padding: const EdgeInsets.all(10),
-                            child: Column(
-                              children: [
-                                const SizedBox(height: 10,),
-                                Row(
-                                  children:[
-                                    Image.asset('Assets/cardapio/menu.jpg',
-                                      height: 165, width: 165,),
-                                    const SizedBox(width: 10,),
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        const Text('MEU \nCARDAPIO',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 25,
-                                          ),
-                                        ),
-
-                                        FutureBuilder<QuerySnapshot>(
-                                            future: FirebaseFirestore
-                                                .instance
-                                                .collection('Itens Cardapio')
-                                                .get(),
-                                            builder: (context, snapshot){
-                                              return Text('${snapshot.data?.docs.length} itens \nno cardapio',
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                ),
-                                              );
-                                            }
-                                        ),
-
-                                        const SizedBox(height: 10,),
-
-                                        TextButtonMultiColor(
-                                          largura: 140,
-                                          altura: 50,
-                                          text: const Text('ADD ou Editar',
+                          Container(
+                            child: Boxes(
+                              largura: 400.0,
+                              altura: 200.0,
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                children: [
+                                  const SizedBox(height: 10,),
+                                  Row(
+                                    children:[
+                                      Image.asset('Assets/cardapio/menu.jpg',
+                                        height: 165, width: 165,),
+                                      const SizedBox(width: 10,),
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          const Text('MEU \nCARDAPIO',
                                             style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 25,
                                             ),
                                           ),
-                                          funcao: (){
-                                            Navigator.push(context,MaterialPageRoute(builder: (context) =>  const AdicionaItemCardapio(),));
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
+
+                                          FutureBuilder<QuerySnapshot>(
+                                              future: FirebaseFirestore
+                                                  .instance
+                                                  .collection('Itens Cardapio')
+                                                  .get(),
+                                              builder: (context, snapshot){
+                                                return Text('${snapshot.data?.docs.length} itens \nno cardapio',
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                  ),
+                                                );
+                                              }
+                                          ),
+
+                                          const SizedBox(height: 10,),
+
+                                          TextButtonMultiColor(
+                                            largura: 140,
+                                            altura: 50,
+                                            text: const Text('ADD ou Editar',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.bold
+                                              ),
+                                            ),
+                                            funcao: (){
+                                              Navigator.push(context,MaterialPageRoute(builder: (context) => AdicionaItemCardapio(),));
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           SizedBox(height: 10,),

@@ -223,6 +223,7 @@ class _CriaUsuarioGerenteState extends State<CriaUsuarioGerente> {
                     Container(
                       child: TextButtonMultiColor(
                         funcao: (){
+                          model.signOut();
                           model.signUp(
                             LocalStorage: file,
                             imgFile: fileSend,

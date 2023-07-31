@@ -14,8 +14,11 @@ import 'package:scoped_model/scoped_model.dart';
 List list = [];
 
 class AdicionaItemCardapio extends StatefulWidget {
-  const AdicionaItemCardapio({Key? key}) : super(key: key);
-
+  AdicionaItemCardapio({
+    Key? key,
+    this.Empresa
+  }) : super(key: key);
+  String? Empresa;
   @override
   State<AdicionaItemCardapio> createState() => AdicionaItemCardapioState();
 }
@@ -39,9 +42,9 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
     final QuerySnapshot result = await Future.value(
         FirebaseFirestore
             .instance
-            .collection('Usuario raiz')
-            .doc(UserRoot)
-            .collection('Itens Cardapio').get()
+            .collection('Empresa')
+            .doc(widget.Empresa)
+            .collection('Itens').get()
     );
       if(list.isEmpty) {
         int tamanhoArray = (result.docs.length) - 1;
@@ -71,7 +74,7 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
             Body: FutureBuilder(
                future: FirebaseFirestore
                     .instance
-                    .collection('Usuario raiz')
+                    .collection('Empresa')
                     .doc(model.firebaseUser!.email)
                     .collection('Itens Cardapio').get(),
               builder:(context, snapshot) {
@@ -342,7 +345,7 @@ class AdicionaItemCardapioState extends State<AdicionaItemCardapio> {
                                   nomeProduto: nomeProduto.text,
                                   preco: double.parse(precoProduto.text),
                                 );
-                                
+                                nomeProduto.clear();
                                 precoProduto.clear();
                                 descricaoProduto.clear();
                                 

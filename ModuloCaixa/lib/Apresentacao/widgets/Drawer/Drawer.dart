@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
 import 'package:modulocaixa/Negocio/itemModel.dart';
 import 'package:scoped_model/scoped_model.dart';
-
 import'DrawerTile/DrawerTile.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -59,6 +56,7 @@ class CustomDrawer extends StatelessWidget {
       );
     }
         return Drawer(
+
           child: Stack(
             children: [
               buildDrawerBack(),

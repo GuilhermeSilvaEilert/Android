@@ -86,7 +86,33 @@ class _ApresentaComandasState extends State<ApresentaComandas> {
                   floatingActionButton: FloatingActionButton(
                     backgroundColor: Color.fromARGB(255, 150, 0, 0),
                     onPressed: (){
-                      setState(() {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context){
+                            return BottomSheet(
+                              builder: (context){
+                                return Container(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+
+                                      TextField(),
+                                      TextButtonMultiColor(
+                                        text: Text('Criar'),
+                                        funcao: (){},
+                                        altura:50,
+                                        largura: 50,
+                                      )
+                                    ],
+                                  ),
+                                );
+                              }, onClosing: () {
+                            },
+                            );
+                          });
+
+                     /* setState(() {
                         String? now = DateTime.timestamp().hashCode.toString();
                         String time = DateTime.timestamp().toString();
                         criaComandaModel.AdicionaComanda(
@@ -96,7 +122,7 @@ class _ApresentaComandasState extends State<ApresentaComandas> {
                           onSucess: onSucess,
                           onFail: onFail,
                         );
-                      });
+                      });*/
                     },
                     child: Icon(Icons.add),
                   ),

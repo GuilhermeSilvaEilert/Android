@@ -37,62 +37,37 @@ class _ScaffoldMultiColorState extends State<ScaffoldMultiColor> {
   var erro;
   @override
   Widget build(BuildContext context) {
-    return ScopedModel<CardapioModel>(
-      model: CardapioModel(),
-      child: ScopedModelDescendant<CardapioModel>(
-        builder: (context, child, model) {
-          print(model.firebaseUser!.email);
-          return FutureBuilder(
-            future: !model.firebaseUser!.email!.isEmpty  ?
-            FirebaseFirestore
-                .instance
-                .collection('Configurações')
-                .doc('Cores')
-                .collection('Configura Cores')
-                .get()
+    return FutureBuilder(
+      builder: (context, snapshot) {
+          return Scaffold(
+            appBar: widget.TextAppBar == null ? null
                 :
-            FirebaseFirestore
-              .instance
-              .collection('Usuario raiz')
-              .doc(model.firebaseUser!.email)
-              .collection('Configuracoes').get(),
-            builder: (context, snapshot) {
-              if(!snapshot.hasData){
-                return const CircularProgressIndicator();
-              }else{
-                return Scaffold(
-                  appBar: widget.TextAppBar == null ? null
-                      :
-                  AppBar(
-                    backgroundColor: Color.fromARGB(
-                      snapshot.data!.docs[1]['Opacidade'],
-                      snapshot.data!.docs[1]['Red'],
-                      snapshot.data!.docs[1]['Green'],
-                      snapshot.data!.docs[1]['Blue'],
-                    ),
-                    title: widget.TextAppBar,
-                    centerTitle: true,
-                  ),
+            AppBar(
+              backgroundColor: Color.fromARGB(
+                255,
+                78,
+                90,
+                85,
+              ),
+              title: widget.TextAppBar,
+              centerTitle: true,
+            ),
 
-                  backgroundColor: Color.fromARGB(
-                    snapshot.data!.docs[1]['Opacidade'],
-                    snapshot.data!.docs[1]['Red'],
-                    snapshot.data!.docs[1]['Green'],
-                    snapshot.data!.docs[1]['Blue'],
-                  ),
+            backgroundColor: Color.fromARGB(
+              255,
+              78,
+              90,
+              85,
+            ),
 
-                  body: widget.Body,
-                  bottomNavigationBar: widget.BottomNavigationBar,
-                  floatingActionButtonAnimator: widget.floatingActionButtonAnimator,
-                  floatingActionButtonLocation: widget.floatingActionButtonLocation,
-                  floatingActionButton: widget.floatingActionButton,
-                  drawer: widget.drawer,
-                );
-              }
-            },
+            body: widget.Body,
+            bottomNavigationBar: widget.BottomNavigationBar,
+            floatingActionButtonAnimator: widget.floatingActionButtonAnimator,
+            floatingActionButtonLocation: widget.floatingActionButtonLocation,
+            floatingActionButton: widget.floatingActionButton,
+            drawer: widget.drawer,
           );
-        },
-      ),
+      },
     );
   }
 }

@@ -96,178 +96,164 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: Firebase.initializeApp(),
-      builder: (context, snapshot){
-        return ScaffoldMultiColor(
-          Body: ScopedModel<CardapioModel>(
-            model: CardapioModel(),
-            child: ScopedModelDescendant<CardapioModel>(
-              builder: (context, child, model) {
-                if(model!.isLoading!){
-                  return Center(
-                    child: Column(
-                      children: [
-                        CircularProgressIndicator(),
-                      ],
-                    ),
-                  );
-                }else{
-                  return CustomScrollView(
-                    slivers: [
-                      SliverToBoxAdapter(
-                        child: Form(
-                          key: _formValidateKey,
-                          child: Container(
-                            padding: const EdgeInsets.all(50),
-                            alignment: Alignment.topCenter,
-                            child: Column(
-                                children:[
-                                  FutureBuilder(
-                                    future: FirebaseFirestore.instance.collection('Configurações').get(),
-                                    builder: (context, snapshot) {
-                                      if(!snapshot.hasData){
-                                        String? imagem = snapshot.data!.docs[1]['Image'];
-                                        return Image.network(imagem!, height: 100, width: 100,);
-                                      }else{
-                                        return Image.asset('Assets/LogoMarca/LogoMarcaTG.png', height: 100, width: 100,);
-                                      }
-                                    },
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.all(30),
-                                    child: const Text('Bem Vindo', style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: TextFormField(
-                                      controller: emailController,
-                                      validator: (text) {
-                                        if(text!.isEmpty || !text!.contains('@')){
-                                          return 'Email invalido';
+          return ScaffoldMultiColor(
+            Body: ScopedModel<CardapioModel>(
+              model: CardapioModel(),
+              child: ScopedModelDescendant<CardapioModel>(
+                builder: (context, child, model) {
+                    return CustomScrollView(
+                      slivers: [
+                        SliverToBoxAdapter(
+                          child: Form(
+                            key: _formValidateKey,
+                            child: Container(
+                              padding: const EdgeInsets.all(50),
+                              alignment: Alignment.topCenter,
+                              child: Column(
+                                  children:[
+                                  /*  FutureBuilder(
+                                      future: FirebaseFirestore.instance.collection('Configurações').get(),
+                                      builder: (context, snapshot) {
+                                        if(snapshot.hasData){*/
+                                         Image.asset('Assets/LogoMarca/LogoMarcaTG.png', height: 100, width: 100,),
+                                       /* }else{
+                                          String? imagem = snapshot.data!.docs[1]['Image'];
+                                          return Image.network(imagem!, height: 100, width: 100,);
                                         }
                                       },
-                                      cursorColor: Colors.black,
-                                      decoration:InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                        focusedBorder: OutlineInputBorder(
-                                          gapPadding: 10,
-                                          borderRadius: BorderRadius.circular(15),
-                                          borderSide:const BorderSide(color: Colors.black),
-                                        ),
-                                        hintText: 'Login',
-                                        counterStyle: const TextStyle(color: Colors.black),
-                                        labelStyle: const TextStyle(color: Colors.black,),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(15),
+                                    ),*/
+                                    Container(
+                                      padding: const EdgeInsets.all(30),
+                                      child: const Text('Bem Vindo', style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: TextFormField(
+                                        controller: emailController,
+                                        validator: (text) {
+                                          if(text!.isEmpty || !text!.contains('@')){
+                                            return 'Email invalido';
+                                          }
+                                        },
+                                        cursorColor: Colors.black,
+                                        decoration:InputDecoration(
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          focusedBorder: OutlineInputBorder(
+                                            gapPadding: 10,
+                                            borderRadius: BorderRadius.circular(15),
+                                            borderSide:const BorderSide(color: Colors.black),
+                                          ),
+                                          hintText: 'Login',
+                                          counterStyle: const TextStyle(color: Colors.black),
+                                          labelStyle: const TextStyle(color: Colors.black,),
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(15),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
 
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: TextFormField(
-                                      controller: passController,
-                                      validator: (text) {
-                                        if(text!.isEmpty){
-                                          return 'Senha invalida';
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: TextFormField(
+                                        controller: passController,
+                                        validator: (text) {
+                                          if(text!.isEmpty){
+                                            return 'Senha invalida';
+                                          }
+                                        },
+                                        obscureText: true,
+                                        cursorColor: Colors.black,
+                                        decoration:InputDecoration(
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          hoverColor: Colors.black,
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(15),
+                                            borderSide:const BorderSide(color: Colors.black),
+                                          ),
+                                          hintText: 'Senha',
+                                          counterStyle: const TextStyle(color: Colors.black),
+                                          labelStyle: const TextStyle(color: Colors.black,),
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(15),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8),
+                                      child: Row(
+                                        children: [
+                                          Checkbox(
+                                              focusColor: Colors.black,
+                                              autofocus: true,
+                                              overlayColor: MaterialStateProperty.all(
+                                                  Colors.grey
+                                              ),
+                                              fillColor: MaterialStateProperty.all(
+                                                  const Color.fromARGB(255, 150, 0, 0)
+                                              ),
+                                              checkColor:  Colors.black,
+                                              splashRadius: 20,
+                                              value: salvaSenha,
+                                              onChanged: (value) {
+                                                checkBox ++;
+                                                if(checkBox == 1){
+                                                  return setState(() {
+                                                    value = true;
+                                                    salvaSenha = true;
+                                                  });
+                                                }else{
+                                                  checkBox = 0;
+                                                  return setState(() {
+                                                    value = false;
+                                                    salvaSenha = false;
+                                                  });
+                                                }
+
+                                              }),
+                                          const Text('Lembrar da senha ?'),
+                                        ],
+                                      ),
+                                    ),
+
+                                    TextButtonMultiColor(
+                                      funcao: () async {
+                                        if(_formValidateKey.currentState!.validate()){
+                                          model.signIn(
+                                            email: emailController.text,
+                                            pass: passController.text,
+                                            onSucess: onSucess,
+                                            onFail: onFail,
+                                          );
                                         }
                                       },
-                                      obscureText: true,
-                                      cursorColor: Colors.black,
-                                      decoration:InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                        hoverColor: Colors.black,
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(15),
-                                          borderSide:const BorderSide(color: Colors.black),
-                                        ),
-                                        hintText: 'Senha',
-                                        counterStyle: const TextStyle(color: Colors.black),
-                                        labelStyle: const TextStyle(color: Colors.black,),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(15),
+                                      altura: 50,
+                                      largura: 200,
+                                      text: const Text('LOGIN',
+                                        style: TextStyle(
+                                            color: Colors.white
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: Row(
-                                      children: [
-                                        Checkbox(
-                                            focusColor: Colors.black,
-                                            autofocus: true,
-                                            overlayColor: MaterialStateProperty.all(
-                                                Colors.grey
-                                            ),
-                                            fillColor: MaterialStateProperty.all(
-                                                const Color.fromARGB(255, 150, 0, 0)
-                                            ),
-                                            checkColor:  Colors.black,
-                                            splashRadius: 20,
-                                            value: salvaSenha,
-                                            onChanged: (value) {
-                                              checkBox ++;
-                                              if(checkBox == 1){
-                                                return setState(() {
-                                                  value = true;
-                                                  salvaSenha = true;
-                                                });
-                                              }else{
-                                                checkBox = 0;
-                                                return setState(() {
-                                                  value = false;
-                                                  salvaSenha = false;
-                                                });
-                                              }
-
-                                            }),
-                                        const Text('Lembrar da senha ?'),
-                                      ],
-                                    ),
-                                  ),
-
-                                  TextButtonMultiColor(
-                                    funcao: () async {
-                                      if(_formValidateKey.currentState!.validate()){
-                                        model.signIn(
-                                          email: emailController.text,
-                                          pass: passController.text,
-                                          onSucess: onSucess,
-                                          onFail: onFail,
-                                        );
-                                      }
-                                    },
-                                    altura: 50,
-                                    largura: 200,
-                                    text: const Text('LOGIN',
-                                      style: TextStyle(
-                                          color: Colors.white
-                                      ),
-                                    ),
-                                  ),
-                                ]
+                                  ]
+                              ),
                             ),
                           ),
-                        ),
-                      )
-                    ],
-                  );
-                }
-              },
+                        )
+                      ],
+                    );
+                },
+              ),
             ),
-          ),
-        );
-      }
-    );
+          );
+
   }
 
   onSucess() async {

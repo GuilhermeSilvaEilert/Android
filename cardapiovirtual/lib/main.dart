@@ -19,18 +19,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: ScopedModel<CardapioModel>(
-        model: CardapioModel(),
-        child: FutureBuilder(
-            future: Firebase.initializeApp(),
-            builder: (context, snapshot){
-              return const Scaffold(
-                backgroundColor: Colors.white,
-                body: LoginPage(),
-              );
-            },
-          ),
-      ),
+      home: FutureBuilder(
+          future: Firebase.initializeApp(),
+          builder: (context, snapshot){
+            return const Scaffold(
+              backgroundColor: Colors.white,
+              body: LoginPage(),
+            );
+          },
+        ),
     );
   }
 }

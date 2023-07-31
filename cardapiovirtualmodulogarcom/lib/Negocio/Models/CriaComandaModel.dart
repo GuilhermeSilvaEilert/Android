@@ -34,6 +34,7 @@ class CriaComandaModel extends Model{
     Map<String, dynamic> DataComanda = {
       'NumeroComanda' : ComandasExistentes.toString(),
       'Ordenador': Time,
+      'Status':'Ativa'
     };
 
     FirebaseFirestore
@@ -43,15 +44,22 @@ class CriaComandaModel extends Model{
         .collection('comandas')
         .doc(ComandasExistentes.toString()).get();
 
-
-
     if(UserRoot != null && ComandasExistentes != null){
+
        FirebaseFirestore
           .instance
           .collection('Usuario raiz')
           .doc(UserRoot)
           .collection('comandas')
           .doc(ComandasExistentes.toString()).set(DataComanda);
+
+       FirebaseFirestore
+           .instance
+           .collection('Usuario raiz')
+           .doc(UserRoot)
+           .collection('HistóricoComandas')
+           .doc(ComandasExistentes.toString()).set(DataComanda);
+
       onSucess!();
     }else{
       onFail!();

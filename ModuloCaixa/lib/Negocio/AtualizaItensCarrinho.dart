@@ -41,7 +41,7 @@ class AtualizaComandaModel extends Model{
       'Imagem': ImagemItem,
     };
 
-    if(UserRoot != null && NumeroComanda != null && QuantidadeItem != '0'){
+    if(UserRoot != null && NumeroComanda != null && QuantidadeItem != '0' && QuantidadeItem != null){
       FirebaseFirestore
           .instance
           .collection('Usuario raiz')

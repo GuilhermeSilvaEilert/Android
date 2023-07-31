@@ -76,19 +76,23 @@ class _CriaComandasItensState extends State<CriaComandasItens> {
                                             width: 100,
                                             height: 100,
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              snapshot.data!.docs[index]['Nome'],
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20
+                                          Container(
+                                            width: 110,
+                                            height: 110,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                '${snapshot.data!.docs[index]['Nome']}',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20
+                                                ),
                                               ),
                                             ),
                                           ),
                                           Container(
-                                              padding: EdgeInsets.only(left:10),
+                                              padding: EdgeInsets.only(left:1),
                                               child: Row(
                                                 children: [
                                                   CustomizableCounter(

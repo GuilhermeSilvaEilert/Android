@@ -81,10 +81,10 @@ class _CategoriasDoCardapioState extends State<CategoriasDoCardapio> with Single
                   slivers: [
                     FutureBuilder<QuerySnapshot>(
                       future: FirebaseFirestore.instance
-                          .collection('Usuario raiz')
-                          .doc(model.firebaseUser!.email)
-                          .collection('Itens Cardapio')
-                          .get(),
+                      .collection('Usuario raiz')
+                      .doc(model.firebaseUser!.email)
+                      .collection('Itens Cardapio')
+                      .get(),
                       builder: (context, snapshot){
                         validaExistenciaCategoria(model.firebaseUser!.email);
                         if(!snapshot.hasData) {
@@ -202,7 +202,7 @@ class _CategoriasDoCardapioState extends State<CategoriasDoCardapio> with Single
             Navigator
                 .of(context)
                 .push(MaterialPageRoute(
-              builder: (context) => const AdicionaItemCardapio(),
+              builder: (context) => AdicionaItemCardapio(),
             ),);
           });
         },

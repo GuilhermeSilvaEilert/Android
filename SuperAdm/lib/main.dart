@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:superadm/Apresentacao/HomePage/HomePage.dart';
+import 'package:superadm/Apresentacao/LoginPage/LoginPage.dart';
 import 'package:superadm/Neg%C3%B3cio/Model/UserModel.dart';
-import 'package:superadm/Apresentacao/telaLogin/telaLogin.dart';
+import 'package:superadm/Apresentacao/telaLogin/CriaUsuarioGerente.dart';
 
 
 void main() async {
@@ -25,9 +27,8 @@ class MyApp extends StatelessWidget {
             return ScopedModel<UserModel>(
               model: UserModel(),
               child: MaterialApp(
-                  title: 'Venda de velas',
                   debugShowCheckedModeBanner: false,
-                  home: CriaUsuarioGerente()
+                  home: LoginPage()
               ),
             );
           }

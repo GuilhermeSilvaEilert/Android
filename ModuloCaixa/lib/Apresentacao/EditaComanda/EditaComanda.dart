@@ -64,6 +64,7 @@ class _EditaComandaState extends State<EditaComanda> {
               child: CustomScrollView(
                 physics: const AlwaysScrollableScrollPhysics().parent,
                 slivers: [
+
                   SliverToBoxAdapter(
                     child: ListView.builder(
                       shrinkWrap: true,
@@ -221,7 +222,7 @@ class _EditaComandaState extends State<EditaComanda> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-            'Problema ao Emitir Comanda'
+            'Problema Editar Comanda'
         ),
         backgroundColor: Colors.red,
       ),

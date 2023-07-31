@@ -71,15 +71,20 @@ class _CarrinhoItensComandaState extends State<CarrinhoItensComanda> {
                                         snapshot.data!.docs[index]['Imagem'],
                                         width: 100,
                                         height: 100,
+                                        fit: BoxFit.cover,
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          snapshot.data!.docs[index]['ItemComanda'],
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20
+                                        child: Container(
+                                          width:110,
+                                          height: 110,
+                                          child: Text(
+                                            '${snapshot.data!.docs[index]['ItemComanda']}',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -108,7 +113,7 @@ class _CarrinhoItensComandaState extends State<CarrinhoItensComanda> {
                                   Counter = count.toInt();
                                 },
                                 onIncrement: (count) {
-                                 // count = Counter!;
+                                  // count = Counter!;
                                 },
                                 onDecrement: (count) {
                                   //count = Counter!;

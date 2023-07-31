@@ -32,8 +32,8 @@ class layoutElevatedCategotyGrid extends StatelessWidget {
               ),
             ),
           ),
-          height: 170,
-          width: 170,
+          height: 150,
+          width: 150,
           padding: const EdgeInsets.only(top: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -109,12 +109,16 @@ class layoutElevatedCategotyGrid extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  Nome!,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                Container(
+                  width: 120,
+                  height: 20,
+                  child: Text(
+                    Nome!,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],

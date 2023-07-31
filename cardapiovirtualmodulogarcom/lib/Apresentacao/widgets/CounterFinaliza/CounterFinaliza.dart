@@ -10,12 +10,17 @@ class CounterFinaliza extends StatefulWidget {
     this.QuantidadeComandas,
     this.NumeroDaMesa,
     this.NumeroSenha,
+    this.EmailGarcom,
+    this.FuncaoAuxiliar,
   }) : super(key: key);
   String? UserRoot;
   String? NumeroDaMesa;
   String? QuantidadeComandas;
   String? QuantidadePessoas;
   String? NumeroSenha;
+  String? EmailGarcom;
+  var FuncaoAuxiliar;
+  var onPressed;
   @override
   State<CounterFinaliza> createState() => _CounterFinalizaState();
 }
@@ -25,6 +30,10 @@ class _CounterFinalizaState extends State<CounterFinaliza> {
   final _isHours = true;
   bool? playepause = true;
   var tempoAtendendo;
+
+  @override
+  // TODO: implement widget
+  CounterFinaliza get widget => super.widget;
 
   final StopWatchTimer _stopWatchTimer = StopWatchTimer(
     mode: StopWatchMode.countUp,
@@ -151,20 +160,24 @@ class _CounterFinalizaState extends State<CounterFinaliza> {
                           Size(400, 50)
                       )
                   ),
-                  onPressed: (){
-                    setState(() {
+                  onPressed: () async {
                       if(playepause == true){
                         print('Tempo Atendimento: $tempoAtendendo');
-                        FirebaseFirestore
+                     await FirebaseFirestore
                             .instance
                             .collection('Usuario raiz')
                             .doc(widget.UserRoot)
-                            .collection('MesasAguardandoAtendimento')
-                            .doc(widget.NumeroSenha).delete();
+                            .collection('Usuario Garçom')
+                            .doc(widget.EmailGarcom)
+                            .collection('Chamados')
+                            .doc(widget.NumeroSenha)
+                            .delete();
+
+                       await widget.FuncaoAuxiliar;
                       }else{
+                        onFail();
                         print('Pare o timer Antes');
                       }
-                    });
                   },
                   child: Text(
                     'Finalizar',
@@ -179,6 +192,19 @@ class _CounterFinalizaState extends State<CounterFinaliza> {
         ),
         SizedBox(height: 5,)
       ],
+    );
+
+  }
+
+
+  onFail(){
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+            'Pare o Timer'
+        ),
+        backgroundColor: Colors.red,
+      ),
     );
   }
 }

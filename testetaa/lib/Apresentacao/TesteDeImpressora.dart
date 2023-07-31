@@ -168,6 +168,7 @@ class TesteDeImpressoraState extends State<TesteDeImpressora> {
     switch (bluetoothPrinter.typePrinter) {
       case PrinterType.usb:
         bytes += generator.feed(2);
+        bytes += generator.text('Teste');
         bytes += generator.cut();
         await printerManager.connect(
             type: bluetoothPrinter.typePrinter,
@@ -176,6 +177,7 @@ class TesteDeImpressoraState extends State<TesteDeImpressora> {
         break;
       case PrinterType.network:
         bytes += generator.feed(2);
+        bytes += generator.text('Teste');
         bytes += generator.cut();
         await printerManager.connect(type: bluetoothPrinter.typePrinter, model: TcpPrinterInput(ipAddress: bluetoothPrinter.address!));
         break;

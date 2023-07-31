@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:cardapiovirtualmodulogarcom/Apresentacao/widgets/CounterFinaliza/CounterFinaliza.dart';
+import 'package:cardapiovirtualmodulogarcom/Apresentacao/widgets/PegaChamado/PegaChamado.dart';
+import 'package:cardapiovirtualmodulogarcom/Negocio/ChamadosIndividuais/ChamadosIndividuais.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:cardapiovirtualmodulogarcom/Apresentacao/Comandas/ApresentaComandas.dart';
 import 'package:cardapiovirtualmodulogarcom/Apresentacao/widgets/ScaffoldMulticolor/ScaffoldMulticolor.dart';
@@ -24,6 +26,7 @@ class HomeGarcom extends StatefulWidget {
 }
 
 class _HomeGarcomState extends State<HomeGarcom> {
+
   int i = 1;
   SQLiteDB liteDB = SQLiteDB();
   bool? valor = false;
@@ -32,17 +35,27 @@ class _HomeGarcomState extends State<HomeGarcom> {
   Timer? countuptimer;
   bool? playepause = true;
   var tempoAtendendo;
+  bool atendimento = true;
 
   final StopWatchTimer _stopWatchTimer = StopWatchTimer(
     mode: StopWatchMode.countUp,
     presetMillisecond: StopWatchTimer.getMilliSecFromSecond(60 * 60),
   );
 
+  ChamadosIndivisuais chamadosIndivisuais = ChamadosIndivisuais();
+
   @override
   void initState() {
     super.initState();
     initializeFirebaseMessagins();
     checkNotifications();
+  }
+
+  @override
+  void setState(VoidCallback atendimento) {
+    // TODO: implement setState
+    atendimento;
+    super.setState(atendimento);
   }
 
   @override
@@ -237,7 +250,22 @@ class _HomeGarcomState extends State<HomeGarcom> {
                         ),
                       ),
                       SliverToBoxAdapter(
-                          child: FutureBuilder(
+                        child: atendimento == true
+                        ? Container()
+                        : Container(
+                          child: ElevatedButton(
+                              child: Text('Voltar'),
+                              onPressed: (){
+                                setState(() {
+                                  atendimento = true;
+                                });
+                              },
+                          ),
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                          child: atendimento == true?
+                          FutureBuilder(
                         future: FirebaseFirestore.instance
                             .collection('Usuario raiz')
                             .doc(UserRoot)
@@ -249,22 +277,91 @@ class _HomeGarcomState extends State<HomeGarcom> {
                             shrinkWrap: true,
                             itemCount: snapshot.data!.docs.length,
                             itemBuilder: (context, index) {
-                              return CounterFinaliza(
+                              return PegaChamado(
+                                EmailGarcom: model!.firebaseUser!.email,
                                 UserRoot: UserRoot,
                                 QuantidadePessoas: snapshot.data!.docs[index]['QuantidadePessoas'],
                                 QuantidadeComandas: snapshot.data!.docs[index]['QuantidadeComandas'],
                                 NumeroDaMesa: snapshot.data!.docs[index]['NumeroMesa'],
                                 NumeroSenha: snapshot.data!.docs[index]['NumeroSenha'],
+                                FuncaoAuxiliar: (){
+                                  chamadosIndivisuais.CriaSenhaIndividualGarcom(
+                                    UserRoot: UserRoot,
+                                    EmailGarcom: model!.firebaseUser!.email,
+                                    NumeroMesa: snapshot.data!.docs[index]['NumeroMesa'],
+                                    QuantidadeComandas:snapshot.data!.docs[index]['QuantidadeComandas'],
+                                    QuantidadePessoas: snapshot.data!.docs[index]['QuantidadePessoas'],
+                                    ValorSenha: snapshot.data!.docs[index]['NumeroSenha'],
+                                  );
+                                  FirebaseFirestore
+                                      .instance
+                                      .collection('Usuario raiz')
+                                      .doc(UserRoot)
+                                      .collection('MesasAguardandoAtendimento')
+                                      .doc(snapshot.data!.docs[index]['NumeroSenha']).delete();
+                                 setState(() {
+                                    atendimento = false;
+                                  });
+                                  onSucess();
+                                },
                               );
                             },
                           );
                         },
-                      ))
+                      ) :FutureBuilder(
+                            future: FirebaseFirestore.instance
+                                .collection('Usuario raiz')
+                                .doc(UserRoot)
+                                .collection('Usuario Garçom')
+                                .doc(model!.firebaseUser!.email)
+                                .collection('Chamados')
+                                .get(),
+                            builder: (context, snapshot) {
+                              return ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: snapshot.data!.docs.length,
+                                itemBuilder: (context, index) {
+                                  return CounterFinaliza(
+                                    UserRoot: UserRoot,
+                                    QuantidadePessoas: snapshot.data!.docs[index]['QuantidadePessoas'],
+                                    QuantidadeComandas: snapshot.data!.docs[index]['QuantidadeComandas'],
+                                    NumeroDaMesa: snapshot.data!.docs[index]['NumeroMesa'],
+                                    NumeroSenha: snapshot.data!.docs[index]['NumeroSenha'],
+                                    EmailGarcom: model!.firebaseUser!.email,
+                                    FuncaoAuxiliar: (){
+                                      setState(() {
+                                        atendimento = true;
+                                      });
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                          )
+                      )
                     ],
                   ));
                 }
               });
         },
+      ),
+    );
+  }
+
+  colocaEstado(){
+   /* setState(() {
+      atendimento = true;
+    });*/
+  }
+
+  onSucess() async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+            'Chamado Pego'
+        ),
+        backgroundColor: Colors.green,
       ),
     );
   }
