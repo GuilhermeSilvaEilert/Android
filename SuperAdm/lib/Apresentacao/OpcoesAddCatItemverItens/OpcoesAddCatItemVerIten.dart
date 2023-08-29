@@ -94,6 +94,36 @@ class _OpcoesState extends State<Opcoes> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextButtonMultiColor(
                     text: Text(
+                      'Cadastrar agências filhas',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    altura: 50,
+                    funcao: (){},
+                    largura: 400,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextButtonMultiColor(
+                    text: Text(
+                      'Ver agências filhas',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    altura: 50,
+                    funcao: (){},
+                    largura: 400,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextButtonMultiColor(
+                    text: Text(
                       'Ver Cardapio',
                       style: TextStyle(
                         color: Colors.white,
@@ -148,7 +178,7 @@ class _OpcoesState extends State<Opcoes> {
                     },
                     largura: 400,
                   ),
-                )
+                ),
               ],
             ),
           ],

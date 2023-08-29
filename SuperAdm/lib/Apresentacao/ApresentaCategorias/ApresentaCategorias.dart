@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:superadm/Apresentacao/ApresentaItens/ApresentaItens.dart';
 import 'package:superadm/Apresentacao/ScaffoldMulticolor/ScaffoldMulticolor.dart';
 import 'package:superadm/Neg%C3%B3cio/ValidaExistenciaCategoria.dart';
 
@@ -58,11 +59,31 @@ class _ApresentaCategoriasState extends State< ApresentaCategorias> {
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: ElevatedButton(
-                                  onPressed: (){},
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                    Color.fromARGB(255, 63, 58, 58)
+                                  ),
+                                ),
+                                  onPressed: (){
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => ApresentaItens(
+                                          Empresa: widget.Empresa,
+                                          Categoria: snapshot.data!.docs[index]['id'],
+                                        ),
+                                      ),
+                                    );
+                                  },
                                   child: Column(
                                     children: [
-                                      Image.network(
-                                          snapshot.data!.docs[index]['Imagem']
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Image.network(
+                                            snapshot.data!.docs[index]['Imagem'],
+                                          fit: BoxFit.cover,
+                                          height: 150,
+                                          width: 150,
+                                        ),
                                       ),
                                       Text(snapshot.data!.docs[index]['Nome'])
                                     ],
