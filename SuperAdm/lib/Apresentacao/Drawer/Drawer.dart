@@ -31,7 +31,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
               );
             }
-        }
+        }, future: null,
       );
     }
         return Drawer(

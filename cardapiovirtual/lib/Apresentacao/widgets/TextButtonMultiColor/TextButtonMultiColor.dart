@@ -6,12 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class TextButtonMultiColor extends StatefulWidget {
-  TextButtonMultiColor({super.key,
-    this.largura,
-    this.text,
-    this.funcao,
-    this.altura
-  });
+  TextButtonMultiColor(
+      {super.key, this.largura, this.text, this.funcao, this.altura});
 
   double? altura;
   double? largura;
@@ -23,14 +19,14 @@ class TextButtonMultiColor extends StatefulWidget {
 }
 
 class _TextButtonMultiColorState extends State<TextButtonMultiColor> {
-
   @override
   Widget build(BuildContext context) {
     return ScopedModel<CardapioModel>(
       model: CardapioModel(),
       child: ScopedModelDescendant<CardapioModel>(
-        builder: (context, child, model) {
-          return FutureBuilder(
+          builder: (context, child, model) {
+        return FutureBuilder(
+            future: null,
             /*future: !model.firebaseUser!.email!.isEmpty ?
             FirebaseFirestore
                 .instance
@@ -45,35 +41,29 @@ class _TextButtonMultiColorState extends State<TextButtonMultiColor> {
               .doc(model.firebaseUser!.email)
               .collection('Configuracoes').get(),*/
             builder: (context, snapshot) {
-               /* if(!snapshot.hasData){
+              /* if(!snapshot.hasData){
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }else{*/
-                  return Container(
-                    child: TextButton(
-                      onPressed: widget.funcao,
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                          Color.fromARGB(
-                              255, 150, 0, 0
-                          ),
-                        ),
-                        fixedSize: MaterialStateProperty.all(
-                            Size(widget.largura!,widget.altura!, )
-                        ),
-                      ),
-                      child: widget.text!,
+              return Container(
+                child: TextButton(
+                  onPressed: widget.funcao,
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                      Color.fromARGB(255, 150, 0, 0),
                     ),
-                  );
-               // }
-            }
-          );
-        }
-      ),
+                    fixedSize: MaterialStateProperty.all(Size(
+                      widget.largura!,
+                      widget.altura!,
+                    )),
+                  ),
+                  child: widget.text!,
+                ),
+              );
+              // }
+            });
+      }),
     );
   }
-
-
-
 }

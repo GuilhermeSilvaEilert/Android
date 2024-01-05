@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -8,6 +9,7 @@ class CadastroDeAgenciaFilha{
 
   CadastraAgencias({
     String? NomeAgencia,
+    String? NomedaFranquia,
     String? Pais,
     String? Cidade,
     String? Rua,
@@ -18,6 +20,7 @@ class CadastroDeAgenciaFilha{
     String? File,
     String? Latitude,
     String? Longitude,
+    UniqueKey? id,
   }) async {
     if(NomeAgencia != null && NomeAgencia != 'null'){
 
@@ -39,10 +42,11 @@ class CadastroDeAgenciaFilha{
 
       Map<String, dynamic> data = {
         'Pais': Pais,
-        'Nome': NomeAgencia,
+        'Nome': NomedaFranquia,
         'Cidade': Cidade,
         'Imagem': url,
         'Endereco': Rua,
+        'Estado': Estado,
         'Numero': NumeroEndereco,
         'LocalStorage': File,
         'Cep': Cep,
@@ -51,7 +55,11 @@ class CadastroDeAgenciaFilha{
       };
 
       FirebaseFirestore.instance.collection('Empresa')
-          .doc(NomeAgencia).set(data);
+          .doc(NomeAgencia).collection('Franquias')
+          .doc(id.toString())
+          .set(data);
+    }else{
+      print('Valores Nulos');
     }
 
 

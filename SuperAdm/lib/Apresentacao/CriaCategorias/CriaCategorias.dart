@@ -10,10 +10,12 @@ import 'package:superadm/Neg%C3%B3cio/CriaCategoria/CriaCategoria.dart';
 class CriaCategoria extends StatefulWidget {
   CriaCategoria({
     Key? key,
-    this.Empresa
+    this.Empresa,
+    this.Filial
   }) : super(key: key);
 
   String? Empresa;
+  String? Filial;
 
   @override
   State<CriaCategoria> createState() => _CriaCategoria();
@@ -167,6 +169,7 @@ class _CriaCategoria extends State<CriaCategoria> {
                         imgFile: fileSend,
                         localFile: file,
                         nomeCategoria: nomeCategoria.text,
+                        nomeFilial: widget.Filial,
                       );
                     },
                     text: Row(
@@ -190,7 +193,7 @@ class _CriaCategoria extends State<CriaCategoria> {
                 ],
               ),
             );
-          }
+          }, future: null,
       ),
     );
   }

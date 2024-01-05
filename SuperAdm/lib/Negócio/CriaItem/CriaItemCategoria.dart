@@ -12,6 +12,7 @@ class CriaItemCategoria{
     String? descricao,
     String? file,
     String? Empresa,
+    String? Filial,
     String? id,
   }) async {
 
@@ -42,7 +43,9 @@ class CriaItemCategoria{
           .instance
           .collection('Empresa')
           .doc(Empresa)
-          .collection('Itens')
+          .collection('Franquias')
+          .doc(Filial)
+          .collection('Categorias')
           .doc(id).collection('Itens')
           .add(data);
     } else {

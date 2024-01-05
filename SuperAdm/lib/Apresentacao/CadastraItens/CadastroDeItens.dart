@@ -10,7 +10,8 @@ import 'package:superadm/Apresentacao/ScaffoldMulticolor/ScaffoldMulticolor.dart
 import 'package:superadm/Apresentacao/TextButtonMultiColor/TextButtonMultiColor.dart';
 import 'package:superadm/Neg%C3%B3cio/CriaItem/CriaItemCategoria.dart';
 
-List list = [];
+List listFiliais = [];
+List listCategorias = [];
 
 class CadastraItem extends StatefulWidget {
   CadastraItem({
@@ -37,12 +38,14 @@ class CadastraItemState extends State<CadastraItem> {
   final TextEditingController precoProduto = TextEditingController();
   final TextEditingController categoriaProduto = TextEditingController();
   final TextEditingController descricaoProduto = TextEditingController();
+  final TextEditingController Filial = TextEditingController();
+
   String? Categoria;
   String? file;
   String? valorDropDonw;
   CriaItemCategoria criaItemCategoria =  CriaItemCategoria();
 
-  retornaLista(String? Empresa) async {
+  retornaListaCategorias(String? Empresa) async {
     final QuerySnapshot result = await Future.value(
         FirebaseFirestore
             .instance
@@ -50,22 +53,44 @@ class CadastraItemState extends State<CadastraItem> {
             .doc(Empresa)
             .collection('Itens').get(),
     );
-    if(list.isEmpty) {
+    if(listCategorias.isEmpty) {
       int tamanhoArray = (result.docs.length) - 1;
       for (int i = 0; i <= tamanhoArray; i++){
-        list.add(result.docs[i]['id'] + result.docs[i]['Nome'],);
+        listCategorias.add(result.docs[i]['id'] + result.docs[i]['Nome'],);
       }
     }
-    return list;
+    return listCategorias;
   }
 
+  retornaListaFiliais(String? Empresa) async {
+    final QuerySnapshot result = await Future.value(
+      FirebaseFirestore
+          .instance
+          .collection('Empresa')
+          .doc(Empresa)
+          .collection('Franquias').get(),
+    );
+    if(listFiliais.isEmpty) {
+      int tamanhoArray = (result.docs.length) - 1;
+      for (int i = 0; i <= tamanhoArray; i++){
+        listFiliais.add(result.docs[i]['Nome'],);
+      }
+    }
+    return listFiliais;
+  }
 
   dynamic firstItem;// = list.first;
 
+  dynamic filialFirst;
+
   @override
   Widget build(BuildContext context) {
-   int QuantidadeItensLista = list.length;
-   list.removeRange(0, QuantidadeItensLista);
+   int QuantidadeItensListaCategorias = listCategorias.length;
+   listCategorias.removeRange(0, QuantidadeItensListaCategorias);
+
+   int QuantidadeItensListaFiliais = listFiliais.length;
+   listFiliais.removeRange(0, QuantidadeItensListaFiliais);
+
     return ScaffoldMultiColor(
       TextAppBar: const Text('Adicione um item',
         style: TextStyle(
@@ -229,9 +254,9 @@ class CadastraItemState extends State<CadastraItem> {
                         ),
                         const SizedBox(height: 20,),
                         FutureBuilder(
-                            future: retornaLista(widget.Empresa),
+                            future: retornaListaCategorias(widget.Empresa),
                             builder: (context, snapshot) {
-                              if(list.isEmpty){
+                              if(listCategorias.isEmpty){
                                 return Text('Sem categorias cadastradas');
                               }else{
                                 return Container(
@@ -269,10 +294,70 @@ class CadastraItemState extends State<CadastraItem> {
                                         categoriaProduto.text = firstItem;
                                       },
 
-                                      items: list.map((Item) => DropdownMenuItem(
+                                      items: listCategorias.map((Item) => DropdownMenuItem(
                                         value: Item,
                                         child: Text(
                                           Item.substring(8,),
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),).toList(),
+                                    ),
+                                  ),
+                                );
+                              }
+                            }
+                        ),
+                        const SizedBox(height: 20,),
+                        FutureBuilder(
+                            future: retornaListaFiliais(widget.Empresa),
+                            builder: (context, snapshot) {
+                              if(listFiliais.isEmpty){
+                                return Text('Sem filiais cadastradas');
+                              }else{
+                                return Container(
+                                  padding: const EdgeInsets.all(8),
+                                  width: 400,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(),
+                                      borderRadius: BorderRadius.circular(15)
+                                  ),
+
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton(
+                                      borderRadius: BorderRadius.circular(15),
+                                      hint: Row(
+                                        children: const [
+                                          SizedBox(
+                                            width: 4,
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              'Categoria',
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      value: filialFirst,
+                                      isExpanded: true,
+                                      onChanged: (value){
+                                        setState(() {
+                                          filialFirst = value;
+                                        });
+                                        Filial.text = filialFirst;
+                                      },
+
+                                      items: listFiliais.map((Item) => DropdownMenuItem(
+                                        value: Item,
+                                        child: Text(
+                                          Item,
                                           style: const TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,

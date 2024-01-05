@@ -47,7 +47,7 @@ class _ApresentaItensComandaState extends State<ApresentaItensComanda> {
                   ),
                 ),
               );
-            }else if(snapshot.isNull){
+            }else if(snapshot == null){
               return Container(
                 child: Center(
                   child: Text(

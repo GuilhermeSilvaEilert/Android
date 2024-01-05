@@ -196,7 +196,7 @@ class _LoginPageState extends State<LoginPage> {
                                         ),
                                       ),
                                     );
-                                  }
+                                  }, future: null,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8),

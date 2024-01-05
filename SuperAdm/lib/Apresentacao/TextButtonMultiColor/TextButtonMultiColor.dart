@@ -8,13 +8,15 @@ class TextButtonMultiColor extends StatefulWidget {
     this.largura,
     this.text,
     this.funcao,
-    this.altura
+    this.altura,
+    this.onlogPressed,
   });
 
   double? altura;
   double? largura;
   var funcao;
   var text;
+  var onlogPressed;
 
   @override
   State<TextButtonMultiColor> createState() => _TextButtonMultiColorState();
@@ -39,6 +41,7 @@ class _TextButtonMultiColorState extends State<TextButtonMultiColor> {
           }else{
             return Container(
               child: TextButton(
+                onLongPress: widget.onlogPressed,
                 onPressed: widget.funcao,
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(

@@ -44,7 +44,7 @@ class _TextButtonMultiColorState extends State<TextButtonMultiColor> {
                 child: widget.text!,
               ),
             );
-      }
+      }, future: null,
     );
   }
 
