@@ -4,7 +4,6 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:superadm/Apresentacao/HomePage/HomePage.dart';
 import 'package:superadm/Apresentacao/LoginPage/LoginPage.dart';
 import 'package:superadm/Neg%C3%B3cio/Model/UserModel.dart';
-import 'package:superadm/Apresentacao/telaLogin/CriaUsuarioGerente.dart';
 
 
 void main() async {

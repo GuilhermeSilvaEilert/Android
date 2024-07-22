@@ -9,6 +9,7 @@ import 'package:superadm/Apresentacao/OpcoesAddCatItemverItens/OpcoesAddCatItemV
 import 'package:superadm/Apresentacao/PopMenuButton/PopMenuButton.dart';
 import 'package:superadm/Apresentacao/ScaffoldMulticolor/ScaffoldMulticolor.dart';
 import 'package:superadm/Apresentacao/TextButtonMultiColor/TextButtonMultiColor.dart';
+import 'package:superadm/Apresentacao/UpdateAgenciaFisica/UpdateAgenciaFisica.dart';
 import 'package:superadm/Neg%C3%B3cio/Model/CadastroDeAgencias/CadastroDeAgenciaFilha/CadastroDeAgenciaFilha.dart';
 import 'package:superadm/Neg%C3%B3cio/ValidaExistenciaCategoria.dart';
 
@@ -179,7 +180,7 @@ class _ApresentaFiliaisState extends State<ApresentaFiliais> {
                                             .of(context)
                                             .push(
                                             MaterialPageRoute(builder: (context) =>
-                                                CadastroDeAgenciaFisica(
+                                                UpdateDeAgenciaFisica(
                                                   NomeEmpresa: widget.Empresa,
                                                   endereco: snapshot.data!.docs[index]['Endereco'],
                                                   estado: snapshot.data!.docs[index]['Estado'],

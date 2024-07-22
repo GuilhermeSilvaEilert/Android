@@ -13,11 +13,12 @@ import 'package:superadm/Apresentacao/ScaffoldMulticolor/ScaffoldMulticolor.dart
 import 'package:superadm/Apresentacao/TextButtonMultiColor/TextButtonMultiColor.dart';
 import 'package:superadm/Neg%C3%B3cio/Model/CadastroDeAgencias/CadastroDeAgenciaFilha/CadastroDeAgenciaFilha.dart';
 import 'package:superadm/Neg%C3%B3cio/Model/CadastroDeAgencias/CadastroDeAgencias.dart';
+import 'package:superadm/Neg%C3%B3cio/Model/CadastroDeAgencias/UpdateAgenciaFisica/UpdateDeAgenciaFisicaBack.dart';
 import 'package:superadm/Neg%C3%B3cio/Model/itemModel.dart';
 
 
-class CadastroDeAgenciaFisica extends StatefulWidget {
-  CadastroDeAgenciaFisica({
+class UpdateDeAgenciaFisica extends StatefulWidget {
+  UpdateDeAgenciaFisica({
     Key? key,
     this.NomeEmpresa,
     this.cep,
@@ -42,10 +43,10 @@ class CadastroDeAgenciaFisica extends StatefulWidget {
   String? Imagem;
 
   @override
-  State<CadastroDeAgenciaFisica> createState() => _CadastroDeAgenciaFisicaState();
+  State<UpdateDeAgenciaFisica> createState() => _UpdateDeAgenciaFisicaState();
 }
 
-class _CadastroDeAgenciaFisicaState extends State<CadastroDeAgenciaFisica> {
+class _UpdateDeAgenciaFisicaState extends State<UpdateDeAgenciaFisica> {
 
   bool? salvaSenha = false;
   int checkBox = 0;
@@ -63,14 +64,14 @@ class _CadastroDeAgenciaFisicaState extends State<CadastroDeAgenciaFisica> {
   final TextEditingController cepController = TextEditingController();
   final TextEditingController estadoController = TextEditingController();
 
-  CadastroDeAgenciaFilha  cadastroDeAgencias = CadastroDeAgenciaFilha();
+  UpdateDeAgenciaFisicaback updateDeAgenciaFisicaback = UpdateDeAgenciaFisicaback();
 
   @override
   initState(){
     checkBox = 0;
     super.initState();
     Firebase.initializeApp();
-    if(widget.nome != null || widget == ''){
+
       paisController.text = widget.pais!;
       numeroController.text = widget.numero!;
       cidadeController.text = widget.cidade!;
@@ -78,7 +79,7 @@ class _CadastroDeAgenciaFisicaState extends State<CadastroDeAgenciaFisica> {
       estadoController.text = widget.estado!;
       nomeController.text = widget.nome!;
       enderecoController.text = widget.endereco!;
-    }
+
   }
 
 
@@ -410,7 +411,7 @@ class _CadastroDeAgenciaFisicaState extends State<CadastroDeAgenciaFisica> {
                       SizedBox(height: 10,),
                       TextButtonMultiColor(
                         funcao: () async {
-                          cadastroDeAgencias.CadastraAgencias(
+                          updateDeAgenciaFisicaback.AtualizaAgencias(
                             Cep: cepController.text,
                             Cidade: cidadeController.text,
                             Estado: estadoController.text,
@@ -423,6 +424,18 @@ class _CadastroDeAgenciaFisicaState extends State<CadastroDeAgenciaFisica> {
                             Rua: enderecoController.text,
                             id: UniqueKey(),
                           );
+
+                          print('${cepController.text}'
+                              '\n${cidadeController.text}'
+                              '\n${estadoController.text}'
+                              '\n${file}'
+                              '\n${fileSend}'
+                              '\n${widget.NomeEmpresa}'
+                              '\n${nomeController.text}'
+                              '\n${numeroController.text}'
+                              '\n${paisController.text}'
+                              '\n${enderecoController.text}');
+
                         },
                         altura: 50,
                         largura: 200,

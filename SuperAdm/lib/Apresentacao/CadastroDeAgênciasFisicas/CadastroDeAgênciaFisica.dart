@@ -1,19 +1,13 @@
-// ignore_for_file: file_names
-import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:scoped_model/scoped_model.dart';
 import 'package:superadm/Apresentacao/HomePage/HomePage.dart';
-import 'package:superadm/Apresentacao/ListaDeAgencias/ListaDeAgencias.dart';
 import 'package:superadm/Apresentacao/ScaffoldMulticolor/ScaffoldMulticolor.dart';
 import 'package:superadm/Apresentacao/TextButtonMultiColor/TextButtonMultiColor.dart';
 import 'package:superadm/Neg%C3%B3cio/Model/CadastroDeAgencias/CadastroDeAgenciaFilha/CadastroDeAgenciaFilha.dart';
-import 'package:superadm/Neg%C3%B3cio/Model/CadastroDeAgencias/CadastroDeAgencias.dart';
-import 'package:superadm/Neg%C3%B3cio/Model/itemModel.dart';
+import 'package:superadm/Neg%C3%B3cio/UpdateCategoria/UpdateCategoria.dart';
 
 
 class CadastroDeAgenciaFisica extends StatefulWidget {
@@ -27,7 +21,7 @@ class CadastroDeAgenciaFisica extends StatefulWidget {
     this.nome,
     this.pais,
     this.numero,
-    this.Imagem
+    this.Imagem,
   }) : super(key: key);
 
 
@@ -40,7 +34,6 @@ class CadastroDeAgenciaFisica extends StatefulWidget {
   String? estado;
   String? numero;
   String? Imagem;
-
   @override
   State<CadastroDeAgenciaFisica> createState() => _CadastroDeAgenciaFisicaState();
 }
@@ -64,13 +57,12 @@ class _CadastroDeAgenciaFisicaState extends State<CadastroDeAgenciaFisica> {
   final TextEditingController estadoController = TextEditingController();
 
   CadastroDeAgenciaFilha  cadastroDeAgencias = CadastroDeAgenciaFilha();
+  UpdateCategoria updateCategoria = UpdateCategoria();
 
   @override
   initState(){
-    checkBox = 0;
     super.initState();
-    Firebase.initializeApp();
-    if(widget.nome != null || widget == ''){
+    if(widget.nome != null && widget.nome != ''){
       paisController.text = widget.pais!;
       numeroController.text = widget.numero!;
       cidadeController.text = widget.cidade!;
@@ -84,7 +76,6 @@ class _CadastroDeAgenciaFisicaState extends State<CadastroDeAgenciaFisica> {
 
   @override
   Widget build(BuildContext context) {
-
     return ScaffoldMultiColor(
       TextAppBar: Text('Cadastros de Agências'),
       Body: CustomScrollView(
@@ -184,7 +175,7 @@ class _CadastroDeAgenciaFisicaState extends State<CadastroDeAgenciaFisica> {
                     fit: BoxFit.cover,
                     image: imgFile != null ?
                     FileImage(File(imgFile!.path),) :
-                    widget.Imagem! != null ? NetworkImage(widget!.Imagem!) :
+                    widget.Imagem != null ? NetworkImage(widget.Imagem!) :
                     const AssetImage('Assets/cardapio/AddComida.png',
                     ) as ImageProvider,
                   ),
@@ -211,6 +202,7 @@ class _CadastroDeAgenciaFisicaState extends State<CadastroDeAgenciaFisica> {
                             if(text!.isEmpty){
                               return 'Campo Vazio';
                             }
+                            return null;
                           },
                           cursorColor: Colors.black,
                           decoration:InputDecoration(
@@ -241,6 +233,7 @@ class _CadastroDeAgenciaFisicaState extends State<CadastroDeAgenciaFisica> {
                             if(text!.isEmpty){
                               return 'País invalido';
                             }
+                            return null;
                           },
                           cursorColor: Colors.black,
                           decoration:InputDecoration(
@@ -271,6 +264,7 @@ class _CadastroDeAgenciaFisicaState extends State<CadastroDeAgenciaFisica> {
                             if(text!.isEmpty){
                               return 'Cidade invalida';
                             }
+                            return null;
                           },
                           cursorColor: Colors.black,
                           decoration:InputDecoration(
@@ -298,6 +292,7 @@ class _CadastroDeAgenciaFisicaState extends State<CadastroDeAgenciaFisica> {
                             if(text!.isEmpty){
                               return 'Endereco invalido';
                             }
+                            return null;
                           },
                           cursorColor: Colors.black,
                           decoration:InputDecoration(
@@ -328,6 +323,7 @@ class _CadastroDeAgenciaFisicaState extends State<CadastroDeAgenciaFisica> {
                             if(text!.isEmpty){
                               return 'Numero invalido';
                             }
+                            return null;
                           },
                           cursorColor: Colors.black,
                           decoration:InputDecoration(
@@ -358,6 +354,7 @@ class _CadastroDeAgenciaFisicaState extends State<CadastroDeAgenciaFisica> {
                             if(text!.isEmpty){
                               return 'Estado invalido';
                             }
+                            return null;
                           },
                           cursorColor: Colors.black,
                           decoration:InputDecoration(
@@ -388,6 +385,7 @@ class _CadastroDeAgenciaFisicaState extends State<CadastroDeAgenciaFisica> {
                             if(text!.isEmpty){
                               return 'Cep invalido';
                             }
+                            return null;
                           },
                           cursorColor: Colors.black,
                           decoration:InputDecoration(
@@ -410,19 +408,29 @@ class _CadastroDeAgenciaFisicaState extends State<CadastroDeAgenciaFisica> {
                       SizedBox(height: 10,),
                       TextButtonMultiColor(
                         funcao: () async {
-                          cadastroDeAgencias.CadastraAgencias(
-                            Cep: cepController.text,
-                            Cidade: cidadeController.text,
-                            Estado: estadoController.text,
-                            File: file,
-                            imgFile: fileSend,
-                            NomeAgencia: widget.NomeEmpresa,
-                            NomedaFranquia: nomeController.text,
-                            NumeroEndereco: numeroController.text,
-                            Pais: paisController.text,
-                            Rua: enderecoController.text,
-                            id: UniqueKey(),
-                          );
+                            cadastroDeAgencias.CadastraAgencias(
+                              Cep: cepController.text,
+                              Cidade: cidadeController.text,
+                              Estado: estadoController.text,
+                              File: file,
+                              imgFile: fileSend,
+                              NomeAgencia: widget.NomeEmpresa,
+                              NomedaFranquia: nomeController.text,
+                              NumeroEndereco: numeroController.text,
+                              Pais: paisController.text,
+                              Rua: enderecoController.text,
+                              id: UniqueKey(),
+                            );
+                          print('${cepController.text}'
+                                '\n${cidadeController.text}'
+                                '\n${estadoController.text}'
+                                '\n${file}'
+                                '\n${fileSend}'
+                                '\n${widget.NomeEmpresa}'
+                                '\n${nomeController.text}'
+                                '\n${numeroController.text}'
+                                '\n${paisController.text}'
+                                '\n${enderecoController.text}');
                         },
                         altura: 50,
                         largura: 200,

@@ -6,7 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 
 class UpdateCategoria {
-  Future<void> criaCategoria(
+  Future<void> atualizaCategoria(
       {String? nomeCategoria,
         String? nomeFilial,
         File? imgFile,

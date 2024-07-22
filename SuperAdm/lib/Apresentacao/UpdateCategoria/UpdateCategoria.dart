@@ -8,24 +8,23 @@ import 'package:superadm/Apresentacao/TextButtonMultiColor/TextButtonMultiColor.
 import 'package:superadm/Neg%C3%B3cio/CriaCategoria/CriaCategoria.dart';
 import 'package:superadm/Neg%C3%B3cio/UpdateCategoria/UpdateCategoria.dart';
 
-class CriaCategoria extends StatefulWidget {
-  CriaCategoria({
+class UpdateCategoriaFront extends StatefulWidget {
+  UpdateCategoriaFront({
     Key? key,
     this.Empresa,
     this.Filial,
-
+    this.url,
   }) : super(key: key);
 
   String? Empresa;
   String? Filial;
-  String? Nome;
   String? url;
 
   @override
-  State<CriaCategoria> createState() => _CriaCategoria();
+  State<UpdateCategoriaFront> createState() => _UpdateCategoriaFront();
 }
 
-class _CriaCategoria extends State<CriaCategoria> {
+class _UpdateCategoriaFront extends State<UpdateCategoriaFront> {
 
   final ImagePicker _picker = ImagePicker();
   File? fileSend;
@@ -37,7 +36,6 @@ class _CriaCategoria extends State<CriaCategoria> {
   @override
   void initState() {
     // TODO: implement initState
-    nomeCategoria.text = widget.Nome!;
     super.initState();
   }
 
@@ -176,7 +174,7 @@ class _CriaCategoria extends State<CriaCategoria> {
                   altura: 70,
                   largura: 400,
                   funcao: (){
-                    updateCategoria.criaCategoria(
+                    updateCategoria.atualizaCategoria(
                       id: UniqueKey(),
                       Empresa: widget.Empresa,
                       imgFile: fileSend,

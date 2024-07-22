@@ -199,6 +199,7 @@ class _CadastroNovasEmpresasState extends State<CadastroNovasEmpresas> {
                             TextButtonMultiColor(
                               funcao: () async {
                                 cadastroDeAgencias.CadastraAgencias(
+
                                     NomeAgencia: nomeController.text,
                                     imgFile: fileSend,
                                     File: file,
@@ -227,7 +228,7 @@ class _CadastroNovasEmpresasState extends State<CadastroNovasEmpresas> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-            'Login bem sucedido'
+            'Cadastrada com sucesso'
         ),
         backgroundColor: Colors.green,
       ),
@@ -243,7 +244,7 @@ class _CadastroNovasEmpresasState extends State<CadastroNovasEmpresas> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-            'Senha ou Email Incorretos'
+            'Revise os dados por gentileza'
         ),
         backgroundColor: Colors.red,
       ),
